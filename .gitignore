@@ -18,8 +18,9 @@
 *.tar.gz
 *.rar
 
-# intellij .idea folder
-.idea/
+# 2 files in intellij .idea folder
+workspace.xml
+tasks.xml
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
