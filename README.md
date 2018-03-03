@@ -24,3 +24,6 @@ This project is basically a web application that can communicate with sensor net
 * Californium (Cf) CoAP framework
 * ipv6
 * 6LoPan
+* Linux
+* Contiki
+* Git
