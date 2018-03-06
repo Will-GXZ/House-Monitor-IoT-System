@@ -90,15 +90,15 @@
         <h3 class="w3-padding-16">Our Progress</h3>
         <p class="w3-wide">Coap Communication</p>
         <div class="w3-light-grey">
-            <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:75%">75%</div>
+            <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:35%">35%</div>
         </div>
         <p class="w3-wide">Web Front-end Design</p>
         <div class="w3-light-grey">
-            <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:45%">45%</div>
+            <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:25%">25%</div>
         </div>
         <p class="w3-wide">Web Back-end Design</p>
         <div class="w3-light-grey">
-            <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:20%">20%</div>
+            <div class="w3-container w3-center w3-padding-small w3-dark-grey" style="width:15%">15%</div>
         </div><br>
 
         <!-- Contact Section -->
@@ -107,11 +107,17 @@
             <hr class="w3-opacity">
 
             <div class="w3-section">
-                <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> Boston, US</p>
-                <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Phone: +1 7816588555
-                    +1 7815395213</p>
-                <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Email: elfiegxf@gmail.com
-                    xguo04@tufts.edu</p>
+                <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> Location:
+                <li>Boston, MA, US</li>
+                </p>
+                <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Phone:
+                <li> elfie: +1(781)6588555 </li>
+                <li> Will: +1(781)5395213</li>
+                </p>
+                <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i>Email:
+                <li> Will: xguo.tufts@gmail.com</li>
+                <li> Elfie: elfiegxf@gmail.com</li>
+                </p>
             </div>
 
             <!-- Google Map -->
