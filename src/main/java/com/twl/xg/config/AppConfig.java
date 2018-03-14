@@ -42,7 +42,6 @@ public class AppConfig implements WebMvcConfigurer {
    * to the index page which is the <code>index.jsp</code> file in
    * <code>WEB-INF/jsp</code> folder.
    *
-   * @param registry
    */
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
@@ -50,6 +49,10 @@ public class AppConfig implements WebMvcConfigurer {
     registry.addViewController("/index").setViewName("index");
   }
 
+  /**
+   * Configure the ResourceHandler, enable access to static <code>html, js, css.etc</code>
+   * files in <code></>/resources/</code> folder.
+   */
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");

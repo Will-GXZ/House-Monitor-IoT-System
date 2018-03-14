@@ -14,6 +14,15 @@
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="sessionFactory" value="695460a6-7ff5-4147-9531-c8801db2f3da" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
@@ -59,5 +68,10 @@
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.11" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.0.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.0.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.0.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: commons-dbcp:commons-dbcp:1.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-pool:commons-pool:1.5.4" level="project" />
   </component>
 </module>
