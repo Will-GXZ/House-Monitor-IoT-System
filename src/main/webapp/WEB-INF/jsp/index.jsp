@@ -46,7 +46,7 @@
 
     <!-- Header -->
     <header class="w3-container w3-center" style="padding:128px 16px" id="home">
-        <h1 class="w3-jumbo"><b>XG's Proj|IoT</b></h1>
+        <h1 class="w3-jumbo"><b>House Monitor</b></h1>
         <p>An IoT webserver || from data to data.</p>
         <!--   <img src="/w3images/profile_girl.jpg" class="w3-image w3-hide-large w3-hide-small w3-round" style="display:block;width:60%;margin:auto;">
           <img src="/w3images/profile_girl.jpg" class="w3-image w3-hide-large w3-hide-medium w3-round" width="1000" height="1333">
