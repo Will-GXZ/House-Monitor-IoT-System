@@ -1,10 +1,12 @@
 package com.twl.xg.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+@JsonIgnoreProperties(value = {"borderRouterByBorderRouterIp"})
 @Entity
 @Table(name = "sensor", schema = "testdb2")
 public class SensorEntity {

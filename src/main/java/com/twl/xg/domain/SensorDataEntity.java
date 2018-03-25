@@ -1,5 +1,6 @@
 package com.twl.xg.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Date;
 
+@JsonIgnoreProperties(value = {"sensorBySensorIp"})
 @Entity
 @Table(name = "sensorData", schema = "testdb2")
 public class SensorDataEntity {
