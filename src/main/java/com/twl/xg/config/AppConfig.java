@@ -11,11 +11,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"com.twl.xg.controller", "com.twl.xg.service"})
 public class AppConfig implements WebMvcConfigurer {
-
   /**
    * Create an internalResourceViewResolver bean. This ViewResolver is responsible
    * for locating the jsp files in <code>WEB-INF/jsp</code> folder.

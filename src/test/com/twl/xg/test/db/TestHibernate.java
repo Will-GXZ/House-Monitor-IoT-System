@@ -1,6 +1,7 @@
 package com.twl.xg.test.db;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twl.xg.config.AppConfig;
 import com.twl.xg.config.HibernateConfig;
@@ -22,6 +23,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -86,7 +89,7 @@ public class TestHibernate {
   @Test
   @Transactional
   @Commit     // add "Commit" configuration to disable auto rolling back after test
-  public void test3() {
+  public void test3() throws JsonProcessingException {
     Session session = sessionFactory.getCurrentSession();
     // get all sensors
     CriteriaQuery<SensorEntity> query = session.getCriteriaBuilder().createQuery(SensorEntity.class);
@@ -157,7 +160,6 @@ public class TestHibernate {
 
   /**
    * Get all the data for the input <Code>SensorEntity</Code>.
-   *
    * @param sensorEntity
    * @return list of SensorData
    */
@@ -176,7 +178,6 @@ public class TestHibernate {
 
   /**
    * Get all the sensors for the input borderRouter
-   *
    * @param borderRouterEntity
    * @return List of <code>SensorEntity</code>
    */
@@ -196,25 +197,24 @@ public class TestHibernate {
   /**
    * Generate data entries for the input sensor, store the data in database
    */
-  private void saveDataForSensor(SensorEntity sensor) {
+  private void saveDataForSensor(SensorEntity sensor) throws JsonProcessingException {
     Session session = sessionFactory.getCurrentSession();
+    // create a TreeMap to store each data, use treeMap because we want to ensure
+    // the order of Json
+    Map<String, String> dataMap = new TreeMap<>();
+    dataMap.put("temperature", "1.11");
+    dataMap.put("humidity", "2.22");
+    dataMap.put("lightness", "3.33");
+    ObjectMapper mapper = new ObjectMapper();
+    String json = mapper.writeValueAsString(dataMap);
+
     SensorDataEntity data = new SensorDataEntity();
-    data.setHumidity(0);
-    data.setLightness(0);
-    data.setTemperature(0);
     data.setSensorBySensorIp(sensor);
+    data.setDataJson(json);
     session.save(data);
     data = new SensorDataEntity();
     data.setSensorBySensorIp(sensor);
-    data.setHumidity(0);
-    data.setLightness(0);
-    data.setTemperature(0);
-    session.save(data);
-    data = new SensorDataEntity();
-    data.setSensorBySensorIp(sensor);
-    data.setHumidity(0);
-    data.setLightness(0);
-    data.setTemperature(0);
+    data.setDataJson(json);
     session.save(data);
   }
 

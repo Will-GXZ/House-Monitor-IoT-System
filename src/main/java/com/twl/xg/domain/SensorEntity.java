@@ -15,7 +15,7 @@ public class SensorEntity {
   private BorderRouterEntity borderRouterByBorderRouterIp;
 
   @Id
-  @Column(name = "sensorIp", nullable = false, length = 30)
+  @Column(name = "sensor_ip", nullable = false, length = 30)
   public String getSensorIp() {
     return sensorIp;
   }
@@ -25,7 +25,7 @@ public class SensorEntity {
   }
 
   @Basic
-  @Column(name = "sensorName", nullable = false, length = 45)
+  @Column(name = "sensor_name", nullable = false, length = 45)
   public String getSensorName() {
     return sensorName;
   }
@@ -56,7 +56,7 @@ public class SensorEntity {
 
   @ManyToOne
   @OnDelete(action = OnDeleteAction.CASCADE)
-  @JoinColumn(name = "borderRouterIp", referencedColumnName = "borderRouterIp", nullable = false)
+  @JoinColumn(name = "border_router_ip", referencedColumnName = "border_router_ip", nullable = false)
   public BorderRouterEntity getBorderRouterByBorderRouterIp() {
     return borderRouterByBorderRouterIp;
   }

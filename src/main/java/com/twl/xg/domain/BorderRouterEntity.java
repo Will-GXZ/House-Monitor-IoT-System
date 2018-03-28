@@ -3,13 +3,13 @@ package com.twl.xg.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "borderRouter", schema = "testdb2")
+@Table(name = "border_router", schema = "testdb2")
 public class BorderRouterEntity {
   private String borderRouterIp;
   private String borderRouterName;
 
   @Id
-  @Column(name = "borderRouterIp", nullable = false, length = 30)
+  @Column(name = "border_router_ip", nullable = false, length = 30)
   public String getBorderRouterIp() {
     return borderRouterIp;
   }
@@ -19,7 +19,7 @@ public class BorderRouterEntity {
   }
 
   @Basic
-  @Column(name = "borderRouterName", nullable = false, length = 45)
+  @Column(name = "border_router_name", nullable = false, length = 45)
   public String getBorderRouterName() {
     return borderRouterName;
   }
