@@ -15,6 +15,7 @@
         <hibernate-version>5.3.0.CR1</hibernate-version>
         <junit-version>4.12</junit-version>
         <califorium-coap-version>2.0.0-M6</califorium-coap-version>
+        <log4j-version>1.2.17</log4j-version>
     </properties>
 
     <dependencies>
@@ -155,6 +156,12 @@
             <version>1.4</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j-version}</version>
+        </dependency>
 
     </dependencies>
 

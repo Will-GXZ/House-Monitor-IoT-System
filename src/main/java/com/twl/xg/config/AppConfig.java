@@ -3,6 +3,7 @@ package com.twl.xg.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -11,12 +12,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"com.twl.xg.controller", "com.twl.xg.service"})
+@EnableTransactionManagement
+@ComponentScan(basePackages = {"com.twl.xg.controller", "com.twl.xg.service",
+                               "com.twl.xg.dao", "com.twl.xg.domain"})
 public class AppConfig implements WebMvcConfigurer {
   /**
    * Create an internalResourceViewResolver bean. This ViewResolver is responsible
@@ -58,5 +63,10 @@ public class AppConfig implements WebMvcConfigurer {
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+  }
+
+  @Bean(value = "dataTypeList")
+  public List<String> addBeanDataTypeList() {
+    return new ArrayList<String>();
   }
 }

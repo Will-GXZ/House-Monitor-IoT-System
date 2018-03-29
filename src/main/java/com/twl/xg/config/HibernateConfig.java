@@ -17,9 +17,7 @@ import java.util.Properties;
 
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Configuration
-@EnableTransactionManagement
 @PropertySource({"classpath:persistence-mysql.properties"})
-@ComponentScan({"com.twl.xg.dao", "com.twl.xg.domain"})
 public class HibernateConfig {
   @Autowired
   private Environment env;
