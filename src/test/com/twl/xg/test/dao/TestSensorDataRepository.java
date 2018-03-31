@@ -16,7 +16,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static junit.framework.TestCase.fail;
 
@@ -126,5 +131,31 @@ public class TestSensorDataRepository {
     } else {
       logger.debug("*********** testClear passed ************");
     }
+  }
+
+  @Test
+  @Transactional
+  public void testGetAllLaterThan() {
+    try {
+      List<SensorDataEntity> result1 = sensorDataRepository.getAllLaterThan(null);
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    }
+    List<SensorDataEntity> result2 = sensorDataRepository.getAllLaterThan(new Date(1522374675833l));
+  }
+
+  @Test
+  @Transactional
+  public void testGetAllLaterThanBySensorIp() {
+    try {
+      List<SensorDataEntity> results = sensorDataRepository.getAllLaterThan("nonexistIP", null);
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    }
+    SensorEntity sensor = (SensorEntity) sessionFactory.getCurrentSession()
+        .createQuery("FROM SensorEntity order by rand()")
+        .setMaxResults(1)
+        .uniqueResult();
+    List<SensorDataEntity> results2 = sensorDataRepository.getAllLaterThan(sensor.getSensorIp(), new Date(1522374665833l));
   }
 }

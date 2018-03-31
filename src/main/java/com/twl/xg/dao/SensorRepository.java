@@ -20,6 +20,27 @@ public class SensorRepository {
   private static final Logger logger = Logger.getLogger(SensorRepository.class);
 
   /**
+   * Get a <code>SensorEntity</code> instance for the input sensor IP.
+   * Return <code>null</code> if the input sensor IP doesn't exist in database.
+   *
+   * @param sensorIp The IPv6 address of the sensor you want to get.
+   * @return <code>SensorEntity</code>
+   */
+  public SensorEntity get(String sensorIp) {
+    String hql = "FROM SensorEntity s WHERE s.sensorIp = '" + sensorIp + "'";
+    SensorEntity sensor = (SensorEntity) sessionFactory
+        .getCurrentSession()
+        .createQuery(hql)
+        .uniqueResult();
+    if (sensor != null) {
+      logger.debug("get:  get SensorEntity, IP = " + sensor.getSensorIp());
+    } else {
+      logger.error("get:  get SensorEntity, sensor doesn't exist !, ip = " + sensorIp);
+    }
+    return sensor;
+  }
+
+  /**
    * Get the total number of entries of sensor.
    * @return the size of sensor table.
    */
@@ -33,12 +54,17 @@ public class SensorRepository {
   }
 
   /**
-   * Save the input sensorEntity in database.
+   * Save the input sensorEntity in database. Throw a <code>NullPointerException</code>
+   * if the input sensorEntity is <code>null</code>.
+   *
    * @param sensorEntity Instance of <code>SensorEntity</code> for the sensor
    *                     you want to save.
    * @return return a string of ID of the saved entry
    */
   public String save(SensorEntity sensorEntity) {
+    if (sensorEntity == null) {
+      throw(new NullPointerException("The input SensorEntity to save is null"));
+    }
     Session session = sessionFactory.getCurrentSession();
     Serializable id = session.save(sensorEntity);
     logger.debug("save: A sensorEntity saved, id = " + id);
@@ -70,6 +96,10 @@ public class SensorRepository {
 
   /**
    * Fetch all entries of sensors that connected to the input border router.
+   *
+   * Return an empty list if the input <code>borderRouterIp</code> doesn't exist
+   * in database.
+   *
    * @param borderRouterIp The IPv6 address of the border router to which the
    *                       sensors are connected.
    * @return A list of <code>SensorEntity</code>.

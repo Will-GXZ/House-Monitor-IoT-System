@@ -10,13 +10,21 @@ import java.util.List;
 public class BorderRouterWrapper {
   private BorderRouterEntity borderRouter;
   private List<SensorWrapper> sensorWrapperList;
+  private int size;
 
   public BorderRouterWrapper(BorderRouterEntity borderRouter) {
     this.borderRouter = borderRouter;
   }
 
   public void setSensorWrapperList(List<SensorWrapper> sensorWrapperList) {
-    this.sensorWrapperList = sensorWrapperList;
+    this.sensorWrapperList = new ArrayList<>(sensorWrapperList);
+    for (SensorWrapper sensorWrapper : sensorWrapperList) {
+      size += sensorWrapper.getDataList().size();
+    }
+  }
+
+  public int getSize() {
+    return size;
   }
 
   public List<SensorWrapper> getSensorWrapperList() {

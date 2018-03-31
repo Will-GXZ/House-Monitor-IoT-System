@@ -64,4 +64,13 @@ public class SensorEntity {
   public void setBorderRouterByBorderRouterIp(BorderRouterEntity borderRouterByBorderRouterIp) {
     this.borderRouterByBorderRouterIp = borderRouterByBorderRouterIp;
   }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("SensorEntity{");
+    sb.append("sensorIp='").append(sensorIp).append('\'');
+    sb.append(", sensorName='").append(sensorName).append('\'');
+    sb.append('}');
+    return sb.toString();
+  }
 }

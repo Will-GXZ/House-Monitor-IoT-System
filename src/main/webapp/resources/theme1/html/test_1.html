@@ -10,7 +10,7 @@
         function sendJson() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
                     document.getElementById("json").innerHTML = this.responseText;
                 }
             }
@@ -18,7 +18,7 @@
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "DataTypes");
-            xhttp.send('["humidity", "temperature", "hahaha"]');
+            xhttp.send('["humidity", "temperature", "otherType"]');
         }
     </script>
     <p id="json"></p>

@@ -109,4 +109,15 @@ public class SensorDataEntity {
     result = 31 * result + o.hashCode();
     return result;
   }
+
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("SensorDataEntity{");
+    sb.append("id=").append(id);
+    sb.append(", sensorIp='").append(sensorIp).append('\'');
+    sb.append(", timeStamp=").append(timeStamp);
+    sb.append(", dataJson='").append(dataJson).append('\'');
+    sb.append('}');
+    return sb.toString();
+  }
 }

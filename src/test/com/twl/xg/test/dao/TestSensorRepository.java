@@ -36,6 +36,15 @@ public class TestSensorRepository {
 
   @Test
   @Transactional
+  public void testGet() {
+    // get a null
+    SensorEntity res1 = sensorRepository.get("dummyIP");
+    // get a existed sensor
+    SensorEntity res2 = sensorRepository.get("borderRouterIp-1_sensor2");
+  }
+
+  @Test
+  @Transactional
 //  @Commit
   public void testClear() {
     sensorRepository.clear();
@@ -66,6 +75,13 @@ public class TestSensorRepository {
       logger.debug("********* testSave passed **********");
     } else {
       fail("*********** testSave failed *************");
+    }
+
+    // should throw NPE
+    try {
+      sensorRepository.save(null);
+    } catch (NullPointerException e) {
+      e.printStackTrace();
     }
   }
 

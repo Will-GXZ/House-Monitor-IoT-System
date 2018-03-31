@@ -1,20 +1,17 @@
 package com.twl.xg.controller;
 
-import com.twl.xg.service.DataFetchingAndMappingService;
-import com.twl.xg.service.impl.DataFetchingAndMappingServiceImpl;
+import com.twl.xg.service.impl.DataFetchingAndMappingService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -28,7 +25,6 @@ import java.util.List;
 @RequestMapping("/setting")
 public class SettingController {
   @Autowired
-  @Qualifier("dataFetchingAndMappingServiceImpl")
   DataFetchingAndMappingService dataFetchingAndMappingService;
   @Autowired
   ApplicationContext context;

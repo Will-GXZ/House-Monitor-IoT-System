@@ -16,7 +16,7 @@ public class SensorWrapper {
   }
 
   public void setDataList(List<SensorDataEntity> dataList) {
-    this.dataList = dataList;
+    this.dataList = new ArrayList<>(dataList);
   }
 
   public List<SensorDataEntity> getDataList() {

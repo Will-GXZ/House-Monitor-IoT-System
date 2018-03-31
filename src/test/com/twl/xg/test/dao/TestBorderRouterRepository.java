@@ -33,6 +33,25 @@ public class TestBorderRouterRepository {
 
   @Test
   @Transactional
+  public void testGet() {
+    BorderRouterEntity borderRouterEntity = (BorderRouterEntity) sessionFactory.getCurrentSession()
+                                            .createQuery("FROM BorderRouterEntity ORDER BY rand()")
+                                            .setMaxResults(1)
+                                            .uniqueResult();
+    BorderRouterEntity res = borderRouterRepository.get(borderRouterEntity.getBorderRouterIp());
+    if (res.getBorderRouterIp() != borderRouterEntity.getBorderRouterIp()) {
+      fail("*********** testGet failed ***********");
+    }
+    BorderRouterEntity res2 = borderRouterRepository.get("nonexistIP");
+    if (res2 != null) {
+      fail("*********** testGet failed ***********");
+    }
+    logger.debug("*********** testGet passed ************");
+  }
+
+
+  @Test
+  @Transactional
   public void testSave() {
     // create a border router entity
     BorderRouterEntity newBorderRouter = new BorderRouterEntity();
@@ -48,6 +67,12 @@ public class TestBorderRouterRepository {
       logger.debug("*********** testSave passed ***********");
     } else {
       fail("********** testSave failed ***********");
+    }
+
+    try {
+      borderRouterRepository.save(null);
+    } catch (NullPointerException e) {
+      e.printStackTrace();
     }
   }
 
