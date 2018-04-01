@@ -1,11 +1,9 @@
 package com.twl.xg.service.impl;
 
-import com.twl.xg.domain.BorderRouterWrapper;
+import com.twl.xg.domain.DataPackage;
 import com.twl.xg.domain.SensorDataEntity;
 import com.twl.xg.service.AccessSensorService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -18,7 +16,7 @@ public class AccessSensorServiceImpl implements AccessSensorService {
    * @return A list of <code>BorderRouterWrapper</code>
    */
   @Override
-  public List<BorderRouterWrapper> getAllCurrentSensorData() {
+  public DataPackage getAllCurrentSensorData() {
     return null;
   }
 
@@ -31,6 +29,17 @@ public class AccessSensorServiceImpl implements AccessSensorService {
    */
   @Override
   public SensorDataEntity getDataFromSensor(String sensorIp) {
+    return null;
+  }
+
+  /**
+   * Fetch current data from the input sensor IP, store the data into database.
+   *
+   * @param sensorIp The IPv6 address of the sensor you want to fetch from.
+   * @return A <code>SensorDataEntity</code> object contains the data.
+   */
+  @Override
+  public SensorDataEntity saveDataFromSensor(String sensorIp) {
     return null;
   }
 

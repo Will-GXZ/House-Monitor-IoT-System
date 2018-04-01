@@ -7,7 +7,7 @@ import com.twl.xg.config.HibernateConfig;
 import com.twl.xg.config.ServletInitializer;
 import com.twl.xg.dao.SensorDataRepository;
 import com.twl.xg.domain.*;
-import com.twl.xg.service.impl.DataFetchingAndMappingService;
+import com.twl.xg.service.DataFetchingAndMappingService;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -18,9 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.Date;
-import java.util.List;
 
 import static junit.framework.TestCase.fail;
 

@@ -21,7 +21,8 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.twl.xg.controller", "com.twl.xg.service",
-                               "com.twl.xg.dao", "com.twl.xg.domain"})
+                               "com.twl.xg.dao", "com.twl.xg.domain", "com.twl.xg.service.mock_impl",
+                               "com.twl.xg.service.impl"})
 public class AppConfig implements WebMvcConfigurer {
   /**
    * Create an internalResourceViewResolver bean. This ViewResolver is responsible

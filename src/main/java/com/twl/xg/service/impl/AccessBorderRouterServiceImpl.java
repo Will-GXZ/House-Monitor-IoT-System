@@ -1,5 +1,6 @@
 package com.twl.xg.service.impl;
 
+import com.twl.xg.domain.BorderRouterEntity;
 import com.twl.xg.service.AccessBorderRouterService;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,13 @@ public class AccessBorderRouterServiceImpl implements AccessBorderRouterService 
 
   /**
    * Save the input border router in database.
-   *
-   * @param borderRouterIp   The IPv6 address of the border router you want to save.
+   *  @param borderRouterIp   The IPv6 address of the border router you want to save.
    * @param borderRouterName The name you want to set for the border router.
    */
   @Override
-  public void saveBorderRouter(String borderRouterIp, String borderRouterName) {
+  public BorderRouterEntity saveBorderRouter(String borderRouterIp, String borderRouterName) {
 
+    return null;
   }
 
   /**
@@ -40,10 +41,9 @@ public class AccessBorderRouterServiceImpl implements AccessBorderRouterService 
    *
    * @param borderRouterIp The IPv6 address of the border router that the list of sensors are
    *                       connnected.
-   * @param sensorIpList   The list of IPv6 address of sensors that are connected to the input
    */
   @Override
-  public void saveSensorsForBorderRouterIp(String borderRouterIp, List<String> sensorIpList) {
+  public void saveSensorsForBorderRouterIp(String borderRouterIp) {
 
   }
 

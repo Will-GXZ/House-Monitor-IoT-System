@@ -1,4 +1,4 @@
-package com.twl.xg.service.impl;
+package com.twl.xg.service;
 
 import com.twl.xg.dao.BorderRouterRepository;
 import com.twl.xg.dao.SensorDataRepository;
