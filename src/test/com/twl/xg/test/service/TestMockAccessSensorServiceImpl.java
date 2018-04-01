@@ -7,6 +7,7 @@ import com.twl.xg.config.ServletInitializer;
 import com.twl.xg.domain.SensorDataEntity;
 import com.twl.xg.domain.SensorEntity;
 import com.twl.xg.service.AccessSensorService;
+import com.twl.xg.service.DataFetchingAndMappingService;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -18,20 +19,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static junit.framework.TestCase.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ServletInitializer.class, AppConfig.class, HibernateConfig.class})
 @WebAppConfiguration
-public class TestMockAccessSensorService {
+public class TestMockAccessSensorServiceImpl {
   @Autowired
-  @Qualifier(value = "mockAccessSensorService")
+  @Qualifier(value = "mockAccessSensorServiceImpl")
   AccessSensorService accessSensorService;
+
+  @Autowired
+  DataFetchingAndMappingService dataFetchingAndMappingService;
 
   @Autowired
   SessionFactory sessionFactory;
 
-  private static final Logger logger = Logger.getLogger(TestMockAccessSensorService.class);
+  private static final Logger logger = Logger.getLogger(TestMockAccessSensorServiceImpl.class);
 
   @Test
   @Transactional
@@ -59,6 +67,9 @@ public class TestMockAccessSensorService {
   @Test
   @Transactional
   public void testSaveDataFromSensor() throws JsonProcessingException {
+    // initialize dataTypeList
+    dataFetchingAndMappingService.setDataTypes(new String[] {"temp", "humidity", "xguo", "jcq"});
+
     SensorEntity sensor = (SensorEntity) sessionFactory.getCurrentSession()
         .createQuery("FROM SensorEntity ORDER BY rand()")
         .setMaxResults(1)

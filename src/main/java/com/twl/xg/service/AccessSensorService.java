@@ -21,7 +21,8 @@ public interface AccessSensorService {
 
   /**
    * For the input sensor IP, get current data from the sensor, map the data
-   * to a <code>SensorDataEntity</code> object.
+   * to a <code>SensorDataEntity</code> object. For the data types, use the global
+   * <code>dataTypeList</code> bean to decide what kind of data to fetch.
    *
    * @param sensorIp The IPv6 address of the sensor you want to fetch from.
    * @return A <code>SensorDataEntity</code> object contains the data.

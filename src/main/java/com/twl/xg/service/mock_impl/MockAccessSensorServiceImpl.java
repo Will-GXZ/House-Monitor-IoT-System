@@ -10,21 +10,26 @@ import com.twl.xg.domain.SensorEntity;
 import com.twl.xg.service.AccessSensorService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.TreeMap;
 
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
-public class MockAccessSensorService implements AccessSensorService {
+public class MockAccessSensorServiceImpl implements AccessSensorService {
   @Autowired
   SensorRepository sensorRepository;
   @Autowired
   SensorDataRepository sensorDataRepository;
+  @Autowired
+  ApplicationContext context;
 
-  private static final Logger logger = Logger.getLogger(MockAccessSensorService.class);
+  private static final Logger logger = Logger.getLogger(MockAccessSensorServiceImpl.class);
 
   /**
    * Fetch data from each sensor, map the data to well formatted Java Object.
@@ -42,6 +47,7 @@ public class MockAccessSensorService implements AccessSensorService {
    * generate random data for each sensor IP.
    *
    * @throws NullPointerException If the input sensor IP does not exist in the database.
+   * @throws NoSuchElementException if  <code>dataTypeList.size() == 0</code>.
    *
    * @param sensorIp The IPv6 address of the sensor you want to fetch from.
    * @return A <code>SensorDataEntity</code> object contains the data.
@@ -54,11 +60,18 @@ public class MockAccessSensorService implements AccessSensorService {
     if (sensor == null) {
       throw(new NullPointerException("The input sensorIp doesn't exist in the database"));
     }
+
+    // get dataTypeList
+    List<String> dataTypeList = (List<String>)context.getBean("dataTypeList");
+    if (dataTypeList.isEmpty()) {
+      throw(new NoSuchElementException("dataTypeList bean has not been initialized"));
+    }
+
     // generate random data, convert to json
     Map<String, String> dataMap = new TreeMap<>();
-    dataMap.put("temperature", "" + (Math.random() * 20 + 5) / 10.0);
-    dataMap.put("humidity", "" + (Math.random() * 20 + 5) / 10.0);
-    dataMap.put("lightness", "" + (Math.random() * 20 + 5) / 10.0);
+    for (String dataType : dataTypeList) {
+      dataMap.put(dataType, "" + (Math.random() * 20 + 5) / 10.0);
+    }
 
     ObjectMapper mapper = new ObjectMapper();
     String dataJson = mapper.writeValueAsString(dataMap);

@@ -48,6 +48,6 @@ public class SettingController {
                   consumes = "application/json")
   public @ResponseBody List<String> setDataTypes(@RequestBody String[] dataTypes) {
     logger.debug("Accept request to set data types to: " + Arrays.toString(dataTypes));
-    return dataFetchingAndMappingService.SetDataTypes(dataTypes);
+    return dataFetchingAndMappingService.setDataTypes(dataTypes);
   }
 }

@@ -48,9 +48,9 @@ public class DataFetchingAndMappingService {
    * @return Return a list of String which contains all data types name set by user.
    */
   @Transactional
-  public synchronized List<String> SetDataTypes(String[] dataTypeArray) {
+  public synchronized List<String> setDataTypes(String[] dataTypeArray) {
     if (dataTypeArray == null || dataTypeArray.length == 0) {
-      logger.error("SetDataTypes: Invalid input");
+      logger.error("setDataTypes: Invalid input");
       return null;
     }
     // check if the input data types are the same to the current data types.
@@ -59,7 +59,7 @@ public class DataFetchingAndMappingService {
     Set<String> inputDataTypeSet = new HashSet<>(Arrays.asList(dataTypeArray));
     if (currentDataTypeSet.equals(inputDataTypeSet)) {
       // if same, do nothing, return current dataTypeList
-      logger.debug("SetDataTypes: Input data types are the same to current data types");
+      logger.debug("setDataTypes: Input data types are the same to current data types");
       return currentDataTypeList;
     } else {
       // else, clear sensor_data table, update currentDataTypeList, and return it
@@ -67,7 +67,7 @@ public class DataFetchingAndMappingService {
       currentDataTypeList.clear();
       currentDataTypeList.addAll(inputDataTypeSet);
       Collections.sort(currentDataTypeList);
-      logger.debug("SetDataTypes: dataTypeList updated to: " + currentDataTypeList.toString());
+      logger.debug("setDataTypes: dataTypeList updated to: " + currentDataTypeList.toString());
       return currentDataTypeList;
     }
   }
