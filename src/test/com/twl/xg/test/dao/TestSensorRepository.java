@@ -12,6 +12,7 @@ import org.hibernate.query.Query;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -33,6 +34,22 @@ public class TestSensorRepository {
   SessionFactory sessionFactory;
 
   private static final Logger logger = Logger.getLogger(TestSensorRepository.class);
+
+  @Test
+  @Transactional
+//  @Commit
+  public void testUpdateSensorName() {
+    SensorEntity sensorEntity = (SensorEntity) sessionFactory.getCurrentSession()
+                                 .createQuery("FROM SensorEntity ORDER BY rand()")
+                                 .setMaxResults(1)
+                                 .uniqueResult();
+    boolean ret = sensorRepository.updateSensorName(sensorEntity.getSensorIp(), "updatedName");
+    if (ret) {
+      logger.debug("************** testUpdateSensorName passed *****************");
+    } else {
+      fail("**************** testUpdateSensorName failed *****************");
+    }
+  }
 
   @Test
   @Transactional
@@ -125,5 +142,12 @@ public class TestSensorRepository {
   @Transactional
   public void testSize() {
     long size = sensorRepository.size();
+  }
+
+  @Transactional
+  @Test
+  public void testGetAllSensorIp() {
+    List<String> res = sensorRepository.getAllSensorIp();
+    for(String sensorIp : res) logger.debug("Sensor IP: " + sensorIp);
   }
 }

@@ -1,10 +1,7 @@
 package com.twl.xg.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twl.xg.domain.BorderRouterWrapper;
-import com.twl.xg.domain.DataPackage;
-import com.twl.xg.domain.SensorDataEntity;
-import com.twl.xg.domain.SensorEntity;
+import com.twl.xg.domain.*;
 
 import java.util.List;
 
@@ -17,7 +14,7 @@ public interface AccessSensorService {
    *
    * @return An instance of <code>DataPackage</code> that contains all current data.
    */
-  DataPackage getAllCurrentSensorData();
+  DataPackage getAllCurrentSensorData() throws JsonProcessingException;
 
   /**
    * For the input sensor IP, get current data from the sensor, map the data
@@ -35,4 +32,12 @@ public interface AccessSensorService {
    * @return A <code>SensorDataEntity</code> object contains the data.
    */
   SensorDataEntity saveDataFromSensor(String sensorIp) throws JsonProcessingException;
+
+  /**
+   * Get current data from sensors connected to the input border router.
+   *
+   * @param borderRouter The instance of border router you want to fetch data from.
+   * @return An instance of <code>BorderRouterWrapper</code> that contains data.
+   */
+  BorderRouterWrapper getDataFromSensorForBorderRouter(BorderRouterEntity borderRouter) throws JsonProcessingException;
 }

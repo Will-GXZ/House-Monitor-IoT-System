@@ -1,5 +1,7 @@
 package com.twl.xg.service.impl;
 
+import com.twl.xg.domain.BorderRouterEntity;
+import com.twl.xg.domain.BorderRouterWrapper;
 import com.twl.xg.domain.DataPackage;
 import com.twl.xg.domain.SensorDataEntity;
 import com.twl.xg.service.AccessSensorService;
@@ -44,4 +46,15 @@ public class AccessSensorServiceImpl implements AccessSensorService {
   }
 
   // TODO
+
+  /**
+   * Get current data from sensors connected to the input border router.
+   *
+   * @param borderRouter The instance of border router you want to fetch data from.
+   * @return An instance of <code>BorderRouterWrapper</code> that contains data.
+   */
+  @Override
+  public BorderRouterWrapper getDataFromSensorForBorderRouter(BorderRouterEntity borderRouter) {
+    return null;
+  }
 }

@@ -24,6 +24,17 @@ public class MockAccessBorderRouterServiceImpl implements AccessBorderRouterServ
   private static final Logger logger = Logger.getLogger(MockAccessBorderRouterServiceImpl.class);
 
   /**
+   * Check if a border router IP is exist. In this dummy implementation, just return true.
+   *
+   * @param borderRouterIp The IPv6 address of the border router you want to check.
+   * @return <code>true</code> for border router exists, <code>false</code> otherwise.
+   */
+  @Override
+  public boolean existBorderRouter(String borderRouterIp) {
+    return true;
+  }
+
+  /**
    * Take as input a <code>String</code> of borderRouterIp, return a list of
    * IPv6 address of sensors that are connected to the given border router.
    * If the input borderRouterIp is inValid, return null instead.

@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+/**
+ * This class contains methods to communicate with database via repository classes
+ * in "dao" package. These methods may also map data to proper wrapper class objects.
+ */
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 public class DataFetchingAndMappingService {
@@ -48,28 +52,43 @@ public class DataFetchingAndMappingService {
    * @return Return a list of String which contains all data types name set by user.
    */
   @Transactional
-  public synchronized List<String> setDataTypes(String[] dataTypeArray) {
-    if (dataTypeArray == null || dataTypeArray.length == 0) {
-      logger.error("setDataTypes: Invalid input");
-      return null;
+  public List<String> setDataTypes(String[] dataTypeArray) {
+    synchronized (DataFetchingAndMappingService.class) {
+      if (dataTypeArray == null || dataTypeArray.length == 0) {
+        logger.error("setDataTypes: Invalid input");
+        return null;
+      }
+      // check if the input data types are the same to the current data types.
+      List<String> currentDataTypeList = (List<String>) context.getBean("dataTypeList");
+      Set<String> currentDataTypeSet = new HashSet<>(currentDataTypeList);
+      Set<String> inputDataTypeSet = new HashSet<>(Arrays.asList(dataTypeArray));
+      if (currentDataTypeSet.equals(inputDataTypeSet)) {
+        // if same, do nothing, return current dataTypeList
+        logger.debug("setDataTypes: Input data types are the same to current data types");
+        return currentDataTypeList;
+      } else {
+        // else, clear sensor_data table, update currentDataTypeList, and return it
+        sensorDataRepository.clear();
+        currentDataTypeList.clear();
+        currentDataTypeList.addAll(inputDataTypeSet);
+        Collections.sort(currentDataTypeList);
+        logger.debug("setDataTypes: dataTypeList updated to: " + currentDataTypeList.toString());
+        return currentDataTypeList;
+      }
     }
-    // check if the input data types are the same to the current data types.
-    List<String> currentDataTypeList = (List<String>)context.getBean("dataTypeList");
-    Set<String> currentDataTypeSet = new HashSet<>(currentDataTypeList);
-    Set<String> inputDataTypeSet = new HashSet<>(Arrays.asList(dataTypeArray));
-    if (currentDataTypeSet.equals(inputDataTypeSet)) {
-      // if same, do nothing, return current dataTypeList
-      logger.debug("setDataTypes: Input data types are the same to current data types");
-      return currentDataTypeList;
-    } else {
-      // else, clear sensor_data table, update currentDataTypeList, and return it
-      sensorDataRepository.clear();
-      currentDataTypeList.clear();
-      currentDataTypeList.addAll(inputDataTypeSet);
-      Collections.sort(currentDataTypeList);
-      logger.debug("setDataTypes: dataTypeList updated to: " + currentDataTypeList.toString());
-      return currentDataTypeList;
-    }
+  }
+
+
+  /**
+   * Update the name of a sensor.
+   *
+   * @param sensorIp IP of the sensor you want to update.
+   * @param sensorName The name you want to update for the sensor.
+   * @return <code>true</code> for success, <code>false</code> otherwise.
+   */
+  @Transactional
+  public boolean updateSensorName(String sensorIp, String sensorName) {
+    return sensorRepository.updateSensorName(sensorIp, sensorName);
   }
 
   /**
@@ -138,6 +157,7 @@ public class DataFetchingAndMappingService {
    * @return An instance of <code>SensorWrapper</code> which contains a list of
    * <code>SensorDataEntity</code>.
    */
+  @Transactional
   public SensorWrapper getDataForSensorFromDB(String sensorIp, Date timeStamp) {
     SensorEntity sensorEntity = sensorRepository.get(sensorIp);
     if (sensorEntity == null) {
@@ -172,6 +192,7 @@ public class DataFetchingAndMappingService {
    * @param timeStamp The earliest time stamp.
    * @return An instance of <code>DataPackage</code> which contains all data.
    */
+  @Transactional
   public DataPackage getAllDataFromDB(Date timeStamp) {
     // get all border router first
     List<BorderRouterEntity> borderRouterList = borderRouterRepository.getAll();
@@ -191,5 +212,18 @@ public class DataFetchingAndMappingService {
       logger.debug("getAllDataFromDB:  The total number of data entries is: " + dataPackage.getSize());
       return dataPackage;
     }
+  }
+
+  /**
+   * Delete all entries in database, basically we just need to clear border_router table
+   */
+  @Transactional
+  public void clearDataBase() {
+    borderRouterRepository.clear();
+  }
+
+  @Transactional
+  public List<String> getAllSensorIp() {
+    return sensorRepository.getAllSensorIp();
   }
 }

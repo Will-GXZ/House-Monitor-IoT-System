@@ -41,4 +41,12 @@ public interface AccessBorderRouterService {
    *                       connnected.
    */
   void saveSensorsForBorderRouterIp(String borderRouterIp);
+
+  /**
+   * Check if a border router IP is exist.
+   *
+   * @param borderRouterIp The IPv6 address of the border router you want to check.
+   * @return <code>true</code> for border router exists, <code>false</code> otherwise.
+   */
+  boolean existBorderRouter(String borderRouterIp);
 }

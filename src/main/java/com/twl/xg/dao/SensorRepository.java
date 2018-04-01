@@ -20,6 +20,30 @@ public class SensorRepository {
   private static final Logger logger = Logger.getLogger(SensorRepository.class);
 
   /**
+   * Update the name of a sensor.
+   *
+   * @param sensorIp IP of the sensor you want to update.
+   * @param sensorName The name you want to update for the sensor.
+   * @return <code>true</code> for success, <code>false</code> otherwise.
+   */
+  public boolean updateSensorName(String sensorIp, String sensorName) {
+    String hql = "UPDATE SensorEntity SET sensorName=:sensorName WHERE sensorIp=:sensorIp";
+    Query query = sessionFactory
+                  .getCurrentSession()
+                  .createQuery(hql)
+                  .setParameter("sensorName", sensorName)
+                  .setParameter("sensorIp", sensorIp);
+    int ret = query.executeUpdate();
+    if (ret > 0) {
+      logger.debug("updateSensorName:  Update sensor name = " + sensorName + " for sensor ip =" + sensorIp);
+      return true;
+    } else {
+      logger.error("updateSensorName  Fail to update sensor, ip = " + sensorIp);
+      return false;
+    }
+  }
+
+  /**
    * Get a <code>SensorEntity</code> instance for the input sensor IP.
    * Return <code>null</code> if the input sensor IP doesn't exist in database.
    *
@@ -92,6 +116,21 @@ public class SensorRepository {
     List<SensorEntity> results = query.getResultList();
     logger.debug("getAll: " + results.size() + " entries got in total");
     return results;
+  }
+
+  /**
+   * Get all sensor IP from the database. If there is no sensor in the database,
+   * return an empty list.
+   *
+   * @return A list of <code>String</code> contains all sensor IP.
+   */
+  public List<String> getAllSensorIp() {
+    String hql = "SELECT sensorIp FROM SensorEntity";
+    List<String> res = sessionFactory.getCurrentSession().createQuery(hql).getResultList();
+    for (String sensorIp : res) {
+      logger.debug("getAllSensorIp:  sensor ip --> " + sensorIp);
+    }
+    return res;
   }
 
   /**

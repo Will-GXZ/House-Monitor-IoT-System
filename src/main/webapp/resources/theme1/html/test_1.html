@@ -3,24 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>test page 1</title>
-</head>
-<body>
-    <button type="button" onclick="sendJson()">Request data</button>
+
     <script>
-        function sendJson() {
+        function setDataTypeList() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
-                    document.getElementById("json").innerHTML = this.responseText;
+                    document.getElementById("dataTypeList").innerHTML = this.responseText;
                 }
             }
             xhttp.open("POST", "/setting/dataTypes", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "DataTypes");
-            xhttp.send('["humidity", "temperature", "otherType"]');
+            xhttp.send('["humidity", "temperature", "otherType", "xguo", "jcq", "rlg"]');
+        }
+
+        function saveBorderRouters() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("borderRouterList").innerHTML = this.responseText;
+                }
+            }
+            xhttp.open("POST", "/setting/setBorderRouter", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "borderRouterIpAndName");
+            xhttp.send('[["router-1", "router-name-1"], ["router-2", "router-name-2"], ["router-3", "router-name-3"]]');
+        }
+
+        function getAllSensorIp() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("allSensorIp").innerHTML = this.responseText;
+                }
+            }
+            xhttp.open("GET", "/setting/getAllSensorIp", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "getAllSensorIp");
+            xhttp.send();
+        }
+
+        function setSensorName() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("setSensorName").innerHTML = this.responseText;
+                }
+            }
+            xhttp.open("PUT", "/setting/setSensorName", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "sensorIpAndName");
+            xhttp.send('[["router-1--sensor 1", "newName1"], ["router-3--sensor 2", "newName2"]]');
+        }
+
+        function getAllCurrentData() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("allCurrentData").innerHTML = this.responseText;
+                }
+            }
+            xhttp.open("GET", "/data/get/all", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "getAllData");
+            xhttp.send();
         }
     </script>
-    <p id="json"></p>
+</head>
+<body>
+    <button type="button" onclick="setDataTypeList()">setDataTypeList</button>
+    <p id="dataTypeList"></p>
+    <button type="button" onclick="saveBorderRouters()">setBorderRouters</button>
+    <p id="borderRouterList"></p>
+    <button type="button" onclick="getAllSensorIp()">getAllSensorIp</button>
+    <p id="allSensorIp"></p>
+    <button type="button" onclick="setSensorName()">setSensorName</button>
+    <p id="setSensorName"></p>
+    <button type="button" onclick="getAllCurrentData()">getAllCurrentData</button>
+    <p id="allCurrentData"></p>
 </body>
 </html>
