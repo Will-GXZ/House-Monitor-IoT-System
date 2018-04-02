@@ -1,59 +1,40 @@
-package com.twl.xg.service.mock_impl;
+package com.twl.xg.service;
 
 import com.twl.xg.dao.BorderRouterRepository;
 import com.twl.xg.dao.SensorRepository;
 import com.twl.xg.domain.BorderRouterEntity;
 import com.twl.xg.domain.SensorEntity;
-import com.twl.xg.service.AccessBorderRouterService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
-@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
-public class MockAccessBorderRouterServiceImpl implements AccessBorderRouterService {
+/**
+ * This abstract defines the basic operations to communicate with border routers.
+ * Also provide some common implementations.
+ */
+public abstract class AbstractAccessBorderRouterService {
   @Autowired
-  BorderRouterRepository borderRouterRepository;
+  protected BorderRouterRepository borderRouterRepository;
   @Autowired
-  SensorRepository sensorRepository;
+  protected SensorRepository sensorRepository;
 
-  private static final Logger logger = Logger.getLogger(MockAccessBorderRouterServiceImpl.class);
-
-  /**
-   * Check if a border router IP is exist. In this dummy implementation, just return true.
-   *
-   * @param borderRouterIp The IPv6 address of the border router you want to check.
-   * @return <code>true</code> for border router exists, <code>false</code> otherwise.
-   */
-  @Override
-  public boolean existBorderRouter(String borderRouterIp) {
-    return true;
-  }
+  private static final Logger logger = Logger.getLogger(AbstractAccessBorderRouterService.class);
 
   /**
    * Take as input a <code>String</code> of borderRouterIp, return a list of
    * IPv6 address of sensors that are connected to the given border router.
+   *
    * If the input borderRouterIp is inValid, return null instead.
    *
-   * This method just create dummy sensor ip for each input borde router.
+   * If there is no sensor connected to the border router, return an empty list.
    *
    * @param borderRouterIp The IPv6 address of border router you want to query.
    * @return A list of sensor IPv6 address.
    */
-  @Override
-  public List<String> getSensorIpByBorderRouterIp(String borderRouterIp) {
-    // create dummy sensor ip for each input borde router ip,
-    List<String> sensorIpList = new ArrayList<>();
-    for (int i = 1; i <= 3; ++i) {
-      sensorIpList.add(borderRouterIp + "--sensor " + i);
-      logger.debug("getSensorIpByBorderRouterIp:  Generated snesor IP = " + sensorIpList.get(sensorIpList.size() - 1));
-    }
-    return sensorIpList;
-  }
+  public abstract List<String> getSensorIpByBorderRouterIp(String borderRouterIp);
+
 
   /**
    * Save the input border router in database. If the input <code>borderRouterName</code>
@@ -63,7 +44,6 @@ public class MockAccessBorderRouterServiceImpl implements AccessBorderRouterServ
    * @param borderRouterName The name you want to set for the border router.
    * @return An instance of <code>BorderRouterEntity</code> for the input border router.
    */
-  @Override
   @Transactional
   public BorderRouterEntity saveBorderRouter(String borderRouterIp, String borderRouterName) {
     BorderRouterEntity borderRouterEntity = new BorderRouterEntity();
@@ -87,7 +67,6 @@ public class MockAccessBorderRouterServiceImpl implements AccessBorderRouterServ
    * @param borderRouterIp The IPv6 address of the border router that the list of sensors are
    *                       connnected.
    */
-  @Override
   @Transactional
   public void saveSensorsForBorderRouterIp(String borderRouterIp) {
     // get border router first
@@ -107,4 +86,13 @@ public class MockAccessBorderRouterServiceImpl implements AccessBorderRouterServ
     }
     logger.debug("saveSensorForBorderRouterIp:  Saved " + sensorIpList.size() + " sensors for border router IP = " + borderRouterIp);
   }
+
+  /**
+   * Check if a border router IP is exist, notice that this method doesn't check
+   * if the IP is in database, it checks if the router IP exists in the real network.
+   *
+   * @param borderRouterIp The IPv6 address of the border router you want to check.
+   * @return <code>true</code> for border router exists, <code>false</code> otherwise.
+   */
+  public abstract boolean existBorderRouter(String borderRouterIp);
 }

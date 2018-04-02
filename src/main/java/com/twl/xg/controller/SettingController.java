@@ -2,9 +2,7 @@ package com.twl.xg.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.twl.xg.domain.BorderRouterEntity;
-import com.twl.xg.domain.DataPackage;
-import com.twl.xg.service.AccessBorderRouterService;
+import com.twl.xg.service.AbstractAccessBorderRouterService;
 import com.twl.xg.service.DataFetchingAndMappingService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +31,8 @@ public class SettingController {
   DataFetchingAndMappingService dataFetchingAndMappingService;
 
   @Autowired
-  @Qualifier(value = "mockAccessBorderRouterServiceImpl")
-  AccessBorderRouterService accessBorderRouterService;
+  @Qualifier(value = "mockAccessBorderRouterService")
+  AbstractAccessBorderRouterService abstractAccessBorderRouterService;
 
   @Autowired
   ApplicationContext context;
@@ -88,9 +86,9 @@ public class SettingController {
     dataFetchingAndMappingService.clearDataBase();
     // For each border router IP address, get sensors connected to the router, store them in database
     for (String[] pair : routerIpAndName) {
-      if (accessBorderRouterService.existBorderRouter(pair[0])) {
-        accessBorderRouterService.saveBorderRouter(pair[0], pair[1]);
-        accessBorderRouterService.saveSensorsForBorderRouterIp(pair[0]);
+      if (abstractAccessBorderRouterService.existBorderRouter(pair[0])) {
+        abstractAccessBorderRouterService.saveBorderRouter(pair[0], pair[1]);
+        abstractAccessBorderRouterService.saveSensorsForBorderRouterIp(pair[0]);
       }
     }
     return "HTTP_OK";

@@ -2,8 +2,8 @@ package com.twl.xg.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.twl.xg.domain.DataPackage;
-import com.twl.xg.service.AccessBorderRouterService;
-import com.twl.xg.service.AccessSensorService;
+import com.twl.xg.service.AbstractAccessBorderRouterService;
+import com.twl.xg.service.AbstractAccessSensorService;
 import com.twl.xg.service.DataFetchingAndMappingService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,11 @@ public class DataController {
   @Autowired
   DataFetchingAndMappingService dataFetchingAndMappingService;
   @Autowired
-  @Qualifier("mockAccessBorderRouterServiceImpl")
-  AccessBorderRouterService accessBorderRouterService;
+  @Qualifier("mockAccessBorderRouterService")
+  AbstractAccessBorderRouterService abstractAccessBorderRouterService;
   @Autowired
-  @Qualifier("mockAccessSensorServiceImpl")
-  AccessSensorService accessSensorService;
+  @Qualifier("mockAccessSensorService")
+  AbstractAccessSensorService abstractAccessSensorService;
 
   private static final Logger logger = Logger.getLogger(DataController.class);
 
@@ -47,7 +47,7 @@ public class DataController {
                   consumes = "application/json")
   public @ResponseBody DataPackage getAllCurrentData() throws JsonProcessingException {
     logger.debug("getAllCurrentData:  Request accepted");
-    DataPackage dataPackage = accessSensorService.getAllCurrentSensorData();
+    DataPackage dataPackage = abstractAccessSensorService.getAllCurrentSensorData();
     return dataPackage;
   }
 

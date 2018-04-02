@@ -7,7 +7,7 @@ import com.twl.xg.config.ServletInitializer;
 import com.twl.xg.domain.BorderRouterEntity;
 import com.twl.xg.domain.SensorDataEntity;
 import com.twl.xg.domain.SensorEntity;
-import com.twl.xg.service.AccessSensorService;
+import com.twl.xg.service.AbstractAccessSensorService;
 import com.twl.xg.service.DataFetchingAndMappingService;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -30,10 +30,10 @@ import static junit.framework.TestCase.fail;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ServletInitializer.class, AppConfig.class, HibernateConfig.class})
 @WebAppConfiguration
-public class TestMockAccessSensorServiceImpl {
+public class TestMockAccessSensorService {
   @Autowired
-  @Qualifier(value = "mockAccessSensorServiceImpl")
-  AccessSensorService accessSensorService;
+  @Qualifier(value = "mockAccessSensorService")
+  AbstractAccessSensorService abstractAccessSensorService;
 
   @Autowired
   DataFetchingAndMappingService dataFetchingAndMappingService;
@@ -44,7 +44,7 @@ public class TestMockAccessSensorServiceImpl {
   @Autowired
   ApplicationContext context;
 
-  private static final Logger logger = Logger.getLogger(TestMockAccessSensorServiceImpl.class);
+  private static final Logger logger = Logger.getLogger(TestMockAccessSensorService.class);
 
   @Test
   @Transactional
@@ -57,7 +57,7 @@ public class TestMockAccessSensorServiceImpl {
                                       .createQuery("from BorderRouterEntity ORDER BY rand()")
                                       .setMaxResults(1)
                                       .uniqueResult();
-    if (accessSensorService.getDataFromSensorForBorderRouter(borderRouter) == null) {
+    if (abstractAccessSensorService.getDataFromSensorForBorderRouter(borderRouter) == null) {
       fail("*********** testGetDataFromSensorForBorderRouter failed *************");
     } else {
       logger.debug("************** testGetDataFromSensorForBorderRouter passed ***************");
@@ -69,7 +69,7 @@ public class TestMockAccessSensorServiceImpl {
   public void testGetDataFromSensor() throws JsonProcessingException {
     // test non-exist sensor IP
     try {
-      accessSensorService.getDataFromSensor("NonExistIP");
+      abstractAccessSensorService.getDataFromSensor("NonExistIP");
     } catch (NullPointerException e) {
       e.printStackTrace();
     }
@@ -79,7 +79,7 @@ public class TestMockAccessSensorServiceImpl {
                           .createQuery("FROM SensorEntity ORDER BY rand()")
                           .setMaxResults(1)
                           .uniqueResult();
-    SensorDataEntity res = accessSensorService.getDataFromSensor(sensor.getSensorIp());
+    SensorDataEntity res = abstractAccessSensorService.getDataFromSensor(sensor.getSensorIp());
     if (res == null || res.getSensorIp() != sensor.getSensorIp()) {
       fail("********** testGetDataFromSensor failed ************");
     } else  {
@@ -97,7 +97,7 @@ public class TestMockAccessSensorServiceImpl {
         .createQuery("FROM SensorEntity ORDER BY rand()")
         .setMaxResults(1)
         .uniqueResult();
-    SensorDataEntity res = accessSensorService.saveDataFromSensor(sensor.getSensorIp());
+    SensorDataEntity res = abstractAccessSensorService.saveDataFromSensor(sensor.getSensorIp());
     if (res == null || res.getSensorIp() != sensor.getSensorIp()) {
       fail("********** testGetDataFromSensor failed ************");
     } else  {
