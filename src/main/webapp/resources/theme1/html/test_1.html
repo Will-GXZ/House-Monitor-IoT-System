@@ -33,20 +33,6 @@
             xhttp.send('[["router-1", "router-name-1"], ["router-2", "router-name-2"], ["router-3", "router-name-3"]]');
         }
 
-        function getAllSensorIp() {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState === 4 && xhttp.status === 200) {
-                    document.getElementById("allSensorIp").innerHTML = this.responseText;
-                }
-            }
-            xhttp.open("GET", "/setting/getAllSensorIp", true);
-            xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.setRequestHeader("Accept", "application/json");
-            xhttp.setRequestHeader("ModelAttribute", "getAllSensorIp");
-            xhttp.send();
-        }
-
         function setSensorName() {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -74,6 +60,96 @@
             xhttp.setRequestHeader("ModelAttribute", "getAllData");
             xhttp.send();
         }
+
+        function getAllSensorIp() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("allSensorIp").innerHTML = this.responseText;
+                }
+            }
+            xhttp.open("GET", "/setting/getAllSensorIp", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "getAllSensorIp");
+            xhttp.send();
+        }
+
+        // get All sensor IP, return a list
+        function getAllSensorIpList() {
+            var ret;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    console.log(this.responseText);
+                    ret = this.responseText;
+                }
+            }
+            xhttp.open("GET", "/setting/getAllSensorIp", false);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "getAllSensorIp");
+            xhttp.send();
+            return ret;
+        }
+
+        // get all sensor IP, create a form that let user to enter sensor names
+        var sensorIpList;
+        function createForm() {
+            var sensorIpJson = getAllSensorIpList();
+            sensorIpList = JSON.parse(sensorIpJson);
+            console.log(sensorIpList);
+
+            var formDiv = document.getElementById("formDiv");
+            var form = document.createElement("form");
+            form.id = "sensorNameForm";
+            form.setAttribute("onsubmit", "return processForm(this)");
+            formDiv.appendChild(form);
+            var form_ele = document.getElementById("sensorNameForm");
+            for (var i = 0; i < sensorIpList.length; ++i) {
+                form_ele.appendChild(document.createTextNode(sensorIpList[i]));
+                form_ele.appendChild(document.createElement("sp"));
+                var input = document.createElement("input");
+                input.setAttribute("type", "text");
+                input.setAttribute("name", "sensorName");
+                input.setAttribute("value", sensorIpList[i]);
+                form_ele.appendChild(input);
+                form_ele.appendChild(document.createElement("br"));
+            }
+            var submit = document.createElement("input");
+            submit.setAttribute("type", "submit");
+            submit.setAttribute("value", "submit");
+            form_ele.appendChild(submit);
+        }
+
+        function processForm(form) {
+            var sensorIpNameList = [];
+            var elements = form.getElementsByTagName("input");
+            console.log(elements);
+            for (var i = 0; i < elements.length; ++i) {
+                // console.log(elements[i].value);
+                if (elements[i].type !== "text")  continue;
+                if (elements[i].value === "") elements[i].value = sensorIpList[i];
+                sensorIpNameList.push([sensorIpList[i], elements[i].value]);
+            }
+            var sensorIpNameJson = JSON.stringify(sensorIpNameList);
+            console.log(sensorIpNameJson);
+
+            // send json to server
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    console.log(this.responseText);
+                }
+            }
+            xhttp.open("PUT", "/setting/setSensorName", false);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "sensorIpAndName");
+            xhttp.send(sensorIpNameJson);
+
+            return false;
+        }
     </script>
 </head>
 <body>
@@ -87,5 +163,8 @@
     <p id="setSensorName"></p>
     <button type="button" onclick="getAllCurrentData()">getAllCurrentData</button>
     <p id="allCurrentData"></p>
+    <button type="button" onclick="createForm()">createForm</button>
+    <pre>get all sensor IP, using them to create form</pre>
+    <div id="formDiv"></div>
 </body>
 </html>

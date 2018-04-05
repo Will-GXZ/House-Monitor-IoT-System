@@ -26,10 +26,10 @@ public class DataController {
   DataFetchingAndMappingService dataFetchingAndMappingService;
   @Autowired
   @Qualifier("mockAccessBorderRouterService")
-  AbstractAccessBorderRouterService abstractAccessBorderRouterService;
+  AbstractAccessBorderRouterService accessBorderRouterService;
   @Autowired
   @Qualifier("mockAccessSensorService")
-  AbstractAccessSensorService abstractAccessSensorService;
+  AbstractAccessSensorService accessSensorService;
 
   private static final Logger logger = Logger.getLogger(DataController.class);
 
@@ -47,7 +47,7 @@ public class DataController {
                   consumes = "application/json")
   public @ResponseBody DataPackage getAllCurrentData() throws JsonProcessingException {
     logger.debug("getAllCurrentData:  Request accepted");
-    DataPackage dataPackage = abstractAccessSensorService.getAllCurrentSensorData();
+    DataPackage dataPackage = accessSensorService.getAllCurrentSensorData();
     return dataPackage;
   }
 

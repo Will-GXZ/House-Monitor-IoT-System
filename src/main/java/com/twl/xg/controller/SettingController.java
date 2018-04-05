@@ -116,7 +116,6 @@ public class SettingController {
     return "HTTP_OK";
   }
 
-
   /**
    * Gets all sensor ip. Restful API.
    *

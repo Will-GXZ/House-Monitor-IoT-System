@@ -31,7 +31,7 @@ public abstract class AbstractAccessSensorService {
 
   /**
    * Fetch data from each sensor, map the data to well formatted Java Object.
-   * If there is not sensor in database, return null.
+   * If there is no sensor in database, return null.
    *
    * @return A list of <code>BorderRouterWrapper</code>
    */

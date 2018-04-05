@@ -22,7 +22,7 @@ public class MockAccessSensorService extends AbstractAccessSensorService {
    * generate random data for each sensor IP.
    *
    * @throws NullPointerException If the input sensor IP does not exist in the database.
-   * @throws NoSuchElementException if  <code>dataTypeList.size() == 0</code>.
+   * @throws RuntimeException if  <code>dataTypeList.size() == 0</code>.
    *
    * @param sensorIp The IPv6 address of the sensor you want to fetch from.
    * @return A <code>SensorDataEntity</code> object contains the data.
@@ -39,7 +39,8 @@ public class MockAccessSensorService extends AbstractAccessSensorService {
     // get dataTypeList
     List<String> dataTypeList = (List<String>)context.getBean("dataTypeList");
     if (dataTypeList.isEmpty()) {
-      throw(new NoSuchElementException("dataTypeList bean has not been initialized"));
+      logger.error("getDataFromSensor: dataTypeList bean has not been initialized");
+      throw(new RuntimeException("dataTypeList bean has not been initialized"));
     }
 
     // generate random data, convert to json
