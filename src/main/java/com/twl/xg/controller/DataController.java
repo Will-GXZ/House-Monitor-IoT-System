@@ -8,10 +8,13 @@ import com.twl.xg.service.DataFetchingAndMappingService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * This is the data controller class. This Controller handles all requests that are
@@ -30,6 +33,8 @@ public class DataController {
   @Autowired
   @Qualifier("mockAccessSensorService")
   AbstractAccessSensorService accessSensorService;
+  @Autowired
+  ApplicationContext context;
 
   private static final Logger logger = Logger.getLogger(DataController.class);
 

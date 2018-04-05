@@ -52,6 +52,9 @@
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     document.getElementById("allCurrentData").innerHTML = this.responseText;
+                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                    history.pushState(null, null, "/error");
+                    document.write(this.responseText);
                 }
             }
             xhttp.open("GET", "/data/get/all", true);
@@ -122,6 +125,7 @@
             form_ele.appendChild(submit);
         }
 
+        // process the form, send json to server, call
         function processForm(form) {
             var sensorIpNameList = [];
             var elements = form.getElementsByTagName("input");
