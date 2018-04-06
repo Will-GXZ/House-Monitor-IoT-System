@@ -154,6 +154,40 @@
 
             return false;
         }
+
+        function startSavingTask() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    console.log(this.responseText);
+                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                    history.pushState(null, null, "/error");
+                    document.write(this.responseText);
+                }
+            }
+            xhttp.open("POST", "/setting/startTask/savingData", false);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "startSavingData");
+            xhttp.send(4000); // 4 seconds period
+        }
+
+        function stopSavingTask() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    console.log(this.responseText);
+                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                    history.pushState(null, null, "/error");
+                    document.write(this.responseText);
+                }
+            }
+            xhttp.open("POST", "/setting/stopTask/savingData", false);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "stopSavingData");
+            xhttp.send();
+        }
     </script>
 </head>
 <body>
@@ -170,5 +204,9 @@
     <button type="button" onclick="createForm()">createForm</button>
     <pre>get all sensor IP, using them to create form</pre>
     <div id="formDiv"></div>
+    <button type="button" onclick="startSavingTask()">startSavingTask</button>
+    <br>
+    <button type="button" onclick="stopSavingTask()">stopSavingTask</button>
+
 </body>
 </html>

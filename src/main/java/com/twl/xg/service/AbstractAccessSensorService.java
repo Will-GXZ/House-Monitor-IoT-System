@@ -111,4 +111,25 @@ public abstract class AbstractAccessSensorService {
     borderRouterWrapper.setSensorWrapperList(sensorWrapperList);
     logger.debug("getDataFromSensorForBorderRouter:  borderRouterWrapper --> " + new ObjectMapper().writeValueAsString(borderRouterWrapper));
     return borderRouterWrapper;
-  }}
+  }
+
+  /**
+   * Save all current data in database.
+   *
+   * @return <code>true</code> if there are sensors in database, return <code>false</code> if there is no  sensor in database.
+   * @throws JsonProcessingException the json processing exception
+   */
+  @Transactional
+  public boolean saveAllCurrentDataFromSensor() throws JsonProcessingException {
+    // get all sensor IP first
+    List<String> sensorIpList = sensorRepository.getAllSensorIp();
+    if (sensorIpList.isEmpty()) {
+      return false;
+    }
+    // get sensor data from each sensor IP, store them in database
+    for (String sensorIp : sensorIpList) {
+      saveDataFromSensor(sensorIp);
+    }
+    return true;
+  }
+}

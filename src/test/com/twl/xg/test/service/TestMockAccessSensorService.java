@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.twl.xg.config.AppConfig;
 import com.twl.xg.config.HibernateConfig;
 import com.twl.xg.config.ServletInitializer;
+import com.twl.xg.config.TaskSchedulerConfig;
 import com.twl.xg.domain.BorderRouterEntity;
 import com.twl.xg.domain.SensorDataEntity;
 import com.twl.xg.domain.SensorEntity;
@@ -16,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -28,7 +30,7 @@ import java.util.List;
 import static junit.framework.TestCase.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ServletInitializer.class, AppConfig.class, HibernateConfig.class})
+@ContextConfiguration(classes = {ServletInitializer.class, AppConfig.class, HibernateConfig.class, TaskSchedulerConfig.class})
 @WebAppConfiguration
 public class TestMockAccessSensorService {
   @Autowired
@@ -103,5 +105,15 @@ public class TestMockAccessSensorService {
     } else  {
       logger.debug("*********** testGetDataFromSensor passed ***********");
     }
+  }
+
+  @Test
+  @Transactional
+//  @Commit
+  public void testSaveAllCurrentDataFromSensor() throws JsonProcessingException {
+    dataFetchingAndMappingService.setDataTypes(new String[] {"temp", "humidity", "xguo", "jcq"});
+
+    boolean ret = abstractAccessSensorService.saveAllCurrentDataFromSensor();
+    logger.debug("testSaveAllCurrentDataFromSensor:  return --> " + ret);
   }
 }

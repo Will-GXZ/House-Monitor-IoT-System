@@ -55,5 +55,4 @@ public class DataController {
     DataPackage dataPackage = accessSensorService.getAllCurrentSensorData();
     return dataPackage;
   }
-
 }

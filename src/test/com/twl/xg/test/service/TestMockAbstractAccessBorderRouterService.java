@@ -3,6 +3,7 @@ package com.twl.xg.test.service;
 import com.twl.xg.config.AppConfig;
 import com.twl.xg.config.HibernateConfig;
 import com.twl.xg.config.ServletInitializer;
+import com.twl.xg.config.TaskSchedulerConfig;
 import com.twl.xg.dao.BorderRouterRepository;
 import com.twl.xg.domain.BorderRouterEntity;
 import com.twl.xg.service.AbstractAccessBorderRouterService;
@@ -21,7 +22,7 @@ import java.util.List;
 import static junit.framework.TestCase.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ServletInitializer.class, AppConfig.class, HibernateConfig.class})
+@ContextConfiguration(classes = {ServletInitializer.class, AppConfig.class, HibernateConfig.class, TaskSchedulerConfig.class})
 @WebAppConfiguration
 public class TestMockAbstractAccessBorderRouterService {
   @Autowired

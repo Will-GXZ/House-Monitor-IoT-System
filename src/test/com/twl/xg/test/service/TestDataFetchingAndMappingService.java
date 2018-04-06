@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twl.xg.config.AppConfig;
 import com.twl.xg.config.HibernateConfig;
 import com.twl.xg.config.ServletInitializer;
+import com.twl.xg.config.TaskSchedulerConfig;
 import com.twl.xg.dao.SensorDataRepository;
 import com.twl.xg.domain.*;
 import com.twl.xg.service.DataFetchingAndMappingService;
@@ -24,7 +25,7 @@ import static junit.framework.TestCase.fail;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ServletInitializer.class, AppConfig.class, HibernateConfig.class})
+@ContextConfiguration(classes = {ServletInitializer.class, AppConfig.class, HibernateConfig.class, TaskSchedulerConfig.class})
 @WebAppConfiguration
 public class TestDataFetchingAndMappingService {
   @Autowired
