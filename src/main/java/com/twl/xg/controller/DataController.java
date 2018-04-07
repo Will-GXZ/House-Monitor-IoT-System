@@ -45,14 +45,49 @@ public class DataController {
    *
    * @return An instance of DataPackage that contains all current data.
    */
-  @RequestMapping(value = "/get/all",
+  @RequestMapping(value = "/get/all/current",
                   method = RequestMethod.GET,
-                  headers = "ModelAttribute=getAllData",
+                  headers = "ModelAttribute=getAllDataFromSensor",
                   produces = "application/json",
                   consumes = "application/json")
   public @ResponseBody DataPackage getAllCurrentData() throws JsonProcessingException {
     logger.debug("getAllCurrentData:  Request accepted");
     DataPackage dataPackage = accessSensorService.getAllCurrentSensorData();
-    return dataPackage;
+    if (dataPackage == null) {
+      return new DataPackage(null);
+    } else {
+      return dataPackage;
+    }
+  }
+
+  /**
+   * Gets all data from database, map to a <code>DataPackage</code> object.
+   *
+   * @return An instance of DataPackage that contains all data in database.
+   */
+  @RequestMapping(value = "/get/all/database",
+                  method = RequestMethod.GET,
+                  headers = "ModelAttribute=getAllDataFromDatabase",
+                  produces = "application/json",
+                  consumes = "application/json")
+  public @ResponseBody DataPackage getAllDataFromDatabase() {
+    logger.debug("getAllDataFromDataBase:  Request accepted");
+    DataPackage dataPackage = dataFetchingAndMappingService.getAllDataFromDB(null);
+    if (dataPackage == null) {
+      return new DataPackage(null);
+    } else {
+      return dataPackage;
+    }
+  }
+
+  @RequestMapping(value = "/delete/all",
+                  method = RequestMethod.DELETE,
+                  headers = "ModelAttribute=deleteAllData",
+                  produces = "application/json",
+                  consumes = "application/json")
+  public @ResponseBody String clearAllData() {
+    logger.debug("clearAllData:  Request accepted");
+    dataFetchingAndMappingService.clearSensorData();
+    return "HTTP_OK";
   }
 }

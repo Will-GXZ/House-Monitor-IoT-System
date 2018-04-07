@@ -57,10 +57,10 @@
                     document.write(this.responseText);
                 }
             }
-            xhttp.open("GET", "/data/get/all", true);
+            xhttp.open("GET", "/data/get/all/current", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
-            xhttp.setRequestHeader("ModelAttribute", "getAllData");
+            xhttp.setRequestHeader("ModelAttribute", "getAllDataFromSensor");
             xhttp.send();
         }
 
@@ -188,6 +188,40 @@
             xhttp.setRequestHeader("ModelAttribute", "stopSavingData");
             xhttp.send();
         }
+
+        function getAllDataFromDatabase() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("allDataFromDatabase").innerHTML = this.responseText;
+                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                    history.pushState(null, null, "/error");
+                    document.write(this.responseText);
+                }
+            }
+            xhttp.open("GET", "/data/get/all/database", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "getAllDataFromDatabase");
+            xhttp.send();
+        }
+
+        function deleteAllData() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("allDataFromDatabase").innerHTML = this.responseText;
+                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                    history.pushState(null, null, "/error");
+                    document.write(this.responseText);
+                }
+            }
+            xhttp.open("DELETE", "/data/delete/all", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "deleteAllData");
+            xhttp.send();
+        }
     </script>
 </head>
 <body>
@@ -207,6 +241,9 @@
     <button type="button" onclick="startSavingTask()">startSavingTask</button>
     <br>
     <button type="button" onclick="stopSavingTask()">stopSavingTask</button>
-
+    <br>
+    <button type="button" onclick="getAllDataFromDatabase()">getAllDataFromDatabase</button>
+    <p id="allDataFromDatabase"></p>
+    <button type="button" onclick="deleteAllData()">deleteAllData</button>
 </body>
 </html>

@@ -8,6 +8,10 @@ public class DataPackage {
   private List<BorderRouterWrapper> borderRouterWrapperList;
 
   public DataPackage(List<BorderRouterWrapper> borderRouterWrapperList) {
+    if (borderRouterWrapperList == null) {
+      size = 0;
+      return;
+    }
     this.borderRouterWrapperList = new ArrayList<>(borderRouterWrapperList);
     for (BorderRouterWrapper borderRouterWrapper : borderRouterWrapperList) {
       size += borderRouterWrapper.getSize();

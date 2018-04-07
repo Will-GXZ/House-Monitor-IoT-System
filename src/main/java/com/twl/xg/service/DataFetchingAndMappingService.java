@@ -222,6 +222,15 @@ public class DataFetchingAndMappingService {
     borderRouterRepository.clear();
   }
 
+  /**
+   * Delete all sensor data entries in database. After this operation, ensure there
+   * is no sensor data entry in database.
+   */
+  @Transactional
+  public void clearSensorData() {
+    sensorDataRepository.clear();
+  }
+
   @Transactional
   public List<String> getAllSensorIp() {
     return sensorRepository.getAllSensorIp();
