@@ -63,7 +63,10 @@ public class AppConfig implements WebMvcConfigurer {
    */
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    registry.addResourceHandler("/**").addResourceLocations("/resources/");
+    registry.addResourceHandler("/js/**").addResourceLocations("/resources/theme1/js/");
+    registry.addResourceHandler("/css/**").addResourceLocations("/resources/theme1/css/");
+    registry.addResourceHandler("/imgs/**").addResourceLocations("/resources/theme1/imgs/");
   }
 
   @Bean(value = "dataTypeList")

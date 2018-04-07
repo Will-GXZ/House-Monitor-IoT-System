@@ -231,6 +231,12 @@ public class DataFetchingAndMappingService {
     sensorDataRepository.clear();
   }
 
+  /**
+   * Get all sensor IP in database, if there is no sensor in database, return an
+   * empty list.
+   *
+   * @return a list of sensor IP
+   */
   @Transactional
   public List<String> getAllSensorIp() {
     return sensorRepository.getAllSensorIp();
