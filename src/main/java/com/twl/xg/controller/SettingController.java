@@ -102,10 +102,10 @@ public class SettingController {
    * ignore that border router IP.
    *
    * Before we add these border router into database, we need to clear the database
-   * first. Because we are initialing the server.
+   * first. Because we are initializing the server.
    *
    * For this API, one need to send a JSON string which is a 2D array, each row
-   * is a key-value pair of router IP and name.
+   * is a pair of router IP and name.
    *
    * @param routerIpAndName The input array of border router IP and name, key-value pair
    * @return "HTTP_OK" indicates the operation is successful.

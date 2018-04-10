@@ -160,7 +160,7 @@
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log(this.responseText);
-                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 }
@@ -177,7 +177,7 @@
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log(this.responseText);
-                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 }
@@ -194,7 +194,7 @@
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     document.getElementById("allDataFromDatabase").innerHTML = this.responseText;
-                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 }
@@ -211,7 +211,7 @@
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     document.getElementById("allDataFromDatabase").innerHTML = this.responseText;
-                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 }
