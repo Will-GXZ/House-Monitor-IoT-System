@@ -122,7 +122,10 @@ public class SettingController {
     // For each border router IP address, get sensors connected to the router, store them in database
     for (String[] pair : routerIpAndName) {
       if (accessBorderRouterService.existBorderRouter(pair[0])) {
-        accessBorderRouterService.saveBorderRouter(pair[0], pair[1]);
+        if (accessBorderRouterService.saveBorderRouter(pair[0], pair[1]) == null) {
+          // if saveBorderRouter return null, means duplicate router IP, ignore this IP
+          continue;
+        }
         accessBorderRouterService.saveSensorsForBorderRouterIp(pair[0]);
       }
     }

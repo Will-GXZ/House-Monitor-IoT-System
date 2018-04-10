@@ -40,12 +40,20 @@ public abstract class AbstractAccessBorderRouterService {
    * Save the input border router in database. If the input <code>borderRouterName</code>
    * is <code>null</code>, set its IP as name.
    *
+   * If the input border router IP is already in database, just ignore it.
+   *
    * @param borderRouterIp   The IPv6 address of the border router you want to save.
    * @param borderRouterName The name you want to set for the border router.
    * @return An instance of <code>BorderRouterEntity</code> for the input border router.
    */
   @Transactional
   public BorderRouterEntity saveBorderRouter(String borderRouterIp, String borderRouterName) {
+    // check if this border router IP is in database
+    if (borderRouterRepository.get(borderRouterIp) != null) {
+      logger.error("saveBorderRouter: duplicate borderRouterIp, cannot save, ignored");
+      return null;
+    }
+
     BorderRouterEntity borderRouterEntity = new BorderRouterEntity();
     borderRouterEntity.setBorderRouterIp(borderRouterIp);
     if (borderRouterName == null) {

@@ -78,6 +78,15 @@ public class DataFetchingAndMappingService {
     }
   }
 
+  /**
+   * Get the total number of border router in database.
+   *
+   * @return the number of border router.
+   */
+  @Transactional
+  public long getBorderRouterNumber() {
+    return borderRouterRepository.size();
+  }
 
   /**
    * Update the name of a sensor.

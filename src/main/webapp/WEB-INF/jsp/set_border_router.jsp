@@ -108,11 +108,11 @@
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     if (this.responseText === "HTTP_OK") {
                         console.log("redirect to set_sensor_name page");
-                        window.location.href = "/page/setSensorName";
+                        window.location.href = "/page/setSensorNamePage";
                     } else {
                         window.location.href = "/page/errorPage";
                     }
-                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 }
@@ -128,15 +128,15 @@
     </script>
 </head>
 <body class="text-center">
-    <container>
-        <div class="py-5">
-            <h2>Set Border Router IP</h2>
-            <p class="lead">Fill in this form to set up each <code>[BorderRouterIP, BorderRouterName]</code> pair.</p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-9">
+                <h2 class="mb-3">Set Border Router</h2>
+                <p class="lead">Fill in this form to set up each <code>[BorderRouterIP, BorderRouterName]</code> pair.</p>
+            </div>
         </div>
 
-        <div class="col-xs-3 order-xs-1"></div>
-
-        <div class="col-xs-6 order-xs-2">
+        <div class="row justify-content-center">
             <form id="form1" class="needs-validation" onsubmit="return readForm(this)" novalidate>
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -157,12 +157,12 @@
                         <img src="/imgs/plus.png"/>
                     </button>
                 </div>
-                <hr class="mb-4">
+                <small class="mb-0">Press <strong>+</strong> to add another border router</small>
+                <hr class="mb-4 mt-0">
                 <button class="btn btn-primary btn-success btn-block" type="submit">submit</button>
             </form>
         </div>
-    </container>
-
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>

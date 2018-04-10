@@ -18,10 +18,8 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -44,6 +42,30 @@
             padding-top: 40px;
             padding-bottom: 40px;
             background-color: #f5f5f5;
+        }
+
+        .col-center-block {
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .mb-4 {
+            margin-bottom: 30px;
+        }
+
+        .mb-2 {
+            margin-bottom: 15px;
+        }
+
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 0em;
+            padding: 0;
         }
     </style>
 
@@ -94,7 +116,7 @@
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log("response: " + this.responseText);
                     window.location.href = "/page/setBorderRouterPage";
-                } else if (xhttp.readyState == 4 && xhttp.status == 500) {
+                } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 }
@@ -111,13 +133,22 @@
 
 <body class="text-center">
     <div class="container">
-        <div class="row">
+        <div class="row mb-4">
+            <div class="col-md-8 col-center-block">
+                <h2 class="mb-4">Set Data Type</h2>
+                <p class="lead mb-5">
+                    Enter data types you want to monitor. The data type you entered must be supported
+                    by sensors you are using. For example, if you want to monitor <code>temperature</code>,
+                    you might need to enter <code>temp</code> for it.
+                </p>
+            </div>
+        </div>
+
+        <div class="row col-sm-6 col-center-block">
             <div class="control-group" id="fields">
-                <%--<label class="control-label">Input Data Types</label>--%>
-                <div class="col-xs-3"></div>
-                <div class="controls col-xs-6">
+                <div class="controls">
                     <form id="form1" role="form" autocomplete="off">
-                        <div class="entry input-group">
+                        <div class="entry input-group mb-2">
                             <input class="form-control" name="fields[]" type="text" placeholder="Data type" />
                             <span class="input-group-btn">
                                 <button class="btn btn-success btn-add" type="button">
@@ -127,9 +158,11 @@
                         </div>
                     </form>
                     <br>
-                    <small>Press <span class="glyphicon glyphicon-plus gs"></span> to add another form field :)</small>
+                    <small class="mb-0">Press <span class="glyphicon glyphicon-plus gs"></span> to add another data type</small>
+
                     <div>
-                        <button id="submit_btn1" class="btn btn-primary" onclick="submitForm()">Submit</button>
+                        <hr class="mb-4 mt-0">
+                        <button id="submit_btn1" class="btn btn-primary btn-success btn-block" onclick="submitForm()">Submit</button>
                     </div>
                 </div>
             </div>
