@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>Error Page</title>
-    <link rel="stylesheet" href="/css/error.css"/>
+    <link rel="stylesheet" href="../css/error.css"/>
 </head>
 <body>
     <div class="overlay"></div>

@@ -129,10 +129,13 @@
 </head>
 <body class="text-center">
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mb-3">
             <div class="col-sm-9">
                 <h2 class="mb-3">Set Border Router</h2>
-                <p class="lead">Fill in this form to set up each <code>[BorderRouterIP, BorderRouterName]</code> pair.</p>
+                <p class="lead">
+                    Fill in this form to set up each <code>[BorderRouterIP, BorderRouterName]</code> pair. Duplicated
+                    border router IP will be ignored. Border router name can be duplicated, but it is not recommended.
+                </p>
             </div>
         </div>
 

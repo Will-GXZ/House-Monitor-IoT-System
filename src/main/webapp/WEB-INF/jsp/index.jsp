@@ -11,18 +11,18 @@
     <title>Creative - Start Bootstrap Theme</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
     <!-- Plugin CSS -->
-    <link href="index/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="../index/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="index/css/creative.min.css" rel="stylesheet">
+    <link href="../index/css/creative.min.css" rel="stylesheet">
 
 </head>
 
@@ -78,7 +78,7 @@
                 <h2 class="section-heading text-white">It is easy to use!</h2>
                 <hr class="light my-4">
                 <p class="text-faded mb-4">Just type in your border router IPv6 address, our application will find all sensors connected to your border router automatically. All our interfaces are self-explained, just click your mouse and see what's going on in your house!</p>
-                <a class="btn btn-light btn-xl js-scroll-trigger" href="/page/dataTypeSettingPage">Get Started!</a>
+                <a class="btn btn-light btn-xl js-scroll-trigger" href="../page/dataTypeSettingPage">Get Started!</a>
             </div>
         </div>
     </div>

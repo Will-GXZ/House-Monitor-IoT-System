@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Setting page for data type">
+    <meta name="description" content="Setting page for sensor name">
     <meta name="author" content="xiaozheng guo">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -47,7 +47,7 @@
 <body class="text-center">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-9">
+            <div class="col-sm-9">
                 <h2 class="mb-4">Set Sensor Name</h2>
                 <p class="lead mb-5">
                     Fill in this form to set name of each sensor. Sensor name can be duplicated but this is not recommended.
@@ -57,8 +57,10 @@
             </div>
         </div>
 
-        <div class="col-xs-6 order-xs-2">
-            <form id="form1" class="needs-validation" onsubmit="return readForm(this)" novalidate></form>
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <form id="form1" class="needs-validation" onsubmit="return readForm(this)" novalidate></form>
+            </div>
         </div>
     </div>
 
@@ -106,15 +108,13 @@
                 row.classList.add("row");
                 row.classList.add("justify-content-center");
                 row.innerHTML =
-                    "<div class=\" col-md-6\">" +
-                    "  <div class=\"input-group mb-2\">\n" +
-                    "    <div class=\"input-group-prepend\">\n" +
-                    "      <span class=\"input-group-text\">" + sensorIP + "</span>\n" +
-                    "    </div>\n" +
-                    "    <input type=\"text\" class=\"form-control\" aria-describedby=\"basic-addon3\" placeholder='Sensor Name' required>\n" +
-                    "    <div class=\"invalid-feedback\">\n" +
-                    "      Sensor name is required.\n" +
-                    "    </div>" +
+                    "<div class=\"input-group mb-2 col-sm-10\">\n" +
+                    "  <div class=\"input-group-prepend\">\n" +
+                    "    <span class=\"input-group-text\">" + sensorIP + "</span>\n" +
+                    "  </div>\n" +
+                    "  <input type=\"text\" class=\"form-control\" aria-describedby=\"basic-addon3\" placeholder='Sensor Name' required>\n" +
+                    "  <div class=\"invalid-feedback\">\n" +
+                    "    Sensor name is required.\n" +
                     "  </div>" +
                     "</div>";
                 form.appendChild(row);
@@ -122,15 +122,22 @@
             // add submit button
             var submit_btn = document.createElement("div");
             submit_btn.classList.add("row");
-            submit_btn.classList.add("justify-content-center");
+            submit_btn.classList.add("justify-content-sm-center");
             submit_btn.classList.add("my-4");
             submit_btn.innerHTML =
-                "<div class='col-md-6'>" +
-                "  <button class=\"btn btn-primary btn-success btn-block\" type=\"submit\">submit</button>\n" +
-                "</div>";
+                "    <div class='col-sm-6 mb-3 ml-0'>" +
+                "      <button class=\"btn btn-primary btn-success btn-block\" type=\"submit\">submit</button>\n" +
+                "    </div>" +
+                "    <div class=\"col-sm-6 mb-3 mr-0\">" +
+                "      <button class=\"btn btn-primary btn-success btn-block\" type=\"button\" onclick=\"window.location='/page/monitorDataPage'\">skip</button>\n" +
+                "    </div>";
+
             var hr = document.createElement("hr");
-            hr.classList.add("col-sm-6");
+            hr.classList.add("px-0");
+            hr.classList.add("mx-0");
+            hr.classList.add("bx-0");
             hr.classList.add("mt-4");
+
             form.appendChild(hr);
             form.appendChild(submit_btn);
         }

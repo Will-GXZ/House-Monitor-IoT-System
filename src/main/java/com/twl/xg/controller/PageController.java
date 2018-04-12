@@ -97,14 +97,15 @@ public class PageController {
   @RequestMapping("/monitorDataPage")
   public String monitorDataPage() {
     logger.debug("monitorDataPage: request accepted.");
-    if (((List) context.getBean("dataTypeList")).isEmpty()) {
-      logger.error("monitorDataPage: dataTypeList has not been initialized, redirect.");
-      return "redirect:/page/dataTypeSettingPage";
-    } else if (dataFetchingAndMappingService.getBorderRouterNumber() == 0) {
-      logger.error("monitorDataPage: no border router in database, redirect");
-      return "redirect:/page/setBorderRouterPage";
-    } else {
-      return "monitor_data";
-    }
+//    if (((List) context.getBean("dataTypeList")).isEmpty()) {
+//      logger.error("monitorDataPage: dataTypeList has not been initialized, redirect.");
+//      return "redirect:/page/dataTypeSettingPage";
+//    } else if (dataFetchingAndMappingService.getBorderRouterNumber() == 0) {
+//      logger.error("monitorDataPage: no border router in database, redirect");
+//      return "redirect:/page/setBorderRouterPage";
+//    } else {
+//      return "monitor_data";
+//    }
+    return "monitor_data";
   }
 }
