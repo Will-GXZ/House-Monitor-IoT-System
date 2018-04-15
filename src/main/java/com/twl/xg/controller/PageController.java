@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -42,8 +43,9 @@ public class PageController {
    * @return The view name
    */
   @RequestMapping("/dataTypeSettingPage")
-  public String dataTypeSettingPage() {
+  public String dataTypeSettingPage(Model model) {
     logger.debug("dataTypeSettingPage: request accepted");
+    model.addAttribute("dataTypeList", context.getBean("dataTypeList"));
     return "set_data_type";
   }
 
@@ -97,15 +99,14 @@ public class PageController {
   @RequestMapping("/monitorDataPage")
   public String monitorDataPage() {
     logger.debug("monitorDataPage: request accepted.");
-//    if (((List) context.getBean("dataTypeList")).isEmpty()) {
-//      logger.error("monitorDataPage: dataTypeList has not been initialized, redirect.");
-//      return "redirect:/page/dataTypeSettingPage";
-//    } else if (dataFetchingAndMappingService.getBorderRouterNumber() == 0) {
-//      logger.error("monitorDataPage: no border router in database, redirect");
-//      return "redirect:/page/setBorderRouterPage";
-//    } else {
-//      return "monitor_data";
-//    }
-    return "monitor_data";
+    if (((List) context.getBean("dataTypeList")).isEmpty()) {
+      logger.error("monitorDataPage: dataTypeList has not been initialized, redirect.");
+      return "redirect:/page/dataTypeSettingPage";
+    } else if (dataFetchingAndMappingService.getBorderRouterNumber() == 0) {
+      logger.error("monitorDataPage: no border router in database, redirect");
+      return "redirect:/page/setBorderRouterPage";
+    } else {
+      return "monitor_data";
+    }
   }
 }

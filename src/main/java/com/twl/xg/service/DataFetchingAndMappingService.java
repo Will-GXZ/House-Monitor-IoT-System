@@ -101,6 +101,24 @@ public class DataFetchingAndMappingService {
   }
 
   /**
+   * Get IP and name of all border router, if there is no border router in database,
+   * return an empty list.
+   *
+   * @return a list of String array that contains "IP, name" pair.
+   */
+  @Transactional
+  public List<String[]> getAllBorderRouterIpAndName() {
+    List<String[]> ret = new ArrayList<>();
+    List<BorderRouterEntity> borderRouterList = borderRouterRepository.getAll();
+    for (BorderRouterEntity borderRouter : borderRouterList) {
+      String[] pair = new String[] {borderRouter.getBorderRouterIp(), borderRouter.getBorderRouterName()};
+      ret.add(pair);
+    }
+    logger.debug("getAllBorderRouterIpAndName:  List --> " + ret.toString());
+    return ret;
+  }
+
+  /**
    * Fetching data from database for given border router. Return all the data that
    * generated later than the given timeStamp;
    *
@@ -249,5 +267,18 @@ public class DataFetchingAndMappingService {
   @Transactional
   public List<String> getAllSensorIp() {
     return sensorRepository.getAllSensorIp();
+  }
+
+  /**
+   * Get border router entity for given border router IP.
+   * Return null if the input border router IP doesn't exist in database.
+   *
+   * @param borderRouterIP
+   * @return An instance of <code>BorderRouterEntity</code>
+   */
+  @Transactional
+  public BorderRouterEntity getBorderRouterEntity(String borderRouterIP) {
+    logger.debug("getBorderRouterEntity:  get border router entity for IP = " + borderRouterIP);
+    return borderRouterRepository.get(borderRouterIP);
   }
 }

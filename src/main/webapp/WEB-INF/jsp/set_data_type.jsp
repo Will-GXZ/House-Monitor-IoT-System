@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Guo
   Date: 4/8/18
@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,13 +116,13 @@
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log("response: " + this.responseText);
-                    window.location.href = "/page/setBorderRouterPage";
+                    window.location.href = "../page/setBorderRouterPage";
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 }
             }
-            xhttp.open("POST", "/setting/dataTypes", true);
+            xhttp.open("POST", "../setting/dataTypes", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "DataTypes");
@@ -136,15 +137,26 @@
         <div class="row mb-4">
             <div class="col-md-8 col-center-block">
                 <h2 class="mb-4">Set Data Type</h2>
-                <p class="lead mb-5">
+                <p class="lead mb-3">
                     Enter data types you want to monitor. The data type you entered must be supported
                     by sensors you are using. For example, if you want to monitor <code>temperature</code>,
                     you might need to enter <code>temp</code> for it.
                 </p>
+                <p class="lead mb-5">
+                    If you want to use the default <code>dataTypeList</code> that can be configured in "app_custom.properties" file,
+                    click <code>Skip</code> button. Currently, the default dataTypeList is:
+                    <code>
+                    <%
+                        List dataTypeList = (List) request.getAttribute("dataTypeList");
+                        out.print(dataTypeList.toString());
+                    %>
+                    </code>
+                    .
+                </p>
             </div>
         </div>
 
-        <div class="row col-sm-6 col-center-block">
+        <div class="row col-xs-6 col-center-block">
             <div class="control-group" id="fields">
                 <div class="controls">
                     <form id="form1" role="form" autocomplete="off">
@@ -161,9 +173,11 @@
                     <small class="mb-0">Press <span class="glyphicon glyphicon-plus gs"></span> to add another data type</small>
 
                     <div>
-                        <hr class="mb-4 mt-0">
-                        <button id="submit_btn1" class="btn btn-primary btn-success btn-block" onclick="submitForm()">Submit</button>
-                    </div>
+                        <hr class="mb-2 mt-4">
+                        <button id="submit_btn1" class="mr-3 col-xs-5 btn btn-primary btn-success" onclick="submitForm()">Submit</button>
+                        <span class="col-xs-2"></span>
+                        <a class="ml-3 col-xs-5 btn btn-primary btn-success" href="../page/setBorderRouterPage">Skip</a>
+                    </span>
                 </div>
             </div>
         </div>

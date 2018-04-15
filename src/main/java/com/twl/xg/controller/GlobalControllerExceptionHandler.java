@@ -1,5 +1,6 @@
 package com.twl.xg.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
   public static final String DEFAULT_ERROR_VIEW = "error_page";
-
+  private static final Logger logger = Logger.getLogger(GlobalControllerExceptionHandler.class);
   /**
    * Handle exceptions threw by controllers.
    *
@@ -24,6 +25,7 @@ public class GlobalControllerExceptionHandler {
     ModelAndView mav = new ModelAndView();
     resp.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
     mav.addObject("exception", e);
+    logger.error("defaultErrorHandler: --> " + e.getMessage());
     mav.addObject("url", req.getRequestURL());
     mav.setViewName(DEFAULT_ERROR_VIEW);
     return mav;

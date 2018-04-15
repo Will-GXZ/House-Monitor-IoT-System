@@ -1,8 +1,12 @@
 package com.twl.xg.config;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -13,15 +17,22 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @EnableWebMvc
 @Configuration
 @EnableTransactionManagement
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
+@PropertySource({"classpath:app_custom.properties"})
 @ComponentScan(basePackages = {"com.twl.xg.controller", "com.twl.xg.service",
                                "com.twl.xg.dao", "com.twl.xg.domain", "com.twl.xg.service.mock_impl",
                                "com.twl.xg.service.impl"})
 public class AppConfig implements WebMvcConfigurer {
+  private static final Logger logger = Logger.getLogger(AppConfig.class);
+  @Autowired
+  private Environment env;
+
   /**
    * Create an internalResourceViewResolver bean. This ViewResolver is responsible
    * for locating the jsp files in <code>WEB-INF/jsp</code> folder.
@@ -67,8 +78,17 @@ public class AppConfig implements WebMvcConfigurer {
     registry.addResourceHandler("/imgs/**").addResourceLocations("/resources/theme1/imgs/");
   }
 
+  /**
+   * Register spring bean of dataTypeList, this is the data types that we need to fetch from
+   * each sensor. For example, <code>[temperature, humidity, lightness]</code>. The default
+   * value of the list is read from <code>app_custom.properties</code> file.
+   *
+   * @return List of data types
+   */
   @Bean(value = "dataTypeList")
   public List<String> addBeanDataTypeList() {
-    return new ArrayList<String>();
+    String dataTypeListStr = env.getProperty("app.bean.dataTypeList");
+    logger.debug("addBeanDataTypeList:  Read data type list property --> " + dataTypeListStr);
+    return new ArrayList<String>(Arrays.asList(dataTypeListStr.split(",")));
   }
 }

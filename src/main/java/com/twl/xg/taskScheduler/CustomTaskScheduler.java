@@ -40,9 +40,11 @@ public class CustomTaskScheduler extends ThreadPoolTaskScheduler {
    * Cancel the scheduled task if it exists.
    */
   synchronized public void stopScheduledTask() {
-    logger.debug("stopScheduledTask:  stop scheduled task.");
-    future.cancel(false);
-    future = null;
+    if (future != null) {
+      logger.debug("stopScheduledTask:  stop scheduled task.");
+      future.cancel(false);
+      future = null;
+    }
   }
 }
 

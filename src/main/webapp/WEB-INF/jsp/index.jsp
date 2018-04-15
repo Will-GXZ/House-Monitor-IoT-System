@@ -11,18 +11,18 @@
     <title>Creative - Start Bootstrap Theme</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="../index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
     <!-- Plugin CSS -->
-    <link href="../index/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="/index/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../index/css/creative.min.css" rel="stylesheet">
+    <link href="/index/css/creative.min.css" rel="stylesheet">
 
 </head>
 
@@ -78,7 +78,8 @@
                 <h2 class="section-heading text-white">It is easy to use!</h2>
                 <hr class="light my-4">
                 <p class="text-faded mb-4">Just type in your border router IPv6 address, our application will find all sensors connected to your border router automatically. All our interfaces are self-explained, just click your mouse and see what's going on in your house!</p>
-                <a class="btn btn-light btn-xl js-scroll-trigger" href="../page/dataTypeSettingPage">Get Started!</a>
+                <a class="btn btn-light mx-3 btn-xl js-scroll-trigger" href="/page/dataTypeSettingPage">Get Started</a>
+                <a class="btn btn-light mx-3 btn-xl js-scroll-trigger" href="/page/monitorDataPage">Continue</a>
             </div>
         </div>
     </div>
@@ -88,8 +89,8 @@
     <div class="container-fluid p-0">
         <div class="row no-gutters popup-gallery">
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="index/img/portfolio/fullsize/1.jpg">
-                    <img class="img-fluid" src="index/img/portfolio/thumbnails/1.jpg" alt="">
+                <a class="portfolio-box" href="/index/img/portfolio/fullsize/1.jpg">
+                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/1.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
@@ -103,8 +104,8 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="index/img/portfolio/fullsize/2.jpg">
-                    <img class="img-fluid" src="index/img/portfolio/thumbnails/2.jpg" alt="">
+                <a class="portfolio-box" href="/index/img/portfolio/fullsize/2.jpg">
+                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/2.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
@@ -118,8 +119,8 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="index/img/portfolio/fullsize/3.jpg">
-                    <img class="img-fluid" src="index/img/portfolio/thumbnails/3.jpg" alt="">
+                <a class="portfolio-box" href="/index/img/portfolio/fullsize/3.jpg">
+                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/3.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
@@ -133,8 +134,8 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="index/img/portfolio/fullsize/4.jpg">
-                    <img class="img-fluid" src="index/img/portfolio/thumbnails/4.jpg" alt="">
+                <a class="portfolio-box" href="/index/img/portfolio/fullsize/4.jpg">
+                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/4.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
@@ -148,8 +149,8 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="index/img/portfolio/fullsize/5.jpg">
-                    <img class="img-fluid" src="index/img/portfolio/thumbnails/5.jpg" alt="">
+                <a class="portfolio-box" href="/index/img/portfolio/fullsize/5.jpg">
+                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/5.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
@@ -163,8 +164,8 @@
                 </a>
             </div>
             <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="index/img/portfolio/fullsize/6.jpg">
-                    <img class="img-fluid" src="index/img/portfolio/thumbnails/6.jpg" alt="">
+                <a class="portfolio-box" href="/index/img/portfolio/fullsize/6.jpg">
+                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/6.jpg" alt="">
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
                             <div class="project-category text-faded">
@@ -218,16 +219,16 @@
 </section>
 
 <!-- Bootstrap core JavaScript -->
-<script src="index/vendor/jquery/jquery.min.js"></script>
-<script src="index/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/index/vendor/jquery/jquery.min.js"></script>
+<script src="/index/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Plugin JavaScript -->
-<script src="index/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="index/vendor/scrollreveal/scrollreveal.min.js"></script>
-<script src="index/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="/index/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/index/vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="/index/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
 <!-- Custom scripts for this template -->
-<script src="index/js/creative.min.js"></script>
+<script src="../index/js/creative.min.js"></script>
 
 </body>
 

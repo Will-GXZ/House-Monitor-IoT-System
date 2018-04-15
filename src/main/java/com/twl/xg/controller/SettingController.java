@@ -33,6 +33,7 @@ import java.util.List;
 @RequestMapping("/setting")
 public class SettingController {
 
+  // Nested class, for creating threads for task scheduler.
   private class RunnableTask implements Runnable {
     /**
      * Fetch data from each sensor, store them in database.
@@ -170,7 +171,7 @@ public class SettingController {
   }
 
   /**
-   * Start the task that periodically saves data.
+   * Start the task that periodically saves data. The minimum period is 1000 milliseconds.
    *
    * @param period The time period between each execution.
    * @return "HTTP_OK" on success.
@@ -181,7 +182,10 @@ public class SettingController {
                   produces = "application/json",
                   consumes = "application/json")
   public @ResponseBody String startSavingData(@RequestBody long period) {
-    logger.debug("startSavingData: Request accepted.");
+    logger.debug("startSavingData: Request accepted. --> period = " + period);
+    if (period < 1000) {
+      period = 1000;
+    }
     taskScheduler.scheduleAtFixedRate(new RunnableTask(), period);
     return "HTTP_OK";
   }
