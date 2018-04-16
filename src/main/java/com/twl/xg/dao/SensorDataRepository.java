@@ -55,13 +55,17 @@ public class SensorDataRepository {
   }
 
   /**
-   * Delete all entries in sensorData table.
+   * Delete all entries in sensorData table. return the number of entries that have
+   * been deleted.
+   *
+   * @return number of entries deleted.
    */
-  public void clear() {
+  public int clear() {
     String hql = "DELETE FROM SensorDataEntity";
     Query query = sessionFactory.getCurrentSession().createQuery(hql);
     int count = query.executeUpdate();
     logger.debug(String.format("clear: table '%s' cleared, %d rows deleted", SensorDataEntity.class, count));
+    return count;
   }
 
   /**

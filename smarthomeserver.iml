@@ -92,5 +92,6 @@
     <orderEntry type="library" name="Chart.bundle" level="application" />
     <orderEntry type="library" name="feather" level="application" />
     <orderEntry type="library" name="bootstrap-toggle" level="application" />
+    <orderEntry type="library" name="moment" level="application" />
   </component>
 </module>

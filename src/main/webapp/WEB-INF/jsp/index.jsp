@@ -85,104 +85,7 @@
     </div>
 </section>
 
-<section class="p-0" id="about">
-    <div class="container-fluid p-0">
-        <div class="row no-gutters popup-gallery">
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/index/img/portfolio/fullsize/1.jpg">
-                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/1.jpg" alt="">
-                    <div class="portfolio-box-caption">
-                        <div class="portfolio-box-caption-content">
-                            <div class="project-category text-faded">
-                                Category
-                            </div>
-                            <div class="project-name">
-                                Project Name
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/index/img/portfolio/fullsize/2.jpg">
-                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/2.jpg" alt="">
-                    <div class="portfolio-box-caption">
-                        <div class="portfolio-box-caption-content">
-                            <div class="project-category text-faded">
-                                Category
-                            </div>
-                            <div class="project-name">
-                                Project Name
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/index/img/portfolio/fullsize/3.jpg">
-                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/3.jpg" alt="">
-                    <div class="portfolio-box-caption">
-                        <div class="portfolio-box-caption-content">
-                            <div class="project-category text-faded">
-                                Category
-                            </div>
-                            <div class="project-name">
-                                Project Name
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/index/img/portfolio/fullsize/4.jpg">
-                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/4.jpg" alt="">
-                    <div class="portfolio-box-caption">
-                        <div class="portfolio-box-caption-content">
-                            <div class="project-category text-faded">
-                                Category
-                            </div>
-                            <div class="project-name">
-                                Project Name
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/index/img/portfolio/fullsize/5.jpg">
-                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/5.jpg" alt="">
-                    <div class="portfolio-box-caption">
-                        <div class="portfolio-box-caption-content">
-                            <div class="project-category text-faded">
-                                Category
-                            </div>
-                            <div class="project-name">
-                                Project Name
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="portfolio-box" href="/index/img/portfolio/fullsize/6.jpg">
-                    <img class="img-fluid" src="/index/img/portfolio/thumbnails/6.jpg" alt="">
-                    <div class="portfolio-box-caption">
-                        <div class="portfolio-box-caption-content">
-                            <div class="project-category text-faded">
-                                Category
-                            </div>
-                            <div class="project-name">
-                                Project Name
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="bg-dark text-white">
+<section class="bg-dark text-white" id="about">
     <div class="container text-center">
         <h2 class="mb-4">House Monitor Sensor Network System</h2>
         <p class="text-faded mb-4">This project is basically a web application that can communicate with sensor networks using CoAP (a specialized web transfer protocol for use with constrained nodes and constrained networks in the Internet of Things). It can periodically collect environmental data from sensors, store in database, and also serve as a web server such that it can display the data in the user's browser.</p>
@@ -228,7 +131,7 @@
 <script src="/index/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
 <!-- Custom scripts for this template -->
-<script src="../index/js/creative.min.js"></script>
+<script src="/index/js/creative.min.js"></script>
 
 </body>
 

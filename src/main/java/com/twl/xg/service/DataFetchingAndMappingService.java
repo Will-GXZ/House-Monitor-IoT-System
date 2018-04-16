@@ -252,10 +252,12 @@ public class DataFetchingAndMappingService {
   /**
    * Delete all sensor data entries in database. After this operation, ensure there
    * is no sensor data entry in database.
+   *
+   * @return the number of entries have been deleted.
    */
   @Transactional
-  public void clearSensorData() {
-    sensorDataRepository.clear();
+  public int clearSensorData() {
+    return sensorDataRepository.clear();
   }
 
   /**

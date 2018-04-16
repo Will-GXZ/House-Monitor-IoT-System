@@ -95,15 +95,19 @@ public class DataController {
     return dataFetchingAndMappingService.getDataForBorderRouterFromDB(borderRouterIp, null);
   }
 
+  /**
+   * Delete all data in database. Return the number of entries deleted.
+   *
+   * @return the number of deleted entries.
+   */
   @RequestMapping(value = "/delete/all",
                   method = RequestMethod.DELETE,
                   headers = "ModelAttribute=deleteAllData",
                   produces = "application/json",
                   consumes = "application/json")
-  public @ResponseBody String clearAllData() {
+  public @ResponseBody int clearAllData() {
     logger.debug("clearAllData:  Request accepted");
-    dataFetchingAndMappingService.clearSensorData();
-    return "HTTP_OK";
+    return dataFetchingAndMappingService.clearSensorData();
   }
 
   /**

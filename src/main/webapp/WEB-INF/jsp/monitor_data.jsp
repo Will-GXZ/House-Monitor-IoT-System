@@ -74,18 +74,21 @@
 
         <main role="main" class="d-flex flex-column col-md-9 ml-sm-auto col-lg-10 px-4">
 
-            <%--toggle--%>
+            <%-- buttons --%>
             <div class="d-flex justify-content-start flex-wrap flex-md-nowrap mt-3 mb-2 mb-3">
                 <div class="mt-3">
-                    <input class="float-left" id="toggle1" data-onstyle="success" data-offstyle="danger" type="checkbox" data-toggle="toggle" data-on="Auto Data Fetching Enabled" data-off="Auto Data Fetching Disabled">
+                    <input class="float-left mr-0" id="toggle1" data-onstyle="success" data-offstyle="danger" type="checkbox" data-toggle="toggle" data-on="Auto Data Fetching Enabled" data-off="Auto Data Fetching Disabled">
                 </div>
-                <div id="toggle_alert" class="ml-4 float-left">
-                    <div  class=" ml-4 float-left alert alert-info alert-dismissible fade show" role="alert">
+                <div id="toggle_alert" class="ml-2 float-left">
+                    <div  class=" ml-3 float-left alert alert-info alert-dismissible fade show" role="alert">
                         <strong> Suggestion: </strong> <br> <strong><span data-feather="arrow-left"></span></strong>Click here to toggle auto data fetching.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                </div>
+                <div class="float-left mt-3 ml-4">
+                    <button type="button" class="btn btn-warning" onclick="clearHistoryData()"> Clear History Data </button>
                 </div>
             </div>
 
@@ -144,7 +147,25 @@
 </div>
 
 <%-- core javascript logic here --%>
-
+<script>
+    function clearHistoryData() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState === 4 && xhttp.status === 200) {
+                var count = parseInt(this.responseText);
+                showAlert(count + " entries deleted. All sensor data in database has been deleted.", 'success')
+            } else if (xhttp.readyState === 4 && xhttp.status === 500) {
+                history.pushState(null, null, "/error");
+                document.write(this.responseText);
+            }
+        }
+        xhttp.open("DELETE", "/data/delete/all", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("Accept", "application/json");
+        xhttp.setRequestHeader("ModelAttribute", "deleteAllData");
+        xhttp.send();
+    }
+</script>
 <%-- javascript for show history data --%>
 <script>
     // entrance for display history data feature
@@ -265,15 +286,30 @@
     function drawLineChart(timeLabelList, dataLists, canvas, sensorNameList) {
         // create data set list
         var dataSets = [];
+        var colorList = [
+            "#FE6584", "#38A2E7", "#4EC0BF", "#f9acac",
+            "#f2ff00", "#fa217f", "#fc913a", "#99583b", "#5b3000", "#76877d",
+            "#82a6b1", "#95017b", "#ffd900", "#4376b3", "#9da9b7", "#f46036"
+        ];
+        var transparentColorList = [
+            "#FE658420", "#38A2E720", "#4EC0BF20", "#f9acac20",
+            "#f2ff0020", "#fa217f20", "#fc913a20", "#99583b20", "#5b300020", "#76877d20",
+            "#82a6b120", "#95017b20", "#ffd90020", "#4376b320", "#9da9b720", "#f4603620"
+        ];
         for (var i = 0; i < dataLists.length; ++i) {
             var dataListForSensor = dataLists[i];
             dataSets.push({
                 data: dataListForSensor,
+                label: sensorNameList[i],
                 lineTension: 0.3,
-                backgroundColor: 'transparent',
-                borderColor: '#007bff',
-                borderWidth: 4,
-                pointBackgroundColor: '#007bff'
+                backgroundColor: transparentColorList[i % colorList.length],
+                borderColor: colorList[i % colorList.length],
+                borderWidth: 2,
+                cubicInterpolationMode: 'monotone',
+                spanGaps: true,
+                pointRadius: 3,
+                pointHoverRadius: 9,
+                pointHoverBackgroundColor: colorList[i % colorList.length]
             });
         }
         // convert timeLabelList from int list to Date list
@@ -282,6 +318,12 @@
             labelList.push(new Date(timeLabelList[i]));
         }
         console.log("drawLineChart:  " + labelList); // DEBUG
+
+        // calculate the scale of Y axis
+        var maxValue = -0x80000000;
+        for (var i = 0; i < dataLists.length; ++i) {
+            maxValue = Math.max(maxValue, Math.max(...dataLists[i]));
+        }
 
         var myChart = new Chart(canvas, {
             type: 'line',
@@ -293,12 +335,28 @@
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: false
+                            beginAtZero: true,
+                            max: maxValue * 1.2
+                        }
+                    }],
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            displayFormats: {
+                                quarter: 'h:mm:ss a'
+                            }
+                        },
+                        gridLines: {
+                            offsetGridLines: true
                         }
                     }]
                 },
                 legend: {
-                    display: false,
+                    position: "bottom"
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
                 }
             }
         });
@@ -350,8 +408,7 @@
         li.classList.add("nav-item");
         var link = document.createElement("a");
         link.classList.add("nav-link");
-        link.innerHTML =
-            "<span data-feather=\"cpu\"></span>\n" + routerName;
+        link.innerHTML = "<span data-feather=\"cpu\"></span>\n" + routerName;
         // add onclick call back function, draw charts when click on this item
         link.addEventListener('click', function () {
             // clear charts created last time first
@@ -372,9 +429,9 @@
                     for (var i = 0; i < dataTypeList.length; ++i) {
                         var dataType = dataTypeList[i];
                         var dataList = getDataListForCurrentData(dataType, borderRouterWrapper);
-                        createChartTitle(dataType);
-                        var canvas = createCanvas();
-                        drawBarChart(sensorNameList, dataList, canvas);
+                        createChartTitle(dataType, routerName);
+                        var canvas = createCanvas(900, 300);
+                        drawBarChart(sensorNameList, dataList, canvas, dataType);
                     }
 
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
@@ -397,21 +454,20 @@
 
     // create chart title for given datatype
     // @return: a HTML element block contains title
-    function createChartTitle(datatype) {
+    function createChartTitle(datatype, routerName) {
         var chartDiv = document.getElementById("chart_div");
         var title = document.createElement("div");
         title.setAttribute("class", "d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom");
-        title.innerHTML =
-            "                <h1 class=\"h2\">" + datatype + "</h1>\n";
+        title.innerHTML = "<h1 class=\"h2\">" + routerName + ": <span class='text-muted'>" + datatype + "</span></h1>\n";
         chartDiv.appendChild(title);
     }
 
-    function createCanvas() {
+    function createCanvas(width, height) {
         var div = document.getElementById("chart_div");
         var canvas = document.createElement("canvas");
         canvas.setAttribute("class", "my-4 w-100");
-        canvas.setAttribute("width", 700);
-        canvas.setAttribute("height", 280);
+        canvas.setAttribute("width", width);
+        canvas.setAttribute("height", height);
         div.appendChild(canvas);
         return canvas;
     }
@@ -441,30 +497,55 @@
     }
 
     // draw bar chart for the given label list and dataList
-    function drawBarChart(labelList, dataList, canvas) {
+    function drawBarChart(labelList, dataList, canvas, dataType) {
         var myChart = new Chart(canvas, {
-            type: 'bar',
+            type: 'horizontalBar',
             data: {
                 labels: labelList,
                 datasets: [{
                     data: dataList,
-                    lineTension: 0,
-                    backgroundColor: 'transparent',
-                    borderColor: '#007bff',
-                    borderWidth: 4,
-                    pointBackgroundColor: '#007bff'
+                    label: dataType,
+                    borderWidth: 1,
+                    borderColor: [
+                        "#FE6584", "#38A2E7", "#4EC0BF", "#f9acac",
+                        "#f2ff00", "#fa217f", "#fc913a", "#99583b", "#5b3000", "#76877d",
+                        "#82a6b1", "#95017b", "#ffd900", "#4376b3", "#9da9b7", "#f46036"
+                    ],
+                    backgroundColor: [
+                        "#FE658440", "#38A2E740", "#4EC0BF40", "#f9acac40",
+                        "#f2ff0040", "#fa217f40", "#fc913a40", "#99583b40", "#5b300040", "#76877d40",
+                        "#82a6b140", "#95017b40", "#ffd90040", "#4376b340", "#9da9b740", "#f4603640"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FE658480", "#38A2E780", "#4EC0BF80", "#f9acac80",
+                        "#f2ff0080", "#fa217f80", "#fc913a80", "#99583b80", "#5b300080", "#76877d80",
+                        "#82a6b180", "#95017b80", "#ffd90080", "#4376b380", "#9da9b780", "#f4603680"
+                    ]
                 }]
             },
             options: {
                 scales: {
-                    yAxes: [{
+                    xAxes: [{
                         ticks: {
-                            beginAtZero: false
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            offsetGridLines: true
+                        }
+                    }],
+                    yAxes: [{
+                        barPercentage: 0.6,
+                        maxBarThickness: 100,
+                        gridLines: {
+                            offsetGridLines: true
                         }
                     }]
                 },
                 legend: {
-                    display: false,
+                    display: false
+                },
+                hover: {
+                    mode: 'nearest'
                 }
             }
         });
@@ -508,9 +589,12 @@
     }
 
     // show alert in div: #data_alert for the given message
-    function showAlert(message) {
+    function showAlert(message, type) {
+        if (typeof type === 'undefined') {
+            type = 'warning';
+        }
         document.getElementById("data_alert").innerHTML =
-            "<div  class=\"m-0 alert alert-warning alert-dismissible fade show\" role=\"alert\">\n" +
+            "<div  class=\"m-0 alert alert-" + type + " alert-dismissible fade show\" role=\"alert\">\n" +
             "  <h4>" +
             "  <strong> Alert: </strong>" + message +
             "  </h4>" +

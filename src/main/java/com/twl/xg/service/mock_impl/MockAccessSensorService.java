@@ -46,7 +46,7 @@ public class MockAccessSensorService extends AbstractAccessSensorService {
     // generate random data, convert to json
     Map<String, String> dataMap = new TreeMap<>();
     for (String dataType : dataTypeList) {
-      dataMap.put(dataType, String.format("%7f", (Math.random() * 200 + 25) / 10.0));
+      dataMap.put(dataType, String.format("%7f", (Math.random() * 100 + 150) / 10.0));
     }
 
     ObjectMapper mapper = new ObjectMapper();
