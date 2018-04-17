@@ -14,7 +14,7 @@
 <body>
     <div class="overlay"></div>
     <div class="terminal">
-        <h1>Error <span class="errorcode">500</span></h1>
+        <h1>Error <span class="errorcode"> </span></h1>
         <p class="output">The server encountered an internal error or misconfiguration and was unable
             to complete your request.<p>
 

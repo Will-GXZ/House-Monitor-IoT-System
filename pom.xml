@@ -166,7 +166,7 @@
     </dependencies>
 
     <build>
-        <finalName>project_demo_1</finalName>
+        <finalName>house_monitor_v1</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>

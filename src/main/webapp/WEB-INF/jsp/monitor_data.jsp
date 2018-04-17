@@ -157,6 +157,8 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
+            } else {
+                window.location = "/page/errorPage";
             }
         }
         xhttp.open("DELETE", "/data/delete/all", true);
@@ -191,6 +193,8 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
+            } else {
+                window.location = "/page/errorPage";
             }
         }
         xhttp.open("GET", "/data/get/borderRouterIpAndName", true);
@@ -252,6 +256,8 @@
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
+                } else {
+                    window.location = "/page/errorPage";
                 }
             }
             xhttp.open("GET", "/data/get/" + routerIP + "/database", true);
@@ -437,6 +443,8 @@
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
+                } else {
+                    window.location = "/page/errorPage";
                 }
             };
             xhttp.open("GET", "/data/get/" + routerIP + "/sensor", true);
@@ -630,6 +638,8 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
+            } else {
+                window.location = "/page/errorPage";
             }
         }
         xhttp.open("POST", "/setting/startTask/savingData", true);
@@ -648,6 +658,8 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
+            } else {
+                window.location = "/page/errorPage";
             }
         }
         xhttp.open("POST", "/setting/stopTask/savingData", true);
