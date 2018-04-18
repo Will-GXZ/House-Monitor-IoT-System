@@ -13,7 +13,7 @@ import java.util.Date;
 
 @JsonIgnoreProperties(value = {"sensorBySensorIp"})
 @Entity
-@Table(name = "sensor_data", schema = "testdb2")
+@Table(name = "sensor_data", schema = "house_monitor_db")
 public class SensorDataEntity {
   // must be less than the maximum column length of VARCHAR field in mySQL.
   public static final int MAX_DATA_JSON_LEN = 1000;

@@ -13,6 +13,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This is the repository class for sensor data entity. This class
+ */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Repository
 public class SensorDataRepository {

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @JsonIgnoreProperties(value = {"borderRouterByBorderRouterIp"})
 @Entity
-@Table(name = "sensor", schema = "testdb2")
+@Table(name = "sensor", schema = "house_monitor_db")
 public class SensorEntity {
   private String sensorIp;
   private String sensorName;

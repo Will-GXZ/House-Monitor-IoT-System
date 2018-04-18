@@ -3,7 +3,7 @@ package com.twl.xg.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "border_router", schema = "testdb2")
+@Table(name = "border_router", schema = "house_monitor_db")
 public class BorderRouterEntity {
   private String borderRouterIp;
   private String borderRouterName;
