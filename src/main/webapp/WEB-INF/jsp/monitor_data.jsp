@@ -60,13 +60,6 @@
                     <span data-feather="chevrons-down"></span>
                 </h5>
                 <ul id="side_bar" class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="cpu"></span>
-                            Reports
-                        </a>
-                    </li>
-
                     <%--populated by script--%>
                 </ul>
             </div>
@@ -148,6 +141,17 @@
 
 <%-- core javascript logic here --%>
 <script>
+    // display the error message if there is something wrong with ajax requests,
+    // need to encode "\n" with "%0A" for url encoding. And in back-end, need to
+    // replace all "%0A" with "<br>"
+    function displayErrorPage(xhttp) {
+        console.log("error occured. Ready state: " + xhttp.readyState + ", Status: "
+            + xhttp.status + "%0Abody: " + xhttp.responseText);
+        window.location = "/page/errorPage?stackTrace=HTTP Status:%0A" + xhttp.status
+            + "%0A%0AHTTP Response Body:%0A" + xhttp.responseText
+            + "%0A%0A" + new Error().stack.replace(/\n/g, "%0A");
+    }
+
     function clearHistoryData() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -157,8 +161,8 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
-            } else {
-                window.location = "/page/errorPage";
+            } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
             }
         }
         xhttp.open("DELETE", "/data/delete/all", true);
@@ -193,8 +197,8 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
-            } else {
-                window.location = "/page/errorPage";
+            } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
             }
         }
         xhttp.open("GET", "/data/get/borderRouterIpAndName", true);
@@ -256,8 +260,8 @@
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
-                } else {
-                    window.location = "/page/errorPage";
+                } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
                 }
             }
             xhttp.open("GET", "/data/get/" + routerIP + "/database", true);
@@ -443,8 +447,8 @@
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
-                } else {
-                    window.location = "/page/errorPage";
+                } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
                 }
             };
             xhttp.open("GET", "/data/get/" + routerIP + "/sensor", true);
@@ -638,8 +642,8 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
-            } else {
-                window.location = "/page/errorPage";
+            } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
             }
         }
         xhttp.open("POST", "/setting/startTask/savingData", true);
@@ -658,8 +662,8 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
-            } else {
-                window.location = "/page/errorPage";
+            } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
             }
         }
         xhttp.open("POST", "/setting/stopTask/savingData", true);

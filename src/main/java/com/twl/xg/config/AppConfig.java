@@ -1,5 +1,6 @@
 package com.twl.xg.config;
 
+import com.twl.xg.service.PropertyService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +31,12 @@ import java.util.List;
                                "com.twl.xg.service.impl"})
 public class AppConfig implements WebMvcConfigurer {
   private static final Logger logger = Logger.getLogger(AppConfig.class);
+
   @Autowired
   private Environment env;
+
+  @Autowired
+  private PropertyService propertyService;
 
   /**
    * Create an internalResourceViewResolver bean. This ViewResolver is responsible
@@ -80,15 +85,29 @@ public class AppConfig implements WebMvcConfigurer {
 
   /**
    * Register spring bean of dataTypeList, this is the data types that we need to fetch from
-   * each sensor. For example, <code>[temperature, humidity, lightness]</code>. The default
-   * value of the list is read from <code>app_custom.properties</code> file.
+   * each sensor. For example, <code>[temperature, humidity, lightness]</code>.
+   *
+   * The default data type list will loaded from database first, if there is no record in
+   * database, it will be loaded from "app_custom.properties" file.
    *
    * @return List of data types
+   * @throws RuntimeException if there is no dataTypeList in either of database and properties file.
    */
   @Bean(value = "dataTypeList")
   public List<String> addBeanDataTypeList() {
-    String dataTypeListStr = env.getProperty("app.bean.dataTypeList");
-    logger.debug("addBeanDataTypeList:  Read data type list property --> " + dataTypeListStr);
-    return new ArrayList<String>(Arrays.asList(dataTypeListStr.split(",")));
+    // try to load dataTypeList from database first
+    String dataTypeListString = propertyService.getProperty("dataTypeListString");
+    if (dataTypeListString != null) {
+      logger.debug("addBeanDataTypeList:  Read data type list property from database --> " + dataTypeListString);
+    } else {
+      dataTypeListString = env.getProperty("app.bean.dataTypeList");
+      if (dataTypeListString == null) {
+        logger.error("addBeanDataTypeList:  There is no dataTypeListString in database or properties file.");
+        throw new RuntimeException("There is no dataTypeListString in database or properties file.");
+      }
+      propertyService.setProperty("dataTypeListString", dataTypeListString);
+      logger.debug("addBeanDataTypeList:  Read data type list property from .properties file --> " + dataTypeListString);
+    }
+    return new ArrayList<String>(Arrays.asList(dataTypeListString.split(",")));
   }
 }

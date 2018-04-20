@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Guo
@@ -6,12 +5,13 @@
   Time: 9:46 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Error Page</title>
-    <link rel="stylesheet" href="../css/error.css"/>
+    <link rel="stylesheet" href="/css/error.css"/>
 </head>
 <body>
     <div class="overlay"></div>
@@ -28,11 +28,11 @@
         </p>
 
         <pre>
-            Failed URL: ${url}
-            Exception:  ${exception.message}
-            <c:forEach items = "${exception.stackTrace}" var = "ste">
-                ${ste}
-            </c:forEach>
+        Failed URL: ${url}
+        Exception:  ${exception.message}
+        <c:forEach items = "${exception.stackTrace}" var = "ste">
+            ${ste}
+        </c:forEach>
         </pre>
     </div>
 </body>
