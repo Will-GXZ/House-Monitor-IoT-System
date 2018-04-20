@@ -252,7 +252,7 @@
                     for (var i = 0; i < dataTypeList.length; ++i) {
                         var dataType = dataTypeList[i];
                         var dataLists = getDataListsForHistoryData(borderRouterWrapper, dataType);
-                        createChartTitle(dataType);
+                        createChartTitle(dataType, routerName);
                         var canvas = createCanvas();
                         drawLineChart(timeStampList, dataLists, canvas, sensorNameList);
                     }
@@ -462,7 +462,7 @@
 
         // replace feather icon
         feather.replace();
-    };
+    }
 
     // create chart title for given datatype
     // @return: a HTML element block contains title
