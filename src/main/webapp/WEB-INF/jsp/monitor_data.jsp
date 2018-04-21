@@ -141,6 +141,18 @@
 
 <%-- core javascript logic here --%>
 <script>
+    // replace value of 0x7fffffff in data list with null
+    // value 0x7fffffff indicates that this data entry is invalid, should not be
+    // displayed
+    function filterDataList(dataList) {
+        for (var i = dataList.length - 1; i >= 0; --i) {
+            if (dataList[i] >= 0x7fffffff) {
+                dataList[i] = null;
+            }
+        }
+    }
+
+
     // display the error message if there is something wrong with ajax requests,
     // need to encode "\n" with "%0A" for url encoding. And in back-end, need to
     // replace all "%0A" with "<br>"
@@ -243,7 +255,7 @@
                     if (this.responseText.length === 0) {
                         showAlert("There is no data for border router IP: " + routerIP + " in database.")
                         return;
-                    };
+                    }
                     // draw charts for this border router
                     var borderRouterWrapper = JSON.parse(this.responseText);
                     var dataTypeList = getDataTypeList(borderRouterWrapper);
@@ -280,17 +292,18 @@
     // this data list should be a 2D array, each row is data list for a sensor
     // each column is data of all sensors at one timestamp.
     function getDataListsForHistoryData(borderRouterWrapper, dataType) {
-        var dataList = [];
+        var dataLists = [];
         for (var i = 0; i < borderRouterWrapper.sensorWrapperList.length; ++i) {
             var sensorWrapper = borderRouterWrapper.sensorWrapperList[i];
             var dataListOfSensor = [];
             for (var j = 0; j < sensorWrapper.dataList.length; ++j) {
                 dataListOfSensor.push(parseFloat(sensorWrapper.dataList[j].dataJson[dataType]));
             }
-            dataList.push(dataListOfSensor);
+            filterDataList(dataListOfSensor);
+            dataLists.push(dataListOfSensor);
         }
-        console.log(dataList); // DEBUG
-        return dataList;
+        console.log(dataLists); // DEBUG
+        return dataLists;
     }
 
     function drawLineChart(timeLabelList, dataLists, canvas, sensorNameList) {
@@ -436,6 +449,9 @@
                     var borderRouterWrapper = JSON.parse(this.responseText);
                     var dataTypeList = getDataTypeList(borderRouterWrapper);
                     var sensorNameList = getSensorNameList(borderRouterWrapper);
+                    if (sensorNameList.length == 0) {
+                        showAlert("There is no sensor connected to border router, IP = " + routerIP + ", check sensor network connection.")
+                    }
                     for (var i = 0; i < dataTypeList.length; ++i) {
                         var dataType = dataTypeList[i];
                         var dataList = getDataListForCurrentData(dataType, borderRouterWrapper);
@@ -448,7 +464,7 @@
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 } else if (xhttp.readyState === 4) {
-                displayErrorPage(this);
+                    displayErrorPage(this);
                 }
             };
             xhttp.open("GET", "/data/get/" + routerIP + "/sensor", true);
@@ -498,7 +514,8 @@
             var data = sensorWrapper.dataList[0].dataJson[dataType];
             dataList.push(parseFloat(data));
         }
-        console.log(dataList); // DEBUG
+        filterDataList(dataList);
+        console.log("dataList: " + dataType + ", " + dataList); // DEBUG
         return dataList;
     }
 
