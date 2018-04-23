@@ -4,6 +4,14 @@ import com.twl.xg.domain.SensorDataEntity;
 import com.twl.xg.service.AbstractAccessSensorService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Real implementation of <code>getDataFromSensor</code>. Because of some technical
+ * reasons, we cannot provide a complete implementation for now.
+ *
+ * @see AbstractAccessSensorService
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 public class AccessSensorService extends AbstractAccessSensorService {

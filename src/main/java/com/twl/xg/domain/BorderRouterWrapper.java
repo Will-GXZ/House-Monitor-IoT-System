@@ -6,6 +6,11 @@ import java.util.List;
 /**
  * Use this class as the JSON model for borderRouter, an instance of <code>BorderRouterWrapper</code>
  * contains an instance of <code>BorderRouterEntity</code> and a list of <code>SensorWrapper</code>.
+ *
+ * @see BorderRouterEntity
+ * @see SensorWrapper
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 public class BorderRouterWrapper {
   private BorderRouterEntity borderRouter;

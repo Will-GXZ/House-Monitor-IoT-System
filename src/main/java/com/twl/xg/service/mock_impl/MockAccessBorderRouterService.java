@@ -1,22 +1,21 @@
 package com.twl.xg.service.mock_impl;
 
-import com.twl.xg.dao.BorderRouterRepository;
-import com.twl.xg.dao.SensorRepository;
 import com.twl.xg.service.AbstractAccessBorderRouterService;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Dummy implementation of <code>existBorderRouter()</code> and <code>getSensorIpByBorderRouterIp()</code>
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 public class MockAccessBorderRouterService extends AbstractAccessBorderRouterService {
-  @Autowired
-  BorderRouterRepository borderRouterRepository;
-  @Autowired
-  SensorRepository sensorRepository;
 
   private static final Logger logger = Logger.getLogger(MockAccessBorderRouterService.class);
 

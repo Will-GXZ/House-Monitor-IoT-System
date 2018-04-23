@@ -71,7 +71,7 @@ public class PropertyService {
    * Get all property from database, return a map view of properties. Users should
    * not modify this map.
    *
-   * @return A <code>Map</></code> of property name and value pair.
+   * @return A <code>Map</code> of property name and value pair.
    */
   @Transactional
   public Map<String, String> getPropertyMap() {

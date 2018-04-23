@@ -11,8 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * This abstract defines the basic operations to communicate with border routers.
- * Also provide some common implementations.
+ * This abstract class defines the basic operations to communicate with border routers.
+ * Also provide some common methods. To use this class, one need to extend this abstract
+ * class and implement abstract methods: <code>getSensorIpByBorderRouterIp()</code>
+ * and <code>existBorderRouter()</code>.
+ *
+ * @see com.twl.xg.service.impl.AccessBorderRouterService
+ * @see com.twl.xg.service.mock_impl.MockAccessBorderRouterService
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 public abstract class AbstractAccessBorderRouterService {
   @Autowired
@@ -21,6 +28,15 @@ public abstract class AbstractAccessBorderRouterService {
   protected SensorRepository sensorRepository;
 
   private static final Logger logger = Logger.getLogger(AbstractAccessBorderRouterService.class);
+
+  /**
+   * Check if a border router IP is exist, notice that this method doesn't check
+   * if the IP is in database, it checks if the router IP exists in the real network.
+   *
+   * @param borderRouterIp The IPv6 address of the border router you want to check.
+   * @return <code>true</code> for border router exists, <code>false</code> otherwise.
+   */
+  public abstract boolean existBorderRouter(String borderRouterIp);
 
   /**
    * Take as input a <code>String</code> of borderRouterIp, return a list of
@@ -94,13 +110,4 @@ public abstract class AbstractAccessBorderRouterService {
     }
     logger.debug("saveSensorForBorderRouterIp:  Saved " + sensorIpList.size() + " sensors for border router IP = " + borderRouterIp);
   }
-
-  /**
-   * Check if a border router IP is exist, notice that this method doesn't check
-   * if the IP is in database, it checks if the router IP exists in the real network.
-   *
-   * @param borderRouterIp The IPv6 address of the border router you want to check.
-   * @return <code>true</code> for border router exists, <code>false</code> otherwise.
-   */
-  public abstract boolean existBorderRouter(String borderRouterIp);
 }

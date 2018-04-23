@@ -8,6 +8,8 @@ import java.util.Objects;
 
 /**
  * This is a POJO class that map to "custom_setting" table in database.
+ *
+ * @see com.twl.xg.dao.PropertyRepository
  */
 @Entity
 @Table(name = "properties", schema = "house_monitor_db")

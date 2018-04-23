@@ -8,15 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * This controller is mainly responsible for provide views to browser.
+ * This controller maps specific URL patterns to internal jsp view name, provides
+ * web page contents to users' browser.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
-
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Controller
 @RequestMapping("/page")

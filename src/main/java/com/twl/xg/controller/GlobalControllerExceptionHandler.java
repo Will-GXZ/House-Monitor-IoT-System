@@ -9,9 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Configure the global default exception handler.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
-  public static final String DEFAULT_ERROR_VIEW = "error_page";
+  private static final String DEFAULT_ERROR_VIEW = "error_page";
   private static final Logger logger = Logger.getLogger(GlobalControllerExceptionHandler.class);
   /**
    * Handle exceptions threw by controllers.

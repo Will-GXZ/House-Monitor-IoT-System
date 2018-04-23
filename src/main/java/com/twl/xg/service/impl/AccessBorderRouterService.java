@@ -5,7 +5,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+/**
+ * Real implementation of <code>getSensorIpByBorderRouterIp()</code> and
+ * <code>existBorderRouter()</code>. Because of some technical reasons, we cannot
+ * provide a complete implementation for now.
+ *
+ * @see AbstractAccessBorderRouterService
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 public class AccessBorderRouterService extends AbstractAccessBorderRouterService {

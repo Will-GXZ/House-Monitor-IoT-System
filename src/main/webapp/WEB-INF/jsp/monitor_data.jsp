@@ -449,7 +449,7 @@
                     var borderRouterWrapper = JSON.parse(this.responseText);
                     var dataTypeList = getDataTypeList(borderRouterWrapper);
                     var sensorNameList = getSensorNameList(borderRouterWrapper);
-                    if (sensorNameList.length == 0) {
+                    if (sensorNameList.length === 0) {
                         showAlert("There is no sensor connected to border router, IP = " + routerIP + ", check sensor network connection.")
                     }
                     for (var i = 0; i < dataTypeList.length; ++i) {

@@ -6,6 +6,10 @@ import java.util.List;
 /**
  * Use this class as a JSON model, an instance of <code>SensorWrapper</code>
  * contains an <code>SensorEntity</code> and a list of <code>SensorDataEntity</code>.
+ *
+ * @see SensorEntity
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 public class SensorWrapper {
   private SensorEntity sensor;

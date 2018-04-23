@@ -9,8 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * This is the persistence layer class of properties table in database. Defines
- * some basic operations on database.
+ * This is the persistence layer class of <code>PropertyEntity</code>. Defines some basic
+ * operations on database.
+ *
+ * @see PropertyEntity
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Repository

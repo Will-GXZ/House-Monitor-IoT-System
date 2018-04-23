@@ -17,24 +17,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * This is the data controller class. This Controller handles all requests that are
- * fetching sensor data from back-end. This is a restful controller, consume JSON,
- * produce JSON.
+ * This Controller handles all requests that are fetching sensor data from back-end.
+ * This is a restful controller, consume JSON, produce JSON.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Controller
 @RequestMapping("/data")
 public class DataController {
   @Autowired
-  DataFetchingAndMappingService dataFetchingAndMappingService;
+  private DataFetchingAndMappingService dataFetchingAndMappingService;
   @Autowired
   @Qualifier("mockAccessBorderRouterService")
-  AbstractAccessBorderRouterService accessBorderRouterService;
+  private AbstractAccessBorderRouterService accessBorderRouterService;
   @Autowired
   @Qualifier("mockAccessSensorService")
-  AbstractAccessSensorService accessSensorService;
+  private AbstractAccessSensorService accessSensorService;
   @Autowired
-  ApplicationContext context;
+  private ApplicationContext context;
 
   private static final Logger logger = Logger.getLogger(DataController.class);
 

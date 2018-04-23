@@ -5,7 +5,6 @@ import com.twl.xg.dao.SensorDataRepository;
 import com.twl.xg.dao.SensorRepository;
 import com.twl.xg.domain.*;
 import org.apache.log4j.Logger;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -15,16 +14,19 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * This class contains methods to communicate with database via repository classes
- * in "dao" package. These methods may also map data to proper wrapper class objects.
+ * This is the service layer class that fetches data from repositories.
+ *
+ * @see BorderRouterRepository
+ * @see SensorRepository
+ * @see SensorDataRepository
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 public class DataFetchingAndMappingService {
   @Autowired
   private ApplicationContext context;
-  @Autowired
-  private SessionFactory sessionFactory;
   @Autowired
   private SensorDataRepository sensorDataRepository;
   @Autowired

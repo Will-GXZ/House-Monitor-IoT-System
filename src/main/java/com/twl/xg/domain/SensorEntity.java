@@ -6,6 +6,12 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
+/**
+ * Object model for sensor.
+ *
+ * @see com.twl.xg.dao.SensorRepository
+ * @see SensorWrapper
+ */
 @JsonIgnoreProperties(value = {"borderRouterByBorderRouterIp"})
 @Entity
 @Table(name = "sensor", schema = "house_monitor_db")

@@ -10,6 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+/**
+ * Dummy implementation of <code>getDataFromSensor()</code>.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 public class MockAccessSensorService extends AbstractAccessSensorService {

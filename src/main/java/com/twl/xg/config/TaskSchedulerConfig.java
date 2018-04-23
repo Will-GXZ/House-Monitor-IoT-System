@@ -6,10 +6,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
- * This class configures task scheduler for the application
+ * This class set up the task scheduler for the application. This is needed for
+ * scheduled tasks.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 @Configuration
 public class TaskSchedulerConfig {
+  /**
+   * Register a <code>ThreadPoolTaskScheduler</code> bean.
+   */
   @Bean
   public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
     ThreadPoolTaskScheduler threadPoolTaskScheduler = new CustomTaskScheduler();

@@ -11,12 +11,20 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * Object model class for sensor data.
+ *
+ * @see com.twl.xg.dao.SensorDataRepository
+ * @see SensorWrapper
+ */
 @JsonIgnoreProperties(value = {"sensorBySensorIp"})
 @Entity
 @Table(name = "sensor_data", schema = "house_monitor_db")
 public class SensorDataEntity {
-  // must be less than the maximum column length of VARCHAR field in mySQL.
-  public static final int MAX_DATA_JSON_LEN = 1000;
+  /**
+   * must be less than the maximum column length of VARCHAR field in mySQL.
+   */
+  private static final int MAX_DATA_JSON_LEN = 1000;
 
   private int id;
   private String sensorIp;
