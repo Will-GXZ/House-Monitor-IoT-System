@@ -192,6 +192,8 @@
                 <version>2.6</version>
                 <configuration>
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>house_monitor</warName>
                 </configuration>
             </plugin>
 

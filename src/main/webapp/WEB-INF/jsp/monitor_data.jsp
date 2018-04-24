@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +23,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/monitor_data.css"/>
+    <link rel="stylesheet" href="${contextPath}/css/monitor_data.css"/>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
@@ -43,7 +48,7 @@
     </ul>
     <ul class="navbar-nav px-3 ml-auto">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="../../">
+            <a class="nav-link" href="${contextPath}">
                 <span data-feather="log-out"></span>
                 Exit
             </a>
@@ -159,7 +164,7 @@
     function displayErrorPage(xhttp) {
         console.log("error occured. Ready state: " + xhttp.readyState + ", Status: "
             + xhttp.status + "%0Abody: " + xhttp.responseText);
-        window.location = "/page/errorPage?stackTrace=HTTP Status:%0A" + xhttp.status
+        window.location = "${contextPath}/page/errorPage?stackTrace=HTTP Status:%0A" + xhttp.status
             + "%0A%0AHTTP Response Body:%0A" + xhttp.responseText
             + "%0A%0A" + new Error().stack.replace(/\n/g, "%0A");
     }
@@ -177,7 +182,7 @@
                 displayErrorPage(this);
             }
         }
-        xhttp.open("DELETE", "/data/delete/all", true);
+        xhttp.open("DELETE", "${contextPath}/data/delete/all", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "deleteAllData");
@@ -207,13 +212,13 @@
                 }
                 fun(JSON.parse(this.responseText));
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                history.pushState(null, null, "/error");
+                history.pushState(null, null, "${contextPath}/error");
                 document.write(this.responseText);
             } else if (xhttp.readyState === 4) {
                 displayErrorPage(this);
             }
         }
-        xhttp.open("GET", "/data/get/borderRouterIpAndName", true);
+        xhttp.open("GET", "${contextPath}/data/get/borderRouterIpAndName", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "getAllBorderRouterIpAndName");
@@ -253,7 +258,7 @@
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log("createNavItemForHistoryData: " + this.responseText); // DEBUG
                     if (this.responseText.length === 0) {
-                        showAlert("There is no data for border router IP: " + routerIP + " in database.")
+                        showAlert("There is no data for border router IP: " + routerIP + ", name: " + routerName + " in database.")
                         return;
                     }
                     // draw charts for this border router
@@ -270,13 +275,13 @@
                     }
 
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                    history.pushState(null, null, "/error");
+                    history.pushState(null, null, "${contextPath}/error");
                     document.write(this.responseText);
                 } else if (xhttp.readyState === 4) {
                 displayErrorPage(this);
                 }
             }
-            xhttp.open("GET", "/data/get/" + routerIP + "/database", true);
+            xhttp.open("GET", "${contextPath}/data/get/" + routerIP + "/database", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "getDataForBorderRouterFromDatabase");
@@ -442,7 +447,7 @@
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log("createNavItemForCurrentData: " + this.responseText); // DEBUG
                     if (this.responseText.length === 0) {
-                        showAlert("There is no data got for border router IP: " + routerIP + ", check sensor network connection.")
+                        showAlert("There is no data got for border router IP: " + routerIP + ", name: " + routerName + ", check sensor network connection.")
                         return;
                     }
                     // draw charts for this border router
@@ -450,7 +455,7 @@
                     var dataTypeList = getDataTypeList(borderRouterWrapper);
                     var sensorNameList = getSensorNameList(borderRouterWrapper);
                     if (sensorNameList.length === 0) {
-                        showAlert("There is no sensor connected to border router, IP = " + routerIP + ", check sensor network connection.")
+                        showAlert("There is no sensor connected to border router IP: " + routerIP + ", name: " + routerName + ", check sensor network connection.")
                     }
                     for (var i = 0; i < dataTypeList.length; ++i) {
                         var dataType = dataTypeList[i];
@@ -461,13 +466,13 @@
                     }
 
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                    history.pushState(null, null, "/error");
+                    history.pushState(null, null, "${contextPath}/error");
                     document.write(this.responseText);
                 } else if (xhttp.readyState === 4) {
                     displayErrorPage(this);
                 }
             };
-            xhttp.open("GET", "/data/get/" + routerIP + "/sensor", true);
+            xhttp.open("GET", "${contextPath}/data/get/" + routerIP + "/sensor", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "getDataForBorderRouterFromSensor");
@@ -657,13 +662,13 @@
             if (xhttp.readyState === 4 && xhttp.status === 200) {
                 console.log(this.responseText);
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                history.pushState(null, null, "/error");
+                history.pushState(null, null, "${contextPath}/error");
                 document.write(this.responseText);
             } else if (xhttp.readyState === 4) {
                 displayErrorPage(this);
             }
         }
-        xhttp.open("POST", "/setting/startTask/savingData", true);
+        xhttp.open("POST", "${contextPath}/setting/startTask/savingData", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "startSavingData");
@@ -677,13 +682,13 @@
             if (xhttp.readyState === 4 && xhttp.status === 200) {
                 console.log(this.responseText);
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                history.pushState(null, null, "/error");
+                history.pushState(null, null, "${contextPath}/error");
                 document.write(this.responseText);
             } else if (xhttp.readyState === 4) {
                 displayErrorPage(this);
             }
         }
-        xhttp.open("POST", "/setting/stopTask/savingData", true);
+        xhttp.open("POST", "${contextPath}/setting/stopTask/savingData", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "stopSavingData");

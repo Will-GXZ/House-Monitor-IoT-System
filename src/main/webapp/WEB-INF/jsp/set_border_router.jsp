@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,16 +113,16 @@
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     if (this.responseText === "HTTP_OK") {
                         console.log("redirect to set_sensor_name page");
-                        window.location.href = "/page/setSensorNamePage";
+                        window.location.href = "${contextPath}/page/setSensorNamePage";
                     } else {
-                        window.location.href = "/page/errorPage";
+                        window.location.href = "${contextPath}/page/errorPage";
                     }
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                    history.pushState(null, null, "/error");
+                    history.pushState(null, null, "${contextPath}/error");
                     document.write(this.responseText);
                 }
             }
-            xhttp.open("POST", "/setting/setBorderRouter", true);
+            xhttp.open("POST", "${contextPath}/setting/setBorderRouter", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "borderRouterIpAndName");
@@ -157,7 +162,7 @@
                 </div>
                 <div id="btn_plus_row" class="row">
                     <button class="btn btn-sm ml-3" type="button" style="padding: 0" onclick="addFormRow()">
-                        <img src="/imgs/plus.png"/>
+                        <img src="${contextPath}/imgs/plus.png"/>
                     </button>
                 </div>
                 <small class="mb-0">Press <strong>+</strong> to add another border router</small>

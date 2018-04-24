@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,11 +83,11 @@
                     // create form after success
                     createForm(sensorIpList);
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                    history.pushState(null, null, "/error");
+                    history.pushState(null, null, "${contextPath}/error");
                     document.write(this.responseText);
                 }
             }
-            xhttp.open("GET", "/setting/getAllSensorIp", true);
+            xhttp.open("GET", "${contextPath}/setting/getAllSensorIp", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "getAllSensorIp");
@@ -98,7 +103,7 @@
                     "<hr class=\"mb-4\">" +
                     "  <div class=\"text-center text-info h4\">" +
                     "    class=\"text-warning\">No sensor found, please check your connection. <br>" +
-                    "    Try <a href=\"/page/setBorderRouterPage\">this</a> link to reset border router IP List." +
+                    "    Try <a href=\"${contextPath}/page/setBorderRouterPage\">this</a> link to reset border router IP List." +
                     "  </div>" +
                     "<hr class=\"mt-4\">";
             }
@@ -130,7 +135,7 @@
                 "      <button class=\"btn btn-primary btn-success btn-block\" type=\"submit\">submit</button>\n" +
                 "    </div>" +
                 "    <div class=\"col-sm-6 mb-3 mr-0\">" +
-                "      <button class=\"btn btn-primary btn-success btn-block\" type=\"button\" onclick=\"window.location='/page/monitorDataPage'\">skip</button>\n" +
+                "      <button class=\"btn btn-primary btn-success btn-block\" type=\"button\" onclick=\"window.location='${contextPath}/page/monitorDataPage'\">skip</button>\n" +
                 "    </div>";
 
             var hr = document.createElement("hr");
@@ -160,16 +165,16 @@
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     if (this.responseText === "HTTP_OK") {
                         console.log("redirect to monitor data page");
-                        window.location.href = "/page/monitorDataPage";
+                        window.location.href = "${contextPath}/page/monitorDataPage";
                     } else {
-                        window.location.href = "/page/errorPage";
+                        window.location.href = "${contextPath}/page/errorPage";
                     }
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                     history.pushState(null, null, "/error");
                     document.write(this.responseText);
                 }
             }
-            xhttp.open("PUT", "/setting/setSensorName", true);
+            xhttp.open("PUT", "${contextPath}/setting/setSensorName", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "sensorIpAndName");
