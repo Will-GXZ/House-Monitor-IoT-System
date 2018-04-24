@@ -48,7 +48,7 @@
     </ul>
     <ul class="navbar-nav px-3 ml-auto">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="${contextPath}">
+            <a class="nav-link" href="${contextPath}/">
                 <span data-feather="log-out"></span>
                 Exit
             </a>
