@@ -167,7 +167,7 @@
                 </div>
                 <small class="mb-0">Press <strong>+</strong> to add another border router</small>
                 <hr class="mb-4 mt-0">
-                <button class="btn btn-primary btn-success btn-block" type="submit">submit</button>
+                <button class="btn btn-primary btn-success btn-block" type="submit">Submit</button>
             </form>
         </div>
     </div>

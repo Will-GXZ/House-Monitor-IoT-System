@@ -58,7 +58,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-sm-2 d-none d-sm-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <h5 class="sidebar-heading d-flex justify-content-start align-items-center px-3 mt-4 mb-2 text-muted">
                     <span>Select Border Router</span>
@@ -111,7 +111,7 @@
             <%--<canvas class="my-4 w-100" width="900" height="380">--%>
                 <%--&lt;%&ndash; populated by script &ndash;%&gt;--%>
             <%--</canvas>--%>
-            <div id="chart_div" class="d-flex flex-column">
+            <div id="chart_div" class="d-flex flex-column mr-5">
                 <%-- populated by script --%>
             </div>
 

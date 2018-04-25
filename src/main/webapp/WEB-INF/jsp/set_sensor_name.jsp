@@ -101,8 +101,8 @@
             if (sensorIpList.length === 0) {
                 form.innerHTML =
                     "<hr class=\"mb-4\">" +
-                    "  <div class=\"text-center text-info h4\">" +
-                    "    class=\"text-warning\">No sensor found, please check your connection. <br>" +
+                    "  <div class=\"text-center text-info h4 text-warning\">" +
+                    "    No sensor found, please check your connection. <br>" +
                     "    Try <a href=\"${contextPath}/page/setBorderRouterPage\">this</a> link to reset border router IP List." +
                     "  </div>" +
                     "<hr class=\"mt-4\">";
@@ -132,10 +132,10 @@
             submit_btn.classList.add("my-4");
             submit_btn.innerHTML =
                 "    <div class='col-sm-6 mb-3 ml-0'>" +
-                "      <button class=\"btn btn-primary btn-success btn-block\" type=\"submit\">submit</button>\n" +
+                "      <button class=\"btn btn-primary btn-success btn-block\" type=\"submit\">Submit</button>\n" +
                 "    </div>" +
                 "    <div class=\"col-sm-6 mb-3 mr-0\">" +
-                "      <button class=\"btn btn-primary btn-success btn-block\" type=\"button\" onclick=\"window.location='${contextPath}/page/monitorDataPage'\">skip</button>\n" +
+                "      <button class=\"btn btn-primary btn-success btn-block\" type=\"button\" onclick=\"window.location='${contextPath}/page/monitorDataPage'\">Skip</button>\n" +
                 "    </div>";
 
             var hr = document.createElement("hr");
