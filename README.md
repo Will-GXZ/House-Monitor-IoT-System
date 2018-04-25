@@ -16,17 +16,15 @@ Elfie: _elfiegxf@gmail.com_
 
 ---
 ## Index
-1. [Introduction](#introduction)   
-2. [Technology Stack](#technology-stack)  
-3. [Basic Architecture](#basic-architecture)  
-4. [Components](#components)  
-5. [Build and Deploy](#build-and-deploy)  
-6. [Usage](#usage)
+
+1. [Introduction](#1-introduction)   
+2. [Technology Stack](#2-technology-stack)  
+3. [Basic Architecture](#3-basic-architecture)  
+4. [Components](#4-components)  
+5. [Build and Deploy](#5-build-and-deploy)  
+6. [Usage](#6-usage)
 
 ## 1. Introduction
-
-<span id="introduction"></span>
-
 This project is a web application that can communicate with sensor networks using CoAP protocol. It can collect environmental data sets from sensors and store them in database. The back-end part of the application provides a set of RESTful API that are easy to program with. Other developers can use this set of API in their Android, IOS or Web applications.
 
 Also, the application has a front-end part that communicates with the back-end part via RESTful API. The front-end pages allow users to set up the application and monitor data from a visual interface in their browser.
@@ -42,9 +40,6 @@ Also, the application has a front-end part that communicates with the back-end p
 <br>
 
 ## 2. Technology Stack
-
-<span id="technology-stack"></span>
-
 * Spring Core
 * Spring MVC
 * Hibernate
@@ -65,9 +60,6 @@ Also, the application has a front-end part that communicates with the back-end p
 <br>
 
 ## 3. Basic Architecture
-
-<span id="basic-architecture"></span>
-
 This part gives an overview of basic structure of the whole project. The project can be divided into two parts, front-end and back-end.
 
 * #### Front-end
@@ -83,9 +75,6 @@ The picture below is the structure diagram of the project:
 <br>
 
 ## 4. Components
-
-<span id="components"></span>
-
 In this part, we will cover all the components and their relationships in the project. We will first introduce the file structure of the project, and then talk about each component in back-end and front-end.
 
 * ### 4.1 File Structure
@@ -219,9 +208,6 @@ In this part, we will cover all the components and their relationships in the pr
 <br>
 
 ## 5. Build and Deploy
-
-<span id="build-and-deploy"></span>
-
 * ### 5.1 Runtime Environment
   Below is the runtime environment we use to develop and test the whole system. More detailed runtime environment information can be found in Maven configuration file "pom.xml".
 
@@ -292,9 +278,6 @@ In this part, we will cover all the components and their relationships in the pr
 <br>
 
 ## 6. Usage
-
-<span id="usage"></span>
-
 * ### 6.1 Index Page
   This page is the entrance of the whole system. To start, you need to click "**GET STARTED**" or "**CONTINUE**" button. If it is your first time to use our system, you have to click "**GET STARTED**".
 
