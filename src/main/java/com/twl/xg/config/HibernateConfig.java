@@ -4,17 +4,22 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
+/**
+ * Configure Hibernate framework and spring transaction manager in this class.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Configuration
 @PropertySource({"classpath:persistence-mysql.properties"})

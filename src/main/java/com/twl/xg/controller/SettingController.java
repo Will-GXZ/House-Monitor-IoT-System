@@ -24,16 +24,20 @@ import java.util.List;
 
 
 /**
- * This is the setting controller class. This controller accept URL pattern:
- * <code>/setting/**</code>. All setting requests including customizing data
- * types are handled by this controller.
+ * This controller accept URL pattern: <code>/setting/**</code>. All setting
+ * requests including customizing data types and turning on or turning off the
+ * periodically data fetching task are handled by this controller.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Controller
 @RequestMapping("/setting")
 public class SettingController {
-
-  // Nested class, for creating threads for task scheduler.
+  /**
+   * This is a nested inner class for creating scheduled task to fetching data periodically.
+   */
   private class RunnableTask implements Runnable {
     /**
      * Fetch data from each sensor, store them in database.
@@ -56,21 +60,21 @@ public class SettingController {
   }
 
   @Autowired
-  DataFetchingAndMappingService dataFetchingAndMappingService;
+  private DataFetchingAndMappingService dataFetchingAndMappingService;
 
   @Autowired
   @Qualifier("mockAccessSensorService")
-  AbstractAccessSensorService accessSensorService;
+  private AbstractAccessSensorService accessSensorService;
 
   @Autowired
   @Qualifier(value = "mockAccessBorderRouterService")
-  AbstractAccessBorderRouterService accessBorderRouterService;
+  private AbstractAccessBorderRouterService accessBorderRouterService;
 
   @Autowired
-  ApplicationContext context;
+  private ApplicationContext context;
 
   @Autowired
-  ThreadPoolTaskScheduler taskScheduler;
+  private ThreadPoolTaskScheduler taskScheduler;
 
   private static final Logger logger = Logger.getLogger(SettingController.class);
 

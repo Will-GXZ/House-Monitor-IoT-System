@@ -7,13 +7,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 /**
- * This controller is mainly responsible for provide views to browser.
+ * This controller maps specific URL patterns to internal jsp view name, provides
+ * web page contents to users' browser.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
-
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Controller
 @RequestMapping("/page")
@@ -27,13 +31,21 @@ public class PageController {
   private static final Logger logger = Logger.getLogger(PageController.class);
 
   /**
-   * This is the general error page of the application.
+   * This is the general error page of the application. This function also takes
+   * an optional parameter "stackTrace", which is the stack trace of the error.
    *
    * @return error page view
    */
   @RequestMapping("/errorPage")
-  public String errorPage() {
-    logger.debug("errorPage: request accepted");
+  public String errorPage(Model model,
+                          @RequestParam(value = "stackTrace", required = false) String stackTrace) {
+    logger.error("errorPage: request accepted");
+    if (stackTrace != null) {
+      // replace "\n" in stackTrace string with "<br>"
+      stackTrace = stackTrace.replaceAll("\\n", "<br>");
+      model.addAttribute("stackTrace", stackTrace);
+      logger.error("errorPage: stack trace: " + stackTrace);
+    }
     return "general_error_page";
   }
 

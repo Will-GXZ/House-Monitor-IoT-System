@@ -1,11 +1,16 @@
-<%@ page import="java.util.List" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Guo
   Date: 4/8/18
   Time: 8:27 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 
 <!DOCTYPE html>
 <html>
@@ -116,13 +121,13 @@
             xhttp.onreadystatechange = function () {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log("response: " + this.responseText);
-                    window.location.href = "../page/setBorderRouterPage";
+                    window.location.href = "${contextPath}/page/setBorderRouterPage";
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                    history.pushState(null, null, "/error");
+                    history.pushState(null, null, "${contextPath}/error");
                     document.write(this.responseText);
                 }
             }
-            xhttp.open("POST", "../setting/dataTypes", true);
+            xhttp.open("POST", "${contextPath}/setting/dataTypes", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "DataTypes");
@@ -176,7 +181,7 @@
                         <hr class="mb-2 mt-4">
                         <button id="submit_btn1" class="mr-3 col-xs-5 btn btn-primary btn-success" onclick="submitForm()">Submit</button>
                         <span class="col-xs-2"></span>
-                        <a class="ml-3 col-xs-5 btn btn-primary btn-success" href="../page/setBorderRouterPage">Skip</a>
+                        <a class="ml-3 col-xs-5 btn btn-primary btn-success" href="${contextPath}/page/setBorderRouterPage">Skip</a>
                     </span>
                 </div>
             </div>

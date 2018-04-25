@@ -11,6 +11,13 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Persistence layer for sensor entity, defines basic operations in database.
+ *
+ * @see SensorEntity
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Repository
 public class SensorRepository {

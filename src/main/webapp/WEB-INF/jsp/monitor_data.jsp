@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +23,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/monitor_data.css"/>
+    <link rel="stylesheet" href="${contextPath}/css/monitor_data.css"/>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
@@ -43,7 +48,7 @@
     </ul>
     <ul class="navbar-nav px-3 ml-auto">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="../../">
+            <a class="nav-link" href="${contextPath}/">
                 <span data-feather="log-out"></span>
                 Exit
             </a>
@@ -53,20 +58,13 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-sm-2 d-none d-sm-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <h5 class="sidebar-heading d-flex justify-content-start align-items-center px-3 mt-4 mb-2 text-muted">
                     <span>Select Border Router</span>
                     <span data-feather="chevrons-down"></span>
                 </h5>
                 <ul id="side_bar" class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="cpu"></span>
-                            Reports
-                        </a>
-                    </li>
-
                     <%--populated by script--%>
                 </ul>
             </div>
@@ -113,7 +111,7 @@
             <%--<canvas class="my-4 w-100" width="900" height="380">--%>
                 <%--&lt;%&ndash; populated by script &ndash;%&gt;--%>
             <%--</canvas>--%>
-            <div id="chart_div" class="d-flex flex-column">
+            <div id="chart_div" class="d-flex flex-column mr-5">
                 <%-- populated by script --%>
             </div>
 
@@ -148,6 +146,29 @@
 
 <%-- core javascript logic here --%>
 <script>
+    // replace value of 0x7fffffff in data list with null
+    // value 0x7fffffff indicates that this data entry is invalid, should not be
+    // displayed
+    function filterDataList(dataList) {
+        for (var i = dataList.length - 1; i >= 0; --i) {
+            if (dataList[i] >= 0x7fffffff) {
+                dataList[i] = null;
+            }
+        }
+    }
+
+
+    // display the error message if there is something wrong with ajax requests,
+    // need to encode "\n" with "%0A" for url encoding. And in back-end, need to
+    // replace all "%0A" with "<br>"
+    function displayErrorPage(xhttp) {
+        console.log("error occured. Ready state: " + xhttp.readyState + ", Status: "
+            + xhttp.status + "%0Abody: " + xhttp.responseText);
+        window.location = "${contextPath}/page/errorPage?stackTrace=HTTP Status:%0A" + xhttp.status
+            + "%0A%0AHTTP Response Body:%0A" + xhttp.responseText
+            + "%0A%0A" + new Error().stack.replace(/\n/g, "%0A");
+    }
+
     function clearHistoryData() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -157,9 +178,11 @@
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
                 history.pushState(null, null, "/error");
                 document.write(this.responseText);
+            } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
             }
         }
-        xhttp.open("DELETE", "/data/delete/all", true);
+        xhttp.open("DELETE", "${contextPath}/data/delete/all", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "deleteAllData");
@@ -189,11 +212,13 @@
                 }
                 fun(JSON.parse(this.responseText));
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                history.pushState(null, null, "/error");
+                history.pushState(null, null, "${contextPath}/error");
                 document.write(this.responseText);
+            } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
             }
         }
-        xhttp.open("GET", "/data/get/borderRouterIpAndName", true);
+        xhttp.open("GET", "${contextPath}/data/get/borderRouterIpAndName", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "getAllBorderRouterIpAndName");
@@ -233,9 +258,9 @@
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log("createNavItemForHistoryData: " + this.responseText); // DEBUG
                     if (this.responseText.length === 0) {
-                        showAlert("There is no data for border router IP: " + routerIP + " in database.")
+                        showAlert("There is no data for border router IP: " + routerIP + ", name: " + routerName + " in database.")
                         return;
-                    };
+                    }
                     // draw charts for this border router
                     var borderRouterWrapper = JSON.parse(this.responseText);
                     var dataTypeList = getDataTypeList(borderRouterWrapper);
@@ -244,17 +269,19 @@
                     for (var i = 0; i < dataTypeList.length; ++i) {
                         var dataType = dataTypeList[i];
                         var dataLists = getDataListsForHistoryData(borderRouterWrapper, dataType);
-                        createChartTitle(dataType);
+                        createChartTitle(dataType, routerName);
                         var canvas = createCanvas();
                         drawLineChart(timeStampList, dataLists, canvas, sensorNameList);
                     }
 
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                    history.pushState(null, null, "/error");
+                    history.pushState(null, null, "${contextPath}/error");
                     document.write(this.responseText);
+                } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
                 }
             }
-            xhttp.open("GET", "/data/get/" + routerIP + "/database", true);
+            xhttp.open("GET", "${contextPath}/data/get/" + routerIP + "/database", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "getDataForBorderRouterFromDatabase");
@@ -270,17 +297,18 @@
     // this data list should be a 2D array, each row is data list for a sensor
     // each column is data of all sensors at one timestamp.
     function getDataListsForHistoryData(borderRouterWrapper, dataType) {
-        var dataList = [];
+        var dataLists = [];
         for (var i = 0; i < borderRouterWrapper.sensorWrapperList.length; ++i) {
             var sensorWrapper = borderRouterWrapper.sensorWrapperList[i];
             var dataListOfSensor = [];
             for (var j = 0; j < sensorWrapper.dataList.length; ++j) {
                 dataListOfSensor.push(parseFloat(sensorWrapper.dataList[j].dataJson[dataType]));
             }
-            dataList.push(dataListOfSensor);
+            filterDataList(dataListOfSensor);
+            dataLists.push(dataListOfSensor);
         }
-        console.log(dataList); // DEBUG
-        return dataList;
+        console.log(dataLists); // DEBUG
+        return dataLists;
     }
 
     function drawLineChart(timeLabelList, dataLists, canvas, sensorNameList) {
@@ -419,13 +447,16 @@
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
                     console.log("createNavItemForCurrentData: " + this.responseText); // DEBUG
                     if (this.responseText.length === 0) {
-                        showAlert("There is no data got for border router IP: " + routerIP + ", check sensor network connection.")
+                        showAlert("There is no data got for border router IP: " + routerIP + ", name: " + routerName + ", check sensor network connection.")
                         return;
                     }
                     // draw charts for this border router
                     var borderRouterWrapper = JSON.parse(this.responseText);
                     var dataTypeList = getDataTypeList(borderRouterWrapper);
                     var sensorNameList = getSensorNameList(borderRouterWrapper);
+                    if (sensorNameList.length === 0) {
+                        showAlert("There is no sensor connected to border router IP: " + routerIP + ", name: " + routerName + ", check sensor network connection.")
+                    }
                     for (var i = 0; i < dataTypeList.length; ++i) {
                         var dataType = dataTypeList[i];
                         var dataList = getDataListForCurrentData(dataType, borderRouterWrapper);
@@ -435,11 +466,13 @@
                     }
 
                 } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                    history.pushState(null, null, "/error");
+                    history.pushState(null, null, "${contextPath}/error");
                     document.write(this.responseText);
+                } else if (xhttp.readyState === 4) {
+                    displayErrorPage(this);
                 }
             };
-            xhttp.open("GET", "/data/get/" + routerIP + "/sensor", true);
+            xhttp.open("GET", "${contextPath}/data/get/" + routerIP + "/sensor", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "getDataForBorderRouterFromSensor");
@@ -450,7 +483,7 @@
 
         // replace feather icon
         feather.replace();
-    };
+    }
 
     // create chart title for given datatype
     // @return: a HTML element block contains title
@@ -486,7 +519,8 @@
             var data = sensorWrapper.dataList[0].dataJson[dataType];
             dataList.push(parseFloat(data));
         }
-        console.log(dataList); // DEBUG
+        filterDataList(dataList);
+        console.log("dataList: " + dataType + ", " + dataList); // DEBUG
         return dataList;
     }
 
@@ -628,11 +662,13 @@
             if (xhttp.readyState === 4 && xhttp.status === 200) {
                 console.log(this.responseText);
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                history.pushState(null, null, "/error");
+                history.pushState(null, null, "${contextPath}/error");
                 document.write(this.responseText);
+            } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
             }
         }
-        xhttp.open("POST", "/setting/startTask/savingData", true);
+        xhttp.open("POST", "${contextPath}/setting/startTask/savingData", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "startSavingData");
@@ -646,11 +682,13 @@
             if (xhttp.readyState === 4 && xhttp.status === 200) {
                 console.log(this.responseText);
             } else if (xhttp.readyState === 4 && xhttp.status === 500) {
-                history.pushState(null, null, "/error");
+                history.pushState(null, null, "${contextPath}/error");
                 document.write(this.responseText);
+            } else if (xhttp.readyState === 4) {
+                displayErrorPage(this);
             }
         }
-        xhttp.open("POST", "/setting/stopTask/savingData", true);
+        xhttp.open("POST", "${contextPath}/setting/stopTask/savingData", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "stopSavingData");

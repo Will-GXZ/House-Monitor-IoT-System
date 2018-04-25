@@ -10,6 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+/**
+ * Dummy implementation of <code>getDataFromSensor()</code>.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 public class MockAccessSensorService extends AbstractAccessSensorService {
@@ -18,8 +24,11 @@ public class MockAccessSensorService extends AbstractAccessSensorService {
 
   /**
    * For the input sensorEntity, get current data from the sensor, map the data
-   * to a <code>SensorDataEntity</code> object. This is just a dummy implementation,
-   * generate random data for each sensor IP.
+   * to a <code>SensorDataEntity</code> object. If a data cannot be acquired, store
+   * Integer.MAX_VALUE for it.
+   *
+   * This is just a dummy implementation, generate random data for each sensor IP.
+   * Each type of data has a probability of 0.2 to be Integer.MAX_VALUE.
    *
    * @throws NullPointerException If the input sensor IP does not exist in the database.
    * @throws RuntimeException if  <code>dataTypeList.size() == 0</code>.
@@ -33,20 +42,27 @@ public class MockAccessSensorService extends AbstractAccessSensorService {
     // get SensorEntity first
     SensorEntity sensor = sensorRepository.get(sensorIp);
     if (sensor == null) {
-      throw(new NullPointerException("The input sensorIp doesn't exist in the database"));
+      throw new NullPointerException("The input sensorIp doesn't exist in the database");
     }
 
     // get dataTypeList
     List<String> dataTypeList = (List<String>)context.getBean("dataTypeList");
     if (dataTypeList.isEmpty()) {
       logger.error("getDataFromSensor: dataTypeList bean has not been initialized");
-      throw(new RuntimeException("dataTypeList bean has not been initialized"));
+      throw new RuntimeException("dataTypeList bean has not been initialized");
     }
 
     // generate random data, convert to json
     Map<String, String> dataMap = new TreeMap<>();
     for (String dataType : dataTypeList) {
-      dataMap.put(dataType, String.format("%7f", (Math.random() * 100 + 150) / 10.0));
+      double data;
+      int randomNum = (int) (Math.random() * 10);
+      if (randomNum < 2) {
+        data = Integer.MAX_VALUE;
+      } else {
+        data = ((Math.random() * 100 + 150) / 10.0);
+      }
+      dataMap.put(dataType, String.format("%7f", data));
     }
 
     ObjectMapper mapper = new ObjectMapper();

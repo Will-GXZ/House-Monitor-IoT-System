@@ -15,7 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This interface defines the basic operations to communicate with sensors.
+ * This abstract class defines the basic operations to communicate with sensors. Also
+ * provides some common methods for storing sensor or data into database. To use this
+ * class, one need to extend this abstract class first, and implement
+ * <code>getDataFromSensor()</code> method.
+ *
+ * @see com.twl.xg.service.impl.AccessSensorService
+ * @see com.twl.xg.service.mock_impl.MockAccessSensorService
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 public abstract class AbstractAccessSensorService {
   @Autowired
@@ -28,6 +36,16 @@ public abstract class AbstractAccessSensorService {
   protected BorderRouterRepository borderRouterRepository;
 
   private static final Logger logger = Logger.getLogger(AbstractAccessSensorService.class);
+
+  /**
+   * For the input sensor IP, get current data from the sensor, map the data
+   * to a <code>SensorDataEntity</code> object. For the data types, use the global
+   * <code>dataTypeList</code> bean to decide what kind of data to fetch.
+   *
+   * @param sensorIp The IPv6 address of the sensor you want to fetch from.
+   * @return A <code>SensorDataEntity</code> object contains the data.
+   */
+  public abstract SensorDataEntity getDataFromSensor(String sensorIp) throws JsonProcessingException;
 
   /**
    * Fetch data from each sensor, map the data to well formatted Java Object.
@@ -54,16 +72,6 @@ public abstract class AbstractAccessSensorService {
     logger.debug("getAllCurrentSensorData:  data package --> " + dataPackage);
     return dataPackage;
   }
-
-  /**
-   * For the input sensor IP, get current data from the sensor, map the data
-   * to a <code>SensorDataEntity</code> object. For the data types, use the global
-   * <code>dataTypeList</code> bean to decide what kind of data to fetch.
-   *
-   * @param sensorIp The IPv6 address of the sensor you want to fetch from.
-   * @return A <code>SensorDataEntity</code> object contains the data.
-   */
-  public abstract SensorDataEntity getDataFromSensor(String sensorIp) throws JsonProcessingException;
 
   /**
    * Fetch current data from the input sensor IP, store the data into database.
@@ -114,7 +122,7 @@ public abstract class AbstractAccessSensorService {
   }
 
   /**
-   * Save all current data in database.
+   * Fetch and save the current data set of each sensor in database.
    *
    * @return <code>true</code> if there are sensors in database, return <code>false</code> if there is no  sensor in database.
    * @throws JsonProcessingException the json processing exception

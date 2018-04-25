@@ -1,3 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,23 +12,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Xiaozheng Guo">
 
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>House Monitor Sensor Network System Index Page</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/index/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="/index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="${contextPath}/index/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
     <!-- Plugin CSS -->
-    <link href="/index/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="${contextPath}/index/vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/index/css/creative.min.css" rel="stylesheet">
+    <link href="${contextPath}/index/css/creative.min.css" rel="stylesheet">
 
 </head>
 
@@ -78,8 +84,8 @@
                 <h2 class="section-heading text-white">It is easy to use!</h2>
                 <hr class="light my-4">
                 <p class="text-faded mb-4">Just type in your border router IPv6 address, our application will find all sensors connected to your border router automatically. All our interfaces are self-explained, just click your mouse and see what's going on in your house!</p>
-                <a class="btn btn-light mx-3 btn-xl js-scroll-trigger" href="/page/dataTypeSettingPage">Get Started</a>
-                <a class="btn btn-light mx-3 btn-xl js-scroll-trigger" href="/page/monitorDataPage">Continue</a>
+                <a class="btn btn-light mx-3 btn-xl js-scroll-trigger" href="${contextPath}/page/dataTypeSettingPage">Get Started</a>
+                <a class="btn btn-light mx-3 btn-xl js-scroll-trigger" href="${contextPath}/page/monitorDataPage">Continue</a>
             </div>
         </div>
     </div>
@@ -88,7 +94,13 @@
 <section class="bg-dark text-white" id="about">
     <div class="container text-center">
         <h2 class="mb-4">House Monitor Sensor Network System</h2>
-        <p class="text-faded mb-4">This project is basically a web application that can communicate with sensor networks using CoAP (a specialized web transfer protocol for use with constrained nodes and constrained networks in the Internet of Things). It can periodically collect environmental data from sensors, store in database, and also serve as a web server such that it can display the data in the user's browser.</p>
+        <p class="text-faded mb-4">
+            This project is a web application that can communicate with sensor networks using CoAP protocol. It can collect
+            environmental data sets from sensors and store them in database. The back-end part of the application provides
+            a set of RESTful API that are easy to program with. Other developers can use this set of API in their Android,
+            IOS or Web applications. Also, the application has a front-end part that communicates with the back-end part
+            via RESTful API. The front-end pages allow users to set up the application and monitor data from a visual interface in their browser.
+        </p>
         <a class="btn btn-light btn-xl sr-button" href="https://github.com/Will-GXZ/smart-home-sensor-network-system">View source code</a>
     </div>
 </section>
@@ -122,16 +134,16 @@
 </section>
 
 <!-- Bootstrap core JavaScript -->
-<script src="/index/vendor/jquery/jquery.min.js"></script>
-<script src="/index/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="${contextPath}/index/vendor/jquery/jquery.min.js"></script>
+<script src="${contextPath}/index/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Plugin JavaScript -->
-<script src="/index/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="/index/vendor/scrollreveal/scrollreveal.min.js"></script>
-<script src="/index/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="${contextPath}/index/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="${contextPath}/index/vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="${contextPath}/index/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
 <!-- Custom scripts for this template -->
-<script src="/index/js/creative.min.js"></script>
+<script src="${contextPath}/index/js/creative.min.js"></script>
 
 </body>
 

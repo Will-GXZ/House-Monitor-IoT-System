@@ -5,38 +5,47 @@ import com.twl.xg.dao.SensorDataRepository;
 import com.twl.xg.dao.SensorRepository;
 import com.twl.xg.domain.*;
 import org.apache.log4j.Logger;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
- * This class contains methods to communicate with database via repository classes
- * in "dao" package. These methods may also map data to proper wrapper class objects.
+ * This is the service layer class that fetches data from repositories.
+ *
+ * @see BorderRouterRepository
+ * @see SensorRepository
+ * @see SensorDataRepository
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 @Service
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 public class DataFetchingAndMappingService {
   @Autowired
-  ApplicationContext context;
+  private ApplicationContext context;
   @Autowired
-  SessionFactory sessionFactory;
+  private SensorDataRepository sensorDataRepository;
   @Autowired
-  SensorDataRepository sensorDataRepository;
+  private SensorRepository sensorRepository;
   @Autowired
-  SensorRepository sensorRepository;
+  private BorderRouterRepository borderRouterRepository;
   @Autowired
-  BorderRouterRepository borderRouterRepository;
+  private PropertyService propertyService;
 
   private static final Logger logger = Logger.getLogger(DataFetchingAndMappingService.class);
 
   /**
-   * Update <code>dataTypeList</code> according to the input array. Every time the
-   * <code>dataTypeList</code> gets updated, the <code>sensor_data</code> table
-   * in database will be cleared. Because the number of data fields have been
+   * Update <code>dataTypeList</code> according to the input array. Also update
+   * the "dataTypeListString" property in database.
+   *
+   * ALl data type string must match this pattern: <code> [0-9a-zA-Z]+ </code>;
+   *
+   * Every time the <code>dataTypeList</code> gets updated, the <code>sensor_data</code>
+   * table in database will be cleared. Because the number of data fields have been
    * changed, and it will be inconsistent.
    *
    * This method need to be synchronized to avoid race condition when this method
@@ -48,34 +57,63 @@ public class DataFetchingAndMappingService {
    * After this initialize operation, the <code>currentDataTypeList</code> is sorted
    * in lexicographic order.
    *
+   * @throws RuntimeException if the input dataTypeArray contains invalid characters.
    * @param dataTypeArray An array of data types string
    * @return Return a list of String which contains all data types name set by user.
    */
   @Transactional
   public List<String> setDataTypes(String[] dataTypeArray) {
     synchronized (DataFetchingAndMappingService.class) {
+      // check if the input string array is empty
       if (dataTypeArray == null || dataTypeArray.length == 0) {
-        logger.error("setDataTypes: Invalid input");
+        // do nothing
+        logger.error("setDataTypes: empty input");
         return null;
       }
+      // check invalid input
+      for (String str : dataTypeArray) {
+        if (!Pattern.matches("[0-9a-zA-Z]+", str)) {
+          logger.error("setDataTypes:  Invalid input dataType string --> " + str);
+          throw new RuntimeException("Invalid input dataType string --> " + str);
+        }
+      }
+
       // check if the input data types are the same to the current data types.
       List<String> currentDataTypeList = (List<String>) context.getBean("dataTypeList");
-      Set<String> currentDataTypeSet = new HashSet<>(currentDataTypeList);
-      Set<String> inputDataTypeSet = new HashSet<>(Arrays.asList(dataTypeArray));
-      if (currentDataTypeSet.equals(inputDataTypeSet)) {
+      if (allSameElements(currentDataTypeList, Arrays.asList(dataTypeArray))) {
         // if same, do nothing, return current dataTypeList
         logger.debug("setDataTypes: Input data types are the same to current data types");
         return currentDataTypeList;
       } else {
-        // else, clear sensor_data table, update currentDataTypeList, and return it
+        // else, clear sensor_data table, update currentDataTypeList and
+        // dataTypeListString property in database, and return the new list
         sensorDataRepository.clear();
         currentDataTypeList.clear();
-        currentDataTypeList.addAll(inputDataTypeSet);
+        currentDataTypeList.addAll(new HashSet<String>(Arrays.asList(dataTypeArray))); // deduplicate
         Collections.sort(currentDataTypeList);
         logger.debug("setDataTypes: dataTypeList updated to: " + currentDataTypeList.toString());
+
+        StringBuilder sb = new StringBuilder();
+        for (String dataType : currentDataTypeList) {
+          sb.append(dataType);
+          sb.append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        propertyService.setProperty("dataTypeListString", sb.toString());
+
         return currentDataTypeList;
       }
     }
+  }
+
+  /**
+   * Check if the input string lists' elements are the same to each other without
+   * considering the order.
+   */
+  private boolean allSameElements(List<String> lst1, List<String> lst2) {
+    Set<String> set1 = new HashSet<>(lst1);
+    Set<String> set2 = new HashSet<>(lst2);
+    return set1.equals(set2);
   }
 
   /**
@@ -114,7 +152,7 @@ public class DataFetchingAndMappingService {
       String[] pair = new String[] {borderRouter.getBorderRouterIp(), borderRouter.getBorderRouterName()};
       ret.add(pair);
     }
-    logger.debug("getAllBorderRouterIpAndName:  List --> " + ret.toString());
+    logger.debug("getAllBorderRouterIpAndName:  List size = " + ret.size());
     return ret;
   }
 

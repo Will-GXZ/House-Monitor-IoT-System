@@ -2,8 +2,13 @@ package com.twl.xg.domain;
 
 import javax.persistence.*;
 
+/**
+ * Object model for border router.
+ *
+ * @see com.twl.xg.dao.BorderRouterRepository
+ */
 @Entity
-@Table(name = "border_router", schema = "testdb2")
+@Table(name = "border_router", schema = "house_monitor_db")
 public class BorderRouterEntity {
   private String borderRouterIp;
   private String borderRouterName;

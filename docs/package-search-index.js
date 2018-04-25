@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"com.twl.xg.config"},{"l":"com.twl.xg.controller"},{"l":"com.twl.xg.dao"},{"l":"com.twl.xg.domain"},{"l":"com.twl.xg.service"},{"l":"com.twl.xg.service.impl"},{"l":"com.twl.xg.service.mock_impl"},{"l":"com.twl.xg.taskScheduler"}]

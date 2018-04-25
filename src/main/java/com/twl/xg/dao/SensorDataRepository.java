@@ -1,7 +1,6 @@
 package com.twl.xg.dao;
 
 import com.twl.xg.domain.SensorDataEntity;
-import com.twl.xg.domain.SensorEntity;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +12,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This is the repository class for sensor data entity. This class defines basic
+ * database operations for sensor data entity.
+ *
+ * @see SensorDataEntity
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Repository
 public class SensorDataRepository {

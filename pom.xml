@@ -4,7 +4,7 @@
     <groupId>com.twl.xguo</groupId>
     <artifactId>twl-smart-home-project</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <name>twl-smart-home-project</name>
     <url>https://github.com/Will-GXZ/smart-home-sensor-network-system</url>
 
@@ -166,7 +166,7 @@
     </dependencies>
 
     <build>
-        <finalName>project_demo_1</finalName>
+        <finalName>house_monitor_v1</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
@@ -192,6 +192,8 @@
                 <version>2.6</version>
                 <configuration>
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>house_monitor</warName>
                 </configuration>
             </plugin>
 

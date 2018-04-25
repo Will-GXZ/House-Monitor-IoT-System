@@ -3,12 +3,19 @@ package com.twl.xg.dao;
 import com.twl.xg.domain.BorderRouterEntity;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * persistence layer class for <code>BorderRouterEntity</code>. Defines basic database
+ * operation methods for border router entity.
+ *
+ * @see BorderRouterEntity
+ * @author Xiaozheng Guo
+ * @version 1.0
+ */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Repository
 public class BorderRouterRepository {

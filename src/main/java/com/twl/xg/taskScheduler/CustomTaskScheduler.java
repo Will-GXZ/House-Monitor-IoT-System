@@ -6,7 +6,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import java.util.concurrent.ScheduledFuture;
 
 /**
- * Customized task scheduler, only support one task in this implementation.
+ * Customized task scheduler, only support one task in this implementation. This
+ * class is for scheduling periodically fetching data task.
+ *
+ * @author Xiaozheng Guo
+ * @version 1.0
  */
 public class CustomTaskScheduler extends ThreadPoolTaskScheduler {
   private static final Logger logger = Logger.getLogger(CustomTaskScheduler.class);
