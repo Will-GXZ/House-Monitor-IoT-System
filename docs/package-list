@@ -1,0 +1,8 @@
+com.twl.xg.config
+com.twl.xg.controller
+com.twl.xg.dao
+com.twl.xg.domain
+com.twl.xg.service
+com.twl.xg.service.impl
+com.twl.xg.service.mock_impl
+com.twl.xg.taskScheduler
