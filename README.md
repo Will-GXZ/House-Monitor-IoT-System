@@ -4,7 +4,7 @@
 
 _update April 16, 2018_
 
-This repository contains the source code of House Monitor Smart Home Sensor Network System developed by Xiaozheng and Xiaofei. This is also the Master's project of Xiaozheng(Will) Guo and Xiaofei(Elfie) Guo. 
+This repository contains the source code of a smart home sensor network system **House Monitor**. This is also the Master's project of Xiaozheng(Will) Guo and Xiaofei(Elfie) Guo. 
 If you have any questions or advice, please feel free to contact us:  
 
 **Email:**   
