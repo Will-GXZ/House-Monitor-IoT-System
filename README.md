@@ -93,7 +93,12 @@ In this part, we will cover all the components and their relationships in the pr
     * **`src/test`:** Contains all the unit test code.
   * **`pom.xml`:** This POM file contains information about the project and configuration details used by Maven to build the project;
 
-* ### 4.2 Back-end Components
+* ### 4.2 Database Schema
+  We use MySQL database to store border router, sensor and data sets in disk. The picture below is the ER diagram of our design:
+
+  ![database-ER-diagram](https://dl.dropboxusercontent.com/s/lci1h97zaa5dvoi/er_diagram.png?dl=0)
+
+* ### 4.3 Back-end Components
   * #### `config` package
     * ##### `ServletInitializer` class
       This is a `ServletInitializer` class, Servlet3.0+ container (tomcat here) will pick up this class and run it automatically. This is the replacement for `web.xml`.
