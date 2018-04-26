@@ -25,7 +25,7 @@ Elfie: _elfiegxf@gmail.com_
 6. [Usage](#6-usage)
 
 ## 1. Introduction
-This project is a web application that can communicate with sensor networks using CoAP protocol. It can collect environmental data sets from sensors and store them in database. The back-end part of the application provides a set of RESTful API that are easy to program with. Other developers can use this set of API in their Android, IOS or Web applications.
+This project is a web application that can communicate with sensor networks using CoAP protocol. It can collect environmental data sets from sensors and store them in database. The back-end part of the application provides a set of RESTful API that are easy to program with. Other developers can use this set of API in their Android, IOS or Web applications. See [JavaDoc](https://will-gxz.github.io/House-Monitor-Sensor-Network-System/) for more information.
 
 Also, the application has a front-end part that communicates with the back-end part via RESTful API. The front-end pages allow users to set up the application and monitor data from a visual interface in their browser.
 
