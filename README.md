@@ -1,5 +1,4 @@
 # House Monitor Sensor Network System
-
 ![Cover](https://dl.dropboxusercontent.com/s/7owvs69y48phhne/cover.png?dl=0)
 
 _update April 16, 2018_

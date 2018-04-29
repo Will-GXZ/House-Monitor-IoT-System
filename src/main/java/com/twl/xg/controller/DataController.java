@@ -25,6 +25,7 @@ import java.util.List;
 public class DataController {
   @Autowired
   private DataFetchingAndMappingService dataFetchingAndMappingService;
+
   @Autowired
   @Qualifier("mockAccessSensorService")
   private AbstractAccessSensorService accessSensorService;
