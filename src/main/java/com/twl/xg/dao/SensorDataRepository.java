@@ -92,7 +92,7 @@ public class SensorDataRepository {
    * be ordered by automatically generated ID of sensor data entries.
    *
    * Return an empty list if the input <code>sensorIp</code> doesn't exist in the
-   * database.
+   * database or there is no data entry for the input sensor IP.
    *
    * @param sensorIp The IPv6 address of the sensor from which the data you want
    *                 to fetch generated.

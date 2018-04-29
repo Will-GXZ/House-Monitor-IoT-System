@@ -1,11 +1,9 @@
 # House Monitor Sensor Network System
-
 ![Cover](https://dl.dropboxusercontent.com/s/7owvs69y48phhne/cover.png?dl=0)
 
 _update April 16, 2018_
 
-This repository contains the source code of a smart home sensor network system created by Xiaozheng(Will) Guo and Xiaofei(Elfie) Guo, which is also our Master's project.
-
+This repository contains the source code of a smart home sensor network system **House Monitor**. This is also the Master's project of Xiaozheng(Will) Guo and Xiaofei(Elfie) Guo. 
 If you have any questions or advice, please feel free to contact us:  
 
 **Email:**   
@@ -25,9 +23,9 @@ Elfie: _elfiegxf@gmail.com_
 6. [Usage](#6-usage)
 
 ## 1. Introduction
-This project is a web application that can communicate with sensor networks using CoAP protocol. It can collect environmental data sets from sensors and store them in database. The back-end part of the application provides a set of RESTful API that are easy to program with. Other developers can use this set of API in their Android, IOS or Web applications.
+This project is a full-stack project that can communicate with sensor networks using CoAP protocol. It can collect environmental data sets from sensors and store them in database. The back-end part provides a set of RESTful API that are easy to program with. Other developers can use this set of API in their Android, IOS or Web applications. See [JavaDoc](https://will-gxz.github.io/House-Monitor-IoT-System/) for more information.
 
-Also, the application has a front-end part that communicates with the back-end part via RESTful API. The front-end pages allow users to set up the application and monitor data from a visual interface in their browser.
+Also, the project has a front-end part that communicates with the back-end part via RESTful API. The front-end pages allow users to set up the application and monitor data from a visual interface in their browser.
 
 * ### Main Techniques
   * Using **Spring MVC** for the management of web application page flow;
@@ -93,7 +91,12 @@ In this part, we will cover all the components and their relationships in the pr
     * **`src/test`:** Contains all the unit test code.
   * **`pom.xml`:** This POM file contains information about the project and configuration details used by Maven to build the project;
 
-* ### 4.2 Back-end Components
+* ### 4.2 Database Schema
+  We use MySQL database to store border router, sensor and data sets in disk. The picture below is the ER diagram of our design:
+
+  ![database-ER-diagram](https://dl.dropboxusercontent.com/s/lci1h97zaa5dvoi/er_diagram.png?dl=0)
+
+* ### 4.3 Back-end Components
   * #### `config` package
     * ##### `ServletInitializer` class
       This is a `ServletInitializer` class, Servlet3.0+ container (tomcat here) will pick up this class and run it automatically. This is the replacement for `web.xml`.

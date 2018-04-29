@@ -310,6 +310,25 @@ public class DataFetchingAndMappingService {
   }
 
   /**
+   * Get all sensor IP that connected to the given border router IP. If there is no sensor
+   * connected to the border router or the input borderRouterIP doesn't exist, return an
+   * empty list;
+   *
+   * @return A list of sensor IP
+   */
+  @Transactional
+  public List<String> getSensorIpByBorderRouterIp(String borderRouterIp) {
+    List<SensorEntity> sensorEntityList = sensorRepository.getAll(borderRouterIp);
+    List<String> sensorIpList = new ArrayList<>();
+    for (SensorEntity sensorEntity : sensorEntityList) {
+      if (sensorEntity.getSensorIp() != null) {
+        sensorIpList.add(sensorEntity.getSensorIp());
+      }
+    }
+    return sensorIpList;
+  }
+
+  /**
    * Get border router entity for given border router IP.
    * Return null if the input border router IP doesn't exist in database.
    *
