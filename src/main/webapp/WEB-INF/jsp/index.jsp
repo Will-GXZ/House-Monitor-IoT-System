@@ -95,11 +95,12 @@
     <div class="container text-center">
         <h2 class="mb-4">House Monitor Sensor Network System</h2>
         <p class="text-faded mb-4">
-            This project is a web application that can communicate with sensor networks using CoAP protocol. It can collect
-            environmental data sets from sensors and store them in database. The back-end part of the application provides
-            a set of RESTful API that are easy to program with. Other developers can use this set of API in their Android,
-            IOS or Web applications. Also, the application has a front-end part that communicates with the back-end part
-            via RESTful API. The front-end pages allow users to set up the application and monitor data from a visual interface in their browser.
+            This project is a full-stack project that can communicate with sensor networks using CoAP protocol. It can collect
+            environmental data sets from sensors and store them in database. The back-end part provides a set of RESTful API
+            that are easy to program with. Other developers can use this set of API in their Android, IOS or Web applications.
+            See <a href="https://will-gxz.github.io/House-Monitor-IoT-System/">JavaDoc</a> for more information. Also, the application has a front-end part that communicates with the back-end part
+            via RESTful API. The front-end pages allow users to set up the application and monitor data from a visual interface in
+            their browser.
         </p>
         <a class="btn btn-light btn-xl sr-button" href="https://github.com/Will-GXZ/smart-home-sensor-network-system">View source code</a>
     </div>
