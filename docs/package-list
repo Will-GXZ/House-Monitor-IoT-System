@@ -6,3 +6,7 @@ com.twl.xg.service
 com.twl.xg.service.impl
 com.twl.xg.service.mock_impl
 com.twl.xg.taskScheduler
+com.twl.xg.test.coap
+com.twl.xg.test.dao
+com.twl.xg.test.db
+com.twl.xg.test.service
