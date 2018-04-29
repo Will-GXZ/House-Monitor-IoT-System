@@ -668,11 +668,11 @@
                 displayErrorPage(this);
             }
         }
-        xhttp.open("POST", "${contextPath}/setting/startTask/savingData", true);
+        xhttp.open("POST", "${contextPath}/setting/startTask/savingData?period=" + period, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.setRequestHeader("Accept", "application/json");
         xhttp.setRequestHeader("ModelAttribute", "startSavingData");
-        xhttp.send(period); // 4 seconds period
+        xhttp.send();
     }
 
     // stop auto data fetching

@@ -87,7 +87,7 @@
                     document.write(this.responseText);
                 }
             }
-            xhttp.open("GET", "${contextPath}/setting/getAllSensorIp", true);
+            xhttp.open("GET", "${contextPath}/data/getAllSensorIp", true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Accept", "application/json");
             xhttp.setRequestHeader("ModelAttribute", "getAllSensorIp");

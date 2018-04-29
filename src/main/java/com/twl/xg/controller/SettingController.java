@@ -7,6 +7,7 @@ import com.twl.xg.service.AbstractAccessSensorService;
 import com.twl.xg.service.DataFetchingAndMappingService;
 import com.twl.xg.taskScheduler.CustomTaskScheduler;
 import org.apache.log4j.Logger;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -14,10 +15,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -185,7 +183,7 @@ public class SettingController {
                   headers = "ModelAttribute=startSavingData",
                   produces = "application/json",
                   consumes = "application/json")
-  public @ResponseBody String startSavingData(@RequestBody long period) {
+  public @ResponseBody String startSavingData(@RequestParam int period) {
     logger.debug("startSavingData: Request accepted. --> period = " + period);
     if (period < 1000) {
       period = 1000;

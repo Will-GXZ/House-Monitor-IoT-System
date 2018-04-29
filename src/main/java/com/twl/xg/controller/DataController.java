@@ -1,16 +1,12 @@
 package com.twl.xg.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.twl.xg.domain.BorderRouterEntity;
-import com.twl.xg.domain.BorderRouterWrapper;
-import com.twl.xg.domain.DataPackage;
-import com.twl.xg.service.AbstractAccessBorderRouterService;
+import com.twl.xg.domain.*;
 import com.twl.xg.service.AbstractAccessSensorService;
 import com.twl.xg.service.DataFetchingAndMappingService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,16 +26,66 @@ public class DataController {
   @Autowired
   private DataFetchingAndMappingService dataFetchingAndMappingService;
   @Autowired
-  @Qualifier("mockAccessBorderRouterService")
-  private AbstractAccessBorderRouterService accessBorderRouterService;
-  @Autowired
   @Qualifier("mockAccessSensorService")
   private AbstractAccessSensorService accessSensorService;
-  @Autowired
-  private ApplicationContext context;
 
   private static final Logger logger = Logger.getLogger(DataController.class);
 
+
+  /**
+   * Get all history data entries for the input sensor IP. Map them in a <code>SensorWrapper</code>
+   * object.
+   *
+   * If there is no data for the given sensor IP in database or the input sensor IP doesn't exist,
+   * return <code>null</code>.
+   *
+   * @param sensorIp path variable snesor IP
+   */
+  @RequestMapping(value = "/getHistoryDataBySensorIp/{sensorIp}",
+      method = RequestMethod.GET,
+      headers = "ModelAttribute=getHistoryDataBySensorIp",
+      produces = "application/json",
+      consumes = "application/json")
+  public @ResponseBody SensorWrapper getHistoryDataBySensorIp(@PathVariable String sensorIp) {
+    logger.debug("getHistoryDataBySensorIp: Request accepted, sensorIp --> " + sensorIp);
+    SensorWrapper sensorWrapper = dataFetchingAndMappingService.getDataForSensorFromDB(sensorIp, null);
+    return sensorWrapper;
+  }
+
+  /**
+   * Get all sensor IP for the input border router IP. If there is no sensor connected
+   * to the given border router or the border router doesn't exist, return an empty
+   * list <code>"[]"</code>.
+   *
+   *
+   * @param borderRouterIp path variable, border router IP.
+   * @return A list of sensor IP.
+   */
+  @RequestMapping(value = "/getSensorIpListByBorderRouterIp/{borderRouterIp}",
+                  method = RequestMethod.GET,
+                  headers = "ModelAttribute=getSensorIpListByBorderRouterIp",
+                  produces = "application/json",
+                  consumes = "application/json")
+  public @ResponseBody List<String> getSensorIpListByBorderRouterIp(@PathVariable String borderRouterIp) {
+    logger.debug("getSensorIpListByBorderRouterIp: Request accepted, border router IP --> " + borderRouterIp);
+    List<String> sensorIpList = dataFetchingAndMappingService.getSensorIpByBorderRouterIp(borderRouterIp);
+    return sensorIpList;
+  }
+
+  /**
+   * Gets all sensor ip. Restful API. If there is no sensor, return an empty list <code>"[]"</code>.
+   *
+   * @return A list of <code>String</code> contains all sensor IP addresses.
+   */
+  @RequestMapping(value = "/getAllSensorIp",
+      method = RequestMethod.GET,
+      headers = "ModelAttribute=getAllSensorIp",
+      produces = "application/json",
+      consumes = "application/json")
+  public @ResponseBody List<String> getAllSensorIp() {
+    logger.debug("getAllSensorIp:  GET request accepted, get all sensor IP addresses");
+    return dataFetchingAndMappingService.getAllSensorIp();
+  }
 
   /**
    * Gets all current data from each sensor, not from database. Also these data

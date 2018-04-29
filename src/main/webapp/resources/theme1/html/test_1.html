@@ -222,6 +222,40 @@
             xhttp.setRequestHeader("ModelAttribute", "deleteAllData");
             xhttp.send();
         }
+
+        function getSensorIpForBorderRouterIP() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("getSensorIpForBorderRouterIP").innerHTML = this.responseText;
+                } else if (xhttp.readyState === 4 && xhttp.status === 500) {
+                    history.pushState(null, null, "/error");
+                    document.write(this.responseText);
+                }
+            }
+            xhttp.open("GET", "/data/getSensorIpListByBorderRouterIp/router-2", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "getSensorIpListByBorderRouterIp");
+            xhttp.send();
+        }
+
+        function getHistoryDataBySensorIp() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementById("getHistoryDataBySensorIp").innerHTML = this.responseText;
+                } else if (xhttp.readyState === 4 && xhttp.status === 500) {
+                    history.pushState(null, null, "/error");
+                    document.write(this.responseText);
+                }
+            }
+            xhttp.open("GET", "/data/getHistoryDataBySensorIp/router-2--sensor-3", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Accept", "application/json");
+            xhttp.setRequestHeader("ModelAttribute", "getHistoryDataBySensorIp");
+            xhttp.send();
+        }
     </script>
 </head>
 <body>
@@ -245,5 +279,9 @@
     <button type="button" onclick="getAllDataFromDatabase()">getAllDataFromDatabase</button>
     <p id="allDataFromDatabase"></p>
     <button type="button" onclick="deleteAllData()">deleteAllData</button>
+    <button type="button" onclick="getSensorIpForBorderRouterIP()">getSensorIpForBorderRouterIP</button>
+    <p id="getSensorIpForBorderRouterIP"></p>
+    <button type="button" onclick="getHistoryDataBySensorIp()">getHistoryDataBySensorIp</button>
+    <p id="getHistoryDataBySensorIp"></p>
 </body>
 </html>
