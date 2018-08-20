@@ -45,7 +45,7 @@ public class SensorDataEntity {
   }
 
   @Basic
-  @Column(name = "sensor_ip", nullable = false, insertable = false, updatable = false, length = 30)
+  @Column(name = "sensor_ip", nullable = false, insertable = false, updatable = false, length = 256)
   public String getSensorIp() {
     return sensorIp;
   }

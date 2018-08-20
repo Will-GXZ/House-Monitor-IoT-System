@@ -57,7 +57,7 @@
                 <p class="lead mb-5">
                     Fill in this form to set name of each sensor. Sensor name can be duplicated but this is not recommended.
                     The name of each sensor should be meaningful, for example, use <code>Kitchen</code> or <code>Bedroom</code> for sensors
-                    in your kitchen and bedroom respectively. If you <code>skip</code> this step, the name of each sensor whill
+                    in your kitchen and bedroom respectively. If you <code>skip</code> this step, the name of each sensor will
                     be its IP address.
                 </p>
             </div>

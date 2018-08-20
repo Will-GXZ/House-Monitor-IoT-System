@@ -14,7 +14,7 @@ public class BorderRouterEntity {
   private String borderRouterName;
 
   @Id
-  @Column(name = "border_router_ip", nullable = false, length = 30)
+  @Column(name = "border_router_ip", nullable = false, length = 256)
   public String getBorderRouterIp() {
     return borderRouterIp;
   }

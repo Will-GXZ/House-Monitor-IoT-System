@@ -21,7 +21,7 @@ public class SensorEntity {
   private BorderRouterEntity borderRouterByBorderRouterIp;
 
   @Id
-  @Column(name = "sensor_ip", nullable = false, length = 30)
+  @Column(name = "sensor_ip", nullable = false, length = 256)
   public String getSensorIp() {
     return sensorIp;
   }
