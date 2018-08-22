@@ -32,7 +32,7 @@ public class MockAccessBorderRouterService extends AbstractAccessBorderRouterSer
   @Override
   public boolean existBorderRouter(String borderRouterIp) {
     int randNum = (int) (Math.random() * 10);
-    if (randNum <= 7) {
+    if (randNum <= 9) {
       return true;
     } else {
       logger.error("existBorderRouter:  borderRouterIP --> " + borderRouterIp + ", doesn't exist !");
@@ -55,7 +55,7 @@ public class MockAccessBorderRouterService extends AbstractAccessBorderRouterSer
   public List<String> getSensorIpByBorderRouterIp(String borderRouterIp) {
     // create dummy sensor ip for each input borde router ip,
     List<String> sensorIpList = new ArrayList<>();
-    int sensorNum = (int) (Math.random() * 7);
+    int sensorNum = (int) (Math.random() * 10);
     for (int i = 0; i < sensorNum; ++i) {
       sensorIpList.add(borderRouterIp + "--sensor-" + i);
       logger.debug("getSensorIpByBorderRouterIp:  Generated snesor IP = " + sensorIpList.get(sensorIpList.size() - 1));
